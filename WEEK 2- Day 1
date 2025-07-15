@@ -1,1 +1,116 @@
+                                                                     ---- WEEK 2 (DAY-1) ----
+Topics Covered: - Working with Built-in Datasets
+                - Data Exploration
+                - Basic Statistics in R
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+A dataset is a structured collection of data, often presented in rows and columns (like a spreadsheet or a table), which can be used for analysis, 
+visualization, or modeling in R.
+In simple terms, a dataset is data you work with — it could be information about students, cars, sales, weather, or any other real-world subject.
+
+R provides a wide range of built-in datasets that are extremely useful for practice and experimentation. Using the data() function, we viewed all available 
+datasets across installed packages and even checked how many datasets exist within the base datasets package. Two widely used datasets — AirPassengers and iris — 
+were examined in depth. AirPassengers, which contains monthly airline passenger counts from 1949 to 1960, gave us a glimpse into time series data. On the other hand, 
+the iris dataset introduced us to working with structured tabular data (data frames) representing flower measurements across species. We learned how to assign datasets
+to variables, check dimensions, view column names, and access specific data columns. Through functions like summary(), sort(), min(), max(), and mean(), we performed 
+basic statistical analysis to understand the spread and behavior of numeric data. We also identified key values such as the minimum, maximum, mean, median, and even 
+derived the mode using a frequency table approach. This session laid the foundation for understanding how to inspect and interpret datasets in R, preparing us for future 
+tasks like cleaning, transforming, and analyzing more complex real-world data.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. Accessing Built-in Datasets in R
+- R comes with many pre-loaded datasets useful for practice and learning. These datasets are part of the datasets package, which is installed by default with R.
+
+--- Code ---
+data()
+data(package = .packages(all.available = TRUE))
+all.datasets <- data(package = "datasets")$results[, "Item"]
+length(all.datasets)
+
+Concepts Covered:
+- Viewing all available datasets
+- Counting the number of built-in datasets
+- Loading specific datasets for analysis
+
+-----------------------------------------------
+
+2. Exploring the AirPassengers Dataset (Time Series)
+The AirPassengers dataset contains monthly totals of international airline passengers from 1949 to 1960. It’s a classic time series dataset.
+
+--- Code ---
+?AirPassengers
+abc = AirPassengers
+dim(AirPassengers)
+
+Concepts Covered:
+- Accessing help/documentation using ?
+- Assigning a dataset to a variable
+- Checking dataset structure using dim()
+
+-------------------------------------------------
+
+3. Exploring the iris Dataset (Data Frame)
+The iris dataset contains 150 rows and 5 columns of data about iris flowers: sepal length, sepal width, petal length, petal width, and species.
+
+--- Code ---
+?iris
+abc = iris
+dim(abc)
+names(abc)
+rownames(abc)
+
+Concepts Covered:
+- Dataset exploration: dimensions, column names, row names
+- Understanding data structure
+- Assigning datasets to variables
+
+-------------------------------------------------
+
+4. Accessing Columns and Data Values
+We can access a specific column in a data frame using the $ operator. For example, abc$Sepal.Length returns all values of the Sepal Length column.
+
+--- Code ---
+abc$Sepal.Length
+sort(abc$Sepal.Length)
+summary(abc)
+
+Concepts Covered:
+- Extracting a column using $
+- Sorting data in ascending order
+- Getting summary statistics like min, max, median, and quartiles
+
+--------------------------------------------------
+
+5. Descriptive Statistics
+You can calculate statistical values like min, max, mean, median, and mode for numeric columns.
+
+--- Code ---
+min(sort(abc$Sepal.Length))
+max(sort(abc$Sepal.Length))
+which.max(abc$Sepal.Length)
+which.min(abc$Sepal.Length)
+min(abc$Sepal.Length)
+max(abc$Sepal.Length)
+mean(abc$Sepal.Length)
+median(abc$Sepal.Length)
+
+Concepts Covered:
+- Finding minimum and maximum values
+- Identifying the row index of min/max using which.min() and which.max()
+- Calculating mean and median
+
+----------------------------------------------------
+
+6. Finding the Mode (Most Frequent Value)
+R does not have a direct built-in mode() function for numeric vectors. We can use a combination of table(), sort(), and names() to find the most frequent value.
+
+--- Code ---
+names(sort(-table(abc$Sepal.Length)))  # mode
+
+Concepts Covered:
+- Creating a frequency table using table()
+- Sorting frequencies in descending order
+- Extracting the value with the highest frequency (mode)
+
+
+                                                                       ----------------------------------------------
