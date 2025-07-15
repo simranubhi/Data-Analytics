@@ -103,50 +103,94 @@ Grouping and Summarizing --> group_by(df, Department) %>%
 
 --- CODING PRACTICE ---
 
-myframe<- data.frame(ID=c(4532,1254,3654),Name=c("Joseph","Alice","Laura"),Age=c(20,21,22))
-print(myframe)
-install.packages("dplyr")
-library(dplyr)
+# -----------------------------------------------
+# Topics: pivot_longer, pivot_wider, melt, spread
+# -----------------------------------------------
 
-filtered_myframe=filter(myframe, Age>20)
-print(filtered_myframe)
-select_myframe=select(myframe, Name)
-print(select_myframe)
-rename_myframe=rename(myframe, Name=studName)
-print(rename_myframe)
-
-#Mutation
-mutate_myframe <- myframe %>%
-mutate(AgeSquared = Age^2)
-print(mutate_myframe)
-
-data()
-data(package = .packages(all.available = TRUE))
-?USAccDeaths
-var1=USAccDeaths
-myframe <- data.frame(Month = time(USAccDeaths), Deaths = as.numeric(USAccDeaths))
-print(myframe)
-sort(myframe$Month)
-sort(myframe$Deaths)
-which.max(myframe$Month)
-which.min(myframe$Deaths)
-max(myframe$Month)
-min(myframe$Deaths)
-
-
-emp.frame <- data.frame(
-  emp.id = c(123, 456, NA, 782),
-  emp.name = c(NA, "Laura", "Alice", "Leo"),
-  emp.salary = c(50000, NA, 20000, 30000),
-  emp.workhours = c(NA, NA, 7, 9)
-)
-# Check missing values
-missing_myframe <- is.na(emp.frame)
-print(missing_myframe)
-# Load tidyr 
+# Load the required package for modern data reshaping
 library(tidyr)
-# Fill missing values upward
-fill_myframe <- fill(emp.frame, emp.id, .direction = "updown")
-print(fill_myframe)
 
-                                                  ---------------------------
+# Creating a sample wide-format data frame with student test scores
+st_test1 <- data.frame(
+  id = c(1, 2, 3), 
+  name = c("Alice", "Bob", "John"),
+  test1 = c(95, 91, 85), 
+  test2 = c(98, 80, 87), 
+  test3 = c(92, 93, 90)
+)
+
+# ---- Reshape from WIDE to LONG using pivot_longer() ----
+# This transforms multiple test columns into a single 'test' column
+# and their corresponding values into a 'score' column
+st_test2 <- pivot_longer(
+  st_test1, 
+  cols = starts_with("test"),   # Select columns starting with "test"
+  names_to = "test",            # Create a new column called 'test' with names of the original columns
+  values_to = "score"           # Create a new column called 'score' with corresponding values
+)
+print(st_test2)
+
+# ---- Install necessary packages ----
+# 'stringi' and 'reshape2' are required for legacy reshaping methods
+install.packages("stringi")     # (Only run once)
+install.packages("reshape2")    # (Only run once)
+
+# Load the packages
+library(reshape2)
+library(stringi)
+
+# ---- Reshape from WIDE to LONG using melt() [older method] ----
+# melt() works similarly to pivot_longer(), but is part of the older reshape2 package
+st_test2 <- melt(
+  st_test1, 
+  id.vars = c("id", "name"),    # Keep 'id' and 'name' as identifiers
+  variable.name = "test",       # Name of new column to store original column names
+  value.name = "score"          # Name of new column to store corresponding values
+)
+print(st_test2)
+
+# ---- Reshape from LONG back to WIDE using pivot_wider() ----
+# This spreads 'test' values into new columns, with scores filled in
+st_test3 <- st_test2 %>% pivot_wider(
+  names_from = test,            # Use values in 'test' column as new column names
+  values_from = score           # Fill values from 'score' column
+)
+print(st_test3)
+
+# ---- Alternate method: Reshape LONG to WIDE using spread() [older method] ----
+# spread() is the older version of pivot_wider(), now less recommended
+st_test3 <- spread(
+  st_test2, 
+  test,                         # Column to become new column names
+  score                         # Column with values to fill in
+)
+print(st_test3)
+
+# ---- Extended Real-life Example: Monthly Expenses ----
+
+# Creating long-format monthly expense data for 5 years (2021–2025)
+st_test4 <- data.frame(
+  Year = rep(2021:2025, each = 12),       # Repeat each year 12 times
+  month = rep(month.abb, times = 5),      # Repeat all months 5 times
+  expenses = 101:160                      # Dummy expense values (60 total)
+)
+
+# Convert to WIDE format: one row per year, months as columns
+wide_data <- pivot_wider(
+  st_test4, 
+  names_from = month, 
+  values_from = expenses
+)
+print(wide_data)
+
+# Convert back to LONG format: one row per year-month combination
+long_data <- pivot_longer(
+  wide_data,
+  cols = -Year,                          # All columns except 'Year' are months
+  names_to = "month",                    # Store month names in 'month' column
+  values_to = "expenses"                 # Store values in 'expenses' column
+)
+print(long_data)
+
+
+                                                  ----------------------------------------------------------------------------------
