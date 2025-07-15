@@ -1,1 +1,152 @@
-                                                                         ---- WEEK 2
+                                                                         ---- WeeK 2 (DAY-2) ----
+
+1. Data Frames and Tibbles
+Data frames are the most common way to store tabular data in R, consisting of rows and columns.
+They can hold different data types (numeric, character, etc.) in each column.
+Tibbles are a modern version of data frames from the tibble package, designed to print cleaner output and behave consistently with the tidyverse.
+Tibbles don’t change column names or types automatically, making them more predictable and readable.
+They are preferred when working with large datasets and complex pipelines.
+
+-- Code --
+df <- data.frame(ID = c(1, 2), Name = c("A", "B"))
+tb <- tibble::tibble(ID = c(1, 2), Name = c("A", "B"))
+
+
+ 2. Reading/Writing CSV, Excel, and Text Files
+Data in real-world projects usually comes from external files like CSVs or Excel sheets.
+R supports reading files using read.csv() and Excel files using read_excel() (via readxl package).
+You can also export data frames back to files using write.csv() or write_xlsx().
+These functions make it easy to bring data into R for analysis and share results with others.
+Reading text files, or tab-delimited data, is handled with read.table() or read.delim().
+
+-- Code --
+read.csv("file.csv")
+write.csv(data_frame, "output.csv")
+
+For Excel:
+install.packages("readxl")
+library(readxl)
+read_excel("file.xlsx")
+
+To write Excel:
+install.packages("writexl")
+library(writexl)
+write_xlsx(data_frame, "output.xlsx")
+
+
+3. Data Exploration
+Before analyzing data, it's important to explore and understand its structure and contents.
+Functions like head(), dim(), str(), and summary() are used to inspect rows, columns, data types, and basic statistics.
+Exploration helps identify missing values, unusual patterns, and variable types.
+It provides a quick snapshot of how clean or messy your dataset is.
+This is a key first step before any transformation or modeling.
+
+-- Code --
+head(data) #review rows
+dim(data) #review columns
+names(data) #review variable names
+summary(data)
+str(data)
+
+
+4. Data Cleaning Basics
+Data cleaning involves removing errors, fixing inconsistencies, and preparing data for analysis.
+It includes handling missing values, correcting data types, and removing duplicates.
+R provides functions like is.na(), na.omit(), and duplicated() to assist in cleaning.
+Proper cleaning ensures the quality and accuracy of analysis.
+Without this step, insights drawn from data may be unreliable or misleading.
+
+5. Handling Missing Values
+Missing data is common in real-world datasets, and must be addressed carefully.
+You can detect missing values using is.na() and decide whether to drop or impute them.
+na.omit() removes rows with NAs, while tidyr::fill() can propagate non-missing values.
+How you handle missing values depends on the context and the importance of the missing data.
+This is crucial for maintaining data integrity and preventing errors during analysis.
+
+-- Code --
+is.na(df)
+df <- tidyr::fill(df, column_name, .direction = "updown")
+
+6. Filtering, Selecting, and Renaming Columns
+Using the dplyr package, you can filter rows (filter()), select specific columns (select()), and rename columns (rename()).
+This helps you focus only on relevant parts of the dataset for your task.
+For example, filtering students with marks > 75, or selecting only Name and Age columns.
+Renaming columns improves readability and consistency in reports or code.
+These operations are basic but powerful tools for shaping data.
+
+-- Code --
+filter(df, Age > 18)
+select(df, Name, Age)
+rename(df, FullName = Name)
+
+7. Type Conversions and String Handling
+Type conversion functions like as.numeric(), as.character(), and as.factor() ensure data is in the correct format.
+String handling includes modifying and inspecting text using functions like tolower(), toupper(), and nchar().
+These are useful when dealing with messy or imported data where formats are inconsistent.
+Proper formatting is important for analysis, plotting, and machine learning workflows.
+String operations also help clean labels, extract values, or format output.
+
+-- Code --
+Type Conversions --> as.numeric(), as.character(), as.factor()
+String Functions --> tolower("TEXT"), toupper("text"), nchar("string")
+
+8. Data Wrangling with dplyr and tidyr
+Wrangling refers to transforming raw data into a usable format.
+dplyr offers functions like mutate() to create new variables and arrange() to sort data.
+
+-- Code --
+Mutating --> mutate(df, AgeSquared = Age^2)
+Grouping and Summarizing --> group_by(df, Department) %>%
+                             summarise(AvgSalary = mean(Salary, na.rm = TRUE))
+
+
+
+--- CODING PRACTICE ---
+
+myframe<- data.frame(ID=c(4532,1254,3654),Name=c("Joseph","Alice","Laura"),Age=c(20,21,22))
+print(myframe)
+install.packages("dplyr")
+library(dplyr)
+
+filtered_myframe=filter(myframe, Age>20)
+print(filtered_myframe)
+select_myframe=select(myframe, Name)
+print(select_myframe)
+rename_myframe=rename(myframe, Name=studName)
+print(rename_myframe)
+
+#Mutation
+mutate_myframe <- myframe %>%
+mutate(AgeSquared = Age^2)
+print(mutate_myframe)
+
+data()
+data(package = .packages(all.available = TRUE))
+?USAccDeaths
+var1=USAccDeaths
+myframe <- data.frame(Month = time(USAccDeaths), Deaths = as.numeric(USAccDeaths))
+print(myframe)
+sort(myframe$Month)
+sort(myframe$Deaths)
+which.max(myframe$Month)
+which.min(myframe$Deaths)
+max(myframe$Month)
+min(myframe$Deaths)
+
+
+emp.frame <- data.frame(
+  emp.id = c(123, 456, NA, 782),
+  emp.name = c(NA, "Laura", "Alice", "Leo"),
+  emp.salary = c(50000, NA, 20000, 30000),
+  emp.workhours = c(NA, NA, 7, 9)
+)
+# Check missing values
+missing_myframe <- is.na(emp.frame)
+print(missing_myframe)
+# Load tidyr 
+library(tidyr)
+# Fill missing values upward
+fill_myframe <- fill(emp.frame, emp.id, .direction = "updown")
+print(fill_myframe)
+
+                                                  ---------------------------
