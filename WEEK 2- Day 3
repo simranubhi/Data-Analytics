@@ -1,1 +1,183 @@
+                                                                     ---- Week 2 (DAY-3) ----
+
+--Understanding Data Frames--
+In R, a data frame is the most commonly used data structure for storing tabular data. It is similar to an Excel spreadsheet or a SQL table, where:
+Rows represent observations (e.g., each student or employee).
+Columns represent variables or attributes (e.g., Name, Age, Salary).
+Each column can have a different data type (numeric, character, factor, etc.), which makes data frames extremely flexible for handling real-world data.
+Example:
+data.frame(ID = c(1, 2), Name = c("Alice", "Bob"), Age = c(21, 22))
+
+
+1. Data Reshaping
+Data reshaping refers to transforming the format of a dataset to suit a specific analysis, model, or visualization.
+The two most common reshaping directions are:
+Wide to Long: Collapse multiple columns into key-value pairs (e.g., turning 3 test columns into 1 column called "test" and another called "score").
+Long to Wide: Spread rows back into columns (e.g., making each "test" its own column again).
+
+This process is crucial when preparing data for:
+- Statistical models that require tidy input
+- Plotting libraries like ggplot2
+- Machine learning workflows
+- Pivot reports and dashboards
+
+-- pivot_longer() --
+Converting Wide to Long (Modern Approach) 
+This function from the tidyr package is used to convert multiple columns into key-value pairs, making the dataset longer but tidier.
+
+SYNATX:
+pivot_longer(data, 
+             cols = ..., 
+             names_to = ..., 
+             values_to = ...)
+
+cols: Columns you want to collapse (e.g., test1, test2, test3)
+names_to: The new column that will contain the names of the original columns
+values_to: The new column that will contain the actual values from those columns
+
+Example Use Case: Turning individual test columns into a single “test” column with corresponding scores.
+                  This helps make the data compatible with grouped operations, statistical modeling, or 
+                  plotting trends over time.
+
+
+-- pivot_wider() --
+Converting Long Back to Wide
+Once the data is long and tidy, we may want to convert it back into a wide format for reports or exports.
+pivot_wider() creates new columns from unique values in one variable.
+
+SYNTAX:
+pivot_wider(data, 
+            names_from = ..., 
+            values_from = ...)
+
+names_from: Column whose values become the new column names (e.g., test names)
+values_from: Column whose values fill in the data (e.g., scores)
+
+This is especially useful when:
+- Creating wide-format summaries for export to Excel
+- Reconstructing original datasets after manipulation
+- Comparing scores or values side-by-side for each individual
+
+
+-- melt() -- 
+Older Way to Convert Wide to Long
+melt() is a function from the reshape2 package. It performs the same operation as pivot_longer() but with a slightly different syntax.
+
+SYNTAX:
+melt(data, 
+     id.vars = c("id", "name"), 
+     variable.name = "test", 
+     value.name = "score")
+
+While still functional, melt() is older and not part of the tidyverse.
+Modern R workflows encourage using pivot_longer() for consistency and better integration with tools like ggplot2, dplyr, and tidyr.
+
+
+-- spread() --
+Older Way to Go from Long to Wide
+The spread() function, also from tidyr, does the same job as pivot_wider() but is now outdated.
+It's still usable but lacks some modern improvements.
+
+
+Why Reshaping is Important
+- Data reshaping is a powerful and essential skill for any data analyst or data scientist. It allows you to:
+- Make datasets tidy for visualization or modeling
+- Convert irregular or complex data into analysis-ready formats
+- Simplify data pipelines by automating transformation
+- Organize time-based data for comparison across months/years
+- Customize outputs for dashboards or reports
+
+For example, a company tracking monthly sales across multiple stores would need to reshape data to either compare
+store performance month-wise (wide format) or plot trends over time (long format).
+
+
+---- CODE PRACTICE ----
+# ------------------------------------------------
+# Topics: pivot_longer, pivot_wider, melt, spread
+# ------------------------------------------------
+
+# Load the required package for modern data reshaping
+library(tidyr)
+
+# Creating a sample wide-format data frame with student test scores
+st_test1 <- data.frame(
+  id = c(1, 2, 3), 
+  name = c("Alice", "Bob", "John"),
+  test1 = c(95, 91, 85), 
+  test2 = c(98, 80, 87), 
+  test3 = c(92, 93, 90)
+)
+
+# ---- Reshape from WIDE to LONG using pivot_longer() ----
+# This transforms multiple test columns into a single 'test' column
+# and their corresponding values into a 'score' column
+st_test2 <- pivot_longer(
+  st_test1, 
+  cols = starts_with("test"),   # Select columns starting with "test"
+  names_to = "test",            # Create a new column called 'test' with names of the original columns
+  values_to = "score"           # Create a new column called 'score' with corresponding values
+)
+print(st_test2)
+
+# ---- Install necessary packages ----
+# 'stringi' and 'reshape2' are required for legacy reshaping methods
+install.packages("stringi")     # (Only run once)
+install.packages("reshape2")    # (Only run once)
+
+# Load the packages
+library(reshape2)
+library(stringi)
+
+# ---- Reshape from WIDE to LONG using melt() [older method] ----
+# melt() works similarly to pivot_longer(), but is part of the older reshape2 package
+st_test2 <- melt(
+  st_test1, 
+  id.vars = c("id", "name"),    # Keep 'id' and 'name' as identifiers
+  variable.name = "test",       # Name of new column to store original column names
+  value.name = "score"          # Name of new column to store corresponding values
+)
+print(st_test2)
+
+# ---- Reshape from LONG back to WIDE using pivot_wider() ----
+# This spreads 'test' values into new columns, with scores filled in
+st_test3 <- st_test2 %>% pivot_wider(
+  names_from = test,            # Use values in 'test' column as new column names
+  values_from = score           # Fill values from 'score' column
+)
+print(st_test3)
+
+# ---- Alternate method: Reshape LONG to WIDE using spread() [older method] ----
+# spread() is the older version of pivot_wider(), now less recommended
+st_test3 <- spread(
+  st_test2, 
+  test,                         # Column to become new column names
+  score                         # Column with values to fill in
+)
+print(st_test3)
+
+# ---- Extended Real-life Example: Monthly Expenses ----
+
+# Creating long-format monthly expense data for 5 years (2021–2025)
+st_test4 <- data.frame(
+  Year = rep(2021:2025, each = 12),       # Repeat each year 12 times
+  month = rep(month.abb, times = 5),      # Repeat all months 5 times
+  expenses = 101:160                      # Dummy expense values (60 total)
+)
+
+# Convert to WIDE format: one row per year, months as columns
+wide_data <- pivot_wider(
+  st_test4, 
+  names_from = month, 
+  values_from = expenses
+)
+print(wide_data)
+
+# Convert back to LONG format: one row per year-month combination
+long_data <- pivot_longer(
+  wide_data,
+  cols = -Year,                          # All columns except 'Year' are months
+  names_to = "month",                    # Store month names in 'month' column
+  values_to = "expenses"                 # Store values in 'expenses' column
+)
+print(long_data)
 
