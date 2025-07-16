@@ -1,1 +1,154 @@
+                                                                         ---- Week 1 (DAY-4) ----
+DATA STRUCTURES continued
 
+--- DATA FRAMES ---
+A data frame is one of the most commonly used data structures in R. It is a 2-dimensional table-like structure where each column can
+contain different types of data (numeric, character, logical, etc.). It's similar to a spreadsheet or SQL table and is widely used for
+storing and manipulating datasets.
+
+- Creating a Data Frame
+We can use the data.frame() function to create a data frame by combining vectors of equal lengths.
+
+names <- c("Josh", "Jette", "James")
+class <- c("9A", "10C", "12B")
+rollno <- c(34, 56, 21)
+
+student <- data.frame(Name = names, Class = class, Rollnumber = rollno)
+print(student)
+
+Each column in a data frame represents a variable, and each row represents an observation.
+This format is ideal for structured datasets like student records, survey results, or customer details.
+
+- Accessing Specific Columns or Values
+Use the $ operator or [row, column] notation to access specific data.
+
+print("Names:")
+print(student$Name)                 # Access entire 'Name' column
+
+print("Element at row 3 col 2")
+print(student[3, 2])                # Access element at 3rd row and 2nd column
+
+$column_name is used for column-wise access. [row, col] is general access syntax.
+
+- Adding a New Column
+You can add a new column to the data frame using $ notation.
+
+student$Marks <- c(78, 87, 34)      # Adds 'Marks' column
+print(student)
+
+Adding new columns is useful for including derived attributes like grades, age, percentage, etc.
+
+- Adding a New Row using rbind()
+To append a new row, you use the rbind() function. The new row must have all columns, even if some values are characters.
+
+new <- data.frame(Name = "Laura", Class = "8C", Rollnumber = "23", Marks = "56")
+student <- rbind(student, new)     # Add new student row
+print(student)
+
+rbind() is used to bind rows. It’s essential for adding new data entries dynamically.
+
+- Updating Values Based on Conditions
+We can modify entries conditionally using logical indexing.
+
+student$Class[student$Name == "Jette"] <- "6D"
+print(student)
+
+Condition-based updates are very useful in data cleaning, correction, or reassigning values.
+
+- Removing Rows Based on Conditions
+To remove rows, you can use filtering with != or similar operators.
+
+student <- student[student$Name != "Josh", ]    # Remove row where Name == "Josh"
+print(student)
+
+Filtering helps in removing irrelevant or faulty records before performing analysis.
+
+- Deleting a Column
+Set the column to NULL to remove it from the data frame.
+
+student$Marks <- NULL      # Remove 'Marks' column
+print(student)
+
+Useful when certain columns are no longer needed for computation or visualization.
+
+- Sorting the Data Frame
+Use the order() function to sort based on a specific column.
+
+sorted <- student[order(student$Rollnumber), ]
+print(sorted)
+
+Sorting is commonly done before plotting or when preparing reports in ascending/descending order of marks, IDs, or dates.
+
+- Column Names and Row Names
+Set or get column and row names using colnames() and rownames().
+# Set column names
+colnames(Data_Frame) <- c("Type", "HeartRate", "Time")
+
+# Set row names
+rownames(Data_Frame) <- c("Day1", "Day2", "Day3")
+
+- Changing Data Types (Type Conversion)
+You might need to convert column types using as.character(), as.numeric(), as.factor(), etc.
+
+Data_Frame$Pulse <- as.character(Data_Frame$Pulse)  # Convert to character
+Data_Frame$Pulse <- as.numeric(Data_Frame$Pulse)    # Convert back to numeric
+
+- Using str() to View Structure
+Get a quick overview of column types and values.
+str(Data_Frame)
+
+- Using head() and tail()
+These help when you're working with large datasets.
+
+head(Data_Frame)   # First 6 rows
+tail(Data_Frame)   # Last 6 rows
+
+
+--- TIBBLES ---
+Tibbles are a modern version of data frames in R and are part of the tidyverse package collection.
+They are created using the tibble package and are designed to fix many of the annoyances of traditional data frames.
+While they behave similarly to data frames in many ways, tibbles offer a more consistent, readable, and predictable structure for handling tabular data.
+
+Unlike data frames, tibbles:
+- Print only the first 10 rows and all relevant columns, preventing your console from getting cluttered when viewing large datasets.
+- Do not convert characters to factors automatically, which is a common issue with data frames.
+- Avoid partial matching of column names, helping to prevent bugs in your code.
+- Respect column data types strictly, making them safer and easier to debug.
+- Allow you to refer to variables as if they were objects in your environment when used inside dplyr, ggplot2, or tidyr functions.
+
+- Creating a Tibble
+You create a tibble using the tibble() function from the tibble package:
+
+library(tibble)
+my_data <- tibble(
+  name = c("Sandeep", "Amit", "Aman"),
+  age = c(25, 30, 35),
+  city = c("Pune", "Jaipur", "Delhi")
+)
+print(my_data)
+This will print a neat preview of the data showing only relevant content, even if the dataset is large.
+
+
+- Accessing Data in a Tibble
+Tibbles allow access in the same way as data frames using $, [[ ]], or [ , ].
+
+my_data$name          # Access the 'name' column
+my_data[1, 2]         # Access first row, second column
+my_data[[3]]          # Access the third column
+Unlike data frames, tibbles do not allow partial matching. For example, if you try my_data$n, it will return an error unless the column name is exactly "n".
+
+- Modifying a Tibble
+You can easily add columns or update values in a tibble just like in data frames:
+
+my_data$country <- c("India", "India", "India")   # Add a new column
+my_data$age[1] <- 26                              # Modify a value
+
+
+- Converting Data Frame to Tibble
+You can convert any existing data frame to a tibble using the as_tibble() function:
+
+df <- data.frame(x = 1:3, y = c("a", "b", "c"))
+tb <- as_tibble(df)
+This is useful when you're working with older code or datasets that were loaded using base R.
+
+                                                                        ---------------------------------------------
