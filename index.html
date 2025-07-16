@@ -7,107 +7,123 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #2c3e50, #3498db);
+      color: #fff;
     }
 
     .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
       text-align: center;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.7);
-      min-height: 100vh;
     }
 
-    gndec.logo {
-      width: 80px;
-      margin-top: 20px;
+    .logo {
+      width: 100px;
+      margin-bottom: 10px;
     }
 
-    h1, h2, p {
-      margin: 10px 0;
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      color: #f1c40f;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      margin-bottom: 5px;
+      color: #ecf0f1;
+    }
+
+    p {
+      margin: 6px 0;
+      font-size: 1.1em;
+    }
+
+    h3 {
+      margin-top: 40px;
+      font-size: 1.6em;
+      color: #e67e22;
+    }
+
+    .section {
+      margin-top: 30px;
     }
 
     .btn {
       display: inline-block;
-      margin: 8px;
-      padding: 12px 18px;
+      margin: 10px;
+      padding: 14px 22px;
       font-size: 16px;
-      border-radius: 8px;
+      border-radius: 10px;
       text-decoration: none;
       color: white;
-      transition: 0.3s;
+      font-weight: bold;
+      background: #34495e;
+      transition: background 0.3s ease;
     }
 
     .btn:hover {
-      opacity: 0.85;
+      background: #2ecc71;
     }
 
-    .green {
+    .highlight {
       background-color: #1abc9c;
     }
 
-    .blue {
-      background-color: #3498db;
-    }
-
-    .darkblue {
-      background-color: #2c3e50;
-    }
-
-    .section {
-      margin-top: 20px;
-    }
-
-    footer {
-      margin-top: 40px;
+    .footer {
+      margin-top: 60px;
       font-size: 14px;
-      color: #bbb;
+      color: #bdc3c7;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <img src="your-college-logo.png" alt="College Logo" class="logo">
+    <img src="gndec.logo" alt="College Logo" class="logo">
     <h1>Training TR-102 Report</h1>
     <h2>By Simran Kaur</h2>
     <p>Guru Nanak Dev Engineering College, Ludhiana</p>
-    <p>4 Week Training: <strong>Data Analytics using R</strong><br> at Doordarshan Bhawan, New Delhi</p>
+    <p>4 Week Training: <strong>Data Analytics using R</strong></p
 
     <div class="section">
-      <a href="#" class="btn green">Training Certificate</a>
-      <a href="#" class="btn green">Final Report</a>
+      <a href="#" class="btn highlight">Training Certificate</a>
+      <a href="#" class="btn highlight">Final Report</a>
     </div>
 
     <div class="section">
-      <!-- Example for 16 days -->
-      <a href="#" class="btn blue">Day 1</a>
-      <a href="#" class="btn blue">Day 2</a>
-      <a href="#" class="btn blue">Day 3</a>
-      <a href="#" class="btn blue">Day 4</a>
-      <a href="#" class="btn blue">Day 5</a>
-      <a href="#" class="btn blue">Day 6</a>
-      <a href="#" class="btn blue">Day 7</a>
-      <a href="#" class="btn blue">Day 8</a>
-      <a href="#" class="btn blue">Day 9</a>
-      <a href="#" class="btn blue">Day 10</a>
-      <a href="#" class="btn blue">Day 11</a>
-      <a href="#" class="btn blue">Day 12</a>
-      <a href="#" class="btn blue">Day 13</a>
-      <a href="#" class="btn blue">Day 14</a>
-      <a href="#" class="btn blue">Day 15</a>
-      <a href="#" class="btn blue">Day 16</a>
+      <h3>WEEK 1</h3>
+      <a href="#" class="btn">Day 1</a>
+      <a href="#" class="btn">Day 2</a>
+      <a href="#" class="btn">Day 3</a>
+      <a href="#" class="btn">Day 4</a>
+      <a href="#" class="btn">Day 5</a>
+
+      <h3>WEEK 2</h3>
+      <a href="#" class="btn">Day 6</a>
+      <a href="#" class="btn">Day 7</a>
+      <a href="#" class="btn">Day 8</a>
+      <a href="#" class="btn">Day 9</a>
+      <a href="#" class="btn">Day 10</a>
+
+      <h3>WEEK 3</h3>
+      <a href="#" class="btn">Day 11</a>
+      <a href="#" class="btn">Day 12</a>
+      <a href="#" class="btn">Day 13</a>
+      <a href="#" class="btn">Day 14</a>
+      <a href="#" class="btn">Day 15</a>
+      <a href="#" class="btn">Day 16</a>
     </div>
 
     <div class="section">
-      <a href="#" class="btn blue">Gallery</a>
-      <a href="#" class="btn darkblue">Projects</a>
+      <a href="#" class="btn">Gallery</a>
+      <a href="#" class="btn">Projects</a>
     </div>
 
-    <footer>
+    <div class="footer">
       &copy; Simran Kaur
-    </footer>
+    </div>
   </div>
 </body>
 </html>
