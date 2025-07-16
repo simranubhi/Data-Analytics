@@ -1,4 +1,4 @@
-                                                                      <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -29,9 +29,16 @@
   <h2>DATA STRUCTURES continued</h2>
 
   <h3>DATA FRAMES</h3>
-  <p>A data frame is a 2D table-like structure with columns of different types. It is widely used to store and manipulate structured datasets.</p>
+  <p>
+    A data frame is one of the most commonly used data structures in R. It is a two-dimensional, table-like structure where each column can
+    contain different types of data (numeric, character, logical, etc.). It's similar to a spreadsheet or a SQL table and is widely used for
+    storing and manipulating structured datasets.
+  </p>
 
   <h4>Creating a Data Frame</h4>
+  <p>
+    You can create a data frame using the <code>data.frame()</code> function by combining vectors of the same length. Each vector becomes a column in the data frame.
+  </p>
   <pre>
 names <- c("Josh", "Jette", "James")
 class <- c("9A", "10C", "12B")
@@ -42,21 +49,27 @@ print(student)
   </pre>
 
   <h4>Accessing Specific Columns or Values</h4>
+  <p>
+    You can access a specific column in a data frame using the <code>$</code> operator or by indexing with row and column numbers using <code>[row, column]</code>.
+  </p>
   <pre>
-print("Names:")
-print(student$Name)
-
-print("Element at row 3 col 2")
-print(student[3, 2])
+print(student$Name)           # Access 'Name' column
+print(student[3, 2])          # Access element at 3rd row, 2nd column
   </pre>
 
   <h4>Adding a New Column</h4>
+  <p>
+    To add a new column, use the <code>$</code> operator and assign a vector of values. The length must match the number of rows in the data frame.
+  </p>
   <pre>
 student$Marks <- c(78, 87, 34)
 print(student)
   </pre>
 
   <h4>Adding a New Row using rbind()</h4>
+  <p>
+    You can append a new row to a data frame using <code>rbind()</code>. The new row must be a data frame with the same structure.
+  </p>
   <pre>
 new <- data.frame(Name = "Laura", Class = "8C", Rollnumber = "23", Marks = "56")
 student <- rbind(student, new)
@@ -64,42 +77,65 @@ print(student)
   </pre>
 
   <h4>Updating Values Based on Conditions</h4>
+  <p>
+    Use logical indexing to modify values in the data frame based on specific conditions.
+  </p>
   <pre>
 student$Class[student$Name == "Jette"] <- "6D"
 print(student)
   </pre>
 
   <h4>Removing Rows Based on Conditions</h4>
+  <p>
+    To remove a row, filter the data frame using a condition. Only rows that meet the condition will be retained.
+  </p>
   <pre>
 student <- student[student$Name != "Josh", ]
 print(student)
   </pre>
 
   <h4>Deleting a Column</h4>
+  <p>
+    You can delete a column by assigning <code>NULL</code> to it using the <code>$</code> operator.
+  </p>
   <pre>
 student$Marks <- NULL
 print(student)
   </pre>
 
   <h4>Sorting the Data Frame</h4>
+  <p>
+    Use the <code>order()</code> function to sort the data frame by a specific column.
+  </p>
   <pre>
 sorted <- student[order(student$Rollnumber), ]
 print(sorted)
   </pre>
 
   <h4>Column Names and Row Names</h4>
+  <p>
+    You can set or retrieve column and row names using the <code>colnames()</code> and <code>rownames()</code> functions.
+  </p>
   <pre>
 colnames(Data_Frame) <- c("Type", "HeartRate", "Time")
 rownames(Data_Frame) <- c("Day1", "Day2", "Day3")
   </pre>
 
   <h4>Changing Data Types</h4>
+  <p>
+    You can change the data type of columns using functions like <code>as.character()</code>, <code>as.numeric()</code>, and <code>as.factor()</code>.
+  </p>
   <pre>
 Data_Frame$Pulse <- as.character(Data_Frame$Pulse)
 Data_Frame$Pulse <- as.numeric(Data_Frame$Pulse)
   </pre>
 
   <h4>Using str(), head(), and tail()</h4>
+  <p>
+    - <code>str()</code>: Shows the structure of the data frame.<br>
+    - <code>head()</code>: Displays the first 6 rows.<br>
+    - <code>tail()</code>: Displays the last 6 rows.
+  </p>
   <pre>
 str(Data_Frame)
 head(Data_Frame)
@@ -107,9 +143,14 @@ tail(Data_Frame)
   </pre>
 
   <h3>TIBBLES</h3>
-  <p>Tibbles are modern, more consistent versions of data frames in R. Part of the tidyverse package, tibbles print cleaner and avoid automatic type conversion.</p>
+  <p>
+    Tibbles are modern versions of data frames that come with several enhancements. They are part of the tidyverse and are designed to make data handling easier and safer.
+  </p>
 
   <h4>Creating a Tibble</h4>
+  <p>
+    Tibbles are created using the <code>tibble()</code> function from the <code>tibble</code> package. Unlike data frames, they do not convert character variables to factors by default.
+  </p>
   <pre>
 library(tibble)
 my_data <- tibble(
@@ -121,6 +162,9 @@ print(my_data)
   </pre>
 
   <h4>Accessing Data in a Tibble</h4>
+  <p>
+    Tibbles support standard ways of accessing data: using <code>$</code> for columns, <code>[[ ]]</code> for column by index, and <code>[ , ]</code> for row/column indexing.
+  </p>
   <pre>
 my_data$name
 my_data[1, 2]
@@ -128,12 +172,18 @@ my_data[[3]]
   </pre>
 
   <h4>Modifying a Tibble</h4>
+  <p>
+    Tibbles can be modified just like data frames. You can add or change columns by assignment.
+  </p>
   <pre>
 my_data$country <- c("India", "India", "India")
 my_data$age[1] <- 26
   </pre>
 
   <h4>Converting Data Frame to Tibble</h4>
+  <p>
+    You can convert a data frame to a tibble using <code>as_tibble()</code>. This is especially useful when you want the benefits of tidyverse compatibility.
+  </p>
   <pre>
 df <- data.frame(x = 1:3, y = c("a", "b", "c"))
 tb <- as_tibble(df)
