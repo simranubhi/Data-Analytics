@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 2 - R Syntax and Data Structures</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-left: 4px solid #3498db;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background: #eee;
+    }
+    ul {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Week 1 (DAY-2)</h1>
+  <h2>Topics Covered:</h2>
+  <ul>
+    <li>R syntax: variables, data types, operators</li>
+    <li>Vectors, matrices, data frames</li>
+    <li>Basic functions and help documentation</li>
+  </ul>
+
+  <h2>1. Variables in R</h2>
+  <p>Variables store data values and are created using the <code>&lt;-</code> or <code>=</code> operator.</p>
+  <pre>
+x &lt;- 10
+y = "R Programming"
+  </pre>
+  <p>Variable names should start with a letter. <code>&lt;-</code> is preferred in R programming.</p>
+
+  <h2>2. Data Types in R</h2>
+  <table>
+    <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+    <tr><td>Numeric</td><td>Real or decimal numbers</td><td>x &lt;- 3.14</td></tr>
+    <tr><td>Integer</td><td>Whole numbers</td><td>x &lt;- as.integer(5)</td></tr>
+    <tr><td>Character</td><td>Text data</td><td>name &lt;- "Simran"</td></tr>
+    <tr><td>Logical</td><td>TRUE or FALSE values</td><td>flag &lt;- TRUE</td></tr>
+    <tr><td>Complex</td><td>Complex numbers</td><td>z &lt;- 2 + 3i</td></tr>
+  </table>
+  <p>Check data types using:</p>
+  <pre>
+class(x)
+typeof(x)
+  </pre>
+
+  <h2>3. Operators in R</h2>
+  <h3>Arithmetic Operators</h3>
+  <pre>
+a + b  # addition
+a - b  # subtraction
+a * b  # multiplication
+a / b  # division
+a ^ b  # exponentiation
+a %% b # modulo (remainder)
+a %/% b # integer division
+  </pre>
+
+  <h3>Relational Operators</h3>
+  <pre>
+a == b  # equal
+a != b  # not equal
+a > b   # greater than
+a < b   # less than
+a >= b  # greater than or equal
+a <= b  # less than or equal
+  </pre>
+
+  <h3>Logical Operators</h3>
+  <pre>
+&   # AND
+|   # OR
+!   # NOT
+  </pre>
+
+  <h2>4. Vectors</h2>
+  <p>A vector is a sequence of elements of the same type.</p>
+  <pre>
+v1 &lt;- c(1, 2, 3, 4, 5)
+v2 &lt;- c("a", "b", "c")
+v3 &lt;- c(TRUE, FALSE, TRUE)
+  </pre>
+
+  <h2>5. Matrices</h2>
+  <p>A matrix is a two-dimensional collection of elements.</p>
+  <pre>
+m1 &lt;- matrix(1:9, nrow = 3, ncol = 3)
+m1[1, 2]  # first row, second column
+  </pre>
+
+  <h2>6. Data Frames</h2>
+  <p>A data frame holds data in tabular form.</p>
+  <pre>
+df &lt;- data.frame(
+  ID = c(101, 102, 103),
+  Name = c("Amit", "Sara", "John"),
+  Score = c(90, 85, 88)
+)
+df$Name
+  </pre>
+
+  <h2>7. Basic Functions</h2>
+  <table>
+    <tr><th>Function</th><th>Purpose</th></tr>
+    <tr><td>sum()</td><td>Add all numbers</td></tr>
+    <tr><td>mean()</td><td>Calculate average</td></tr>
+    <tr><td>median()</td><td>Median value</td></tr>
+    <tr><td>length()</td><td>Count elements</td></tr>
+    <tr><td>min() / max()</td><td>Find smallest/largest value</td></tr>
+    <tr><td>sort()</td><td>Sort elements</td></tr>
+  </table>
+  <pre>
+vec &lt;- c(10, 5, 7)
+sum(vec)    # 22
+mean(vec)   # 7.33
+  </pre>
+
+  <h2>8. Help Documentation in R</h2>
+  <p>Use the following commands to get help:</p>
+  <pre>
+?mean
+help(sum)
+example(plot)
+str(vec)
+  </pre>
+
+  <h2>Real-Life Use Cases</h2>
+  <ul>
+    <li><strong>Vectors:</strong> Daily temperatures, survey responses</li>
+    <li><strong>Matrices:</strong> Tables, images, mathematical grids</li>
+    <li><strong>Data Frames:</strong> Sales, student, medical records</li>
+    <li><strong>Operators:</strong> Filter data, calculate taxes</li>
+    <li><strong>Functions:</strong> Summarize and analyze datasets</li>
+  </ul>
+</body>
+</html>
