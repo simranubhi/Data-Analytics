@@ -3,3 +3,133 @@
 Topics Covered -- Code Practicing for basic logic building + recursion problems
                   
 -- DATA STRUCTURES IN R --
+Data structures in R help organize data for analysis. They can be simple, holding only one type of data, or complex, supporting diverse data types. 
+These data structures are tailored to the specific needs that arise during data-driven projects. The primary data structures in R are vectors, lists, matrices, arrays, factors, and data frames.
+
+1. Vectors
+Vectors are the simplest form of data structure in R. They are a collection of elements of the same type, such as numeric, character, or logical.
+R is designed to work well with vectors and is specially designed to work with what are called vectorized operations. 
+This means you can apply a function to a vector without needing to loop through its elements explicitly.
+For example, adding two vectors together adds corresponding elements in a faster and more concise way than doing so element-wise through loops.
+
+Key Points:
+- R is inherently vectorized, meaning operations on vectors are applied element-wise without explicit loops.
+- Vectors can be created using the c() function.
+
+Syntax:
+numeric_vector <- c(10, 20, 30)
+character_vector <- c("apple", "banana", "cherry")
+logical_vector <- c(TRUE, FALSE, TRUE)
+
+Accessing Elements:
+vector[1] → First element
+vector[c(1, 3)] → Multiple elements
+
+Practical Use:
+Vectors are ideal for storing sequences like marks, temperature readings, or categorical survey results (as factors).
+
+
+2. Matrices
+Matrices are two-dimensional data structures that contain elements of the same data type. 
+They are commonly used in linear algebra, image processing, and statistics.
+
+Key Points:
+- Created using the matrix() function.
+- Elements are filled column-wise by default.
+- Operations like addition, multiplication, etc., are applied element-wise unless specified otherwise.
+
+Syntax:
+my_matrix <- matrix(1:9, nrow = 3, ncol = 3)
+
+Access:
+my_matrix[1,2] → Element at row 1, column 2
+my_matrix[2,] → Entire 2nd row
+my_matrix[,3] → Entire 3rd column
+
+Operations:
+my_matrix + another_matrix   # Element-wise addition
+my_matrix * another_matrix   # Element-wise multiplication
+
+length(hello)        # counts total elements
+
+# Nested for loop to print each element
+num <- matrix(c(10, 20, 30, 40), nrow = 2, ncol = 2)
+for (rows in 1:nrow(num)) {
+  for (columns in 1:ncol(num)) {
+    print(num[rows, columns])
+  }
+}
+
+# Sum of all matrix elements
+total_sum <- sum(num)
+print(paste("Total sum:", total_sum))
+
+
+3.  ARRAYS
+Arrays are multi-dimensional extensions of matrices and can have more than two dimensions.
+They are used for storing large structured data — such as spatial, temporal, or image-based datasets.
+
+Key Points:
+- Created using the array() function.
+- Dimensions are specified using the dim = c() argument.
+
+Syntax:
+my_array <- array(1:8, dim = c(2, 2, 2))
+This creates a 3D array with 2 rows, 2 columns, and 2 layers.
+
+arr <- c(1:9)                      # simple vector
+arr
+thisarray <- c(1:10)              
+multiarray <- array(thisarray, dim = c(4, 3, 2))   # 3D array: 4 rows, 3 columns, 2 layers
+multiarray[c(1), , 1]             # access 1st row from 1st layer
+dim(multiarray)                   # returns the dimensions
+
+Use Case:
+Arrays are especially useful in simulations, environmental data modeling, and scientific computations.
+
+
+5. LISTS
+Lists are flexible data structures that can store a mix of different types of elements — including vectors, matrices, data frames, or even other lists.
+
+Key Points:
+- Created using the list() function.
+- Unlike vectors or matrices, lists can hold elements of different lengths and types.
+
+Useful for organizing complex outputs (like results from a statistical model).
+
+Syntax:
+my_list <- list(name = "DataCamp", year = 2024, scores = c(80, 90, 85), active = TRUE)
+Accessing Elements:
+my_list[[3]] → Access by position
+
+my_list$name → Access by name
+
+Use Case:
+Lists are used to return complex outputs in machine learning models, Shiny apps, and nested data reports.
+
+5. FACTORS
+Factors are categorical variables that represent data with a limited number of unique values (levels). 
+They are essential for statistical modeling and plotting, where categorical distinction matters.
+
+Key Points:
+- Created using the factor() function.
+- Factors can be ordered or unordered.
+- Internally stored as integers with labels.
+- Very useful in regression models, classification tasks, and grouping in plots.
+
+Syntax:
+gender <- factor(c("male", "female", "female", "male"))
+levels(gender) <- c("Female", "Male")    # Relabel levels
+S
+ummary Statistics:
+summary(gender)    # Shows count of each category
+
+Difference from Character:
+Factors carry an extra attribute called levels which define their possible categories.
+While characters are just strings, factors have structured meaning — crucial in plotting and analysis.
+
+Use Case:
+Useful in encoding gender, education levels, regions, product categories, etc.
+
+
+                                                                             --------------------------------------------
