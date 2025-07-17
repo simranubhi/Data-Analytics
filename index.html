@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Data Analytics using R - Training Report</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMARTFUSION - IoT + AI/ML Training</title>
   <style>
-    /* Background Animation */
+    /* Motion Gradient Background */
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -15,151 +15,126 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(120deg, #e0f7fa, #ffffff, #e8f5e9);
+      background: linear-gradient(135deg, #dceefb, #f6f8fc, #e6f5f3);
       background-size: 400% 400%;
-      animation: gradientMove 20s ease infinite;
-      color: #333;
+      animation: gradientMove 25s ease infinite;
+      color: #222;
     }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    .logo {
-      width: 100px;
-      margin-bottom: 10px;
-    }
-
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      color: #2c3e50;
-    }
-
-    h2 {
-      font-size: 1.8em;
-      margin-bottom: 5px;
-      color: #2c3e50;
-    }
-
-    p {
-      margin: 6px 0;
-      font-size: 1.1em;
-      color: #34495e;
-    }
-
-    .section {
-      margin-top: 30px;
-    }
-
-    .btn {
-      display: block;
-      margin: 8px 0;
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 10px;
-      text-decoration: none;
+    header {
+      background-color: #0d1b2a;
       color: white;
-      font-weight: bold;
-      background: #34495e;
-      transition: background 0.3s ease;
-      width: fit-content;
-      text-align: left;
-    }
-
-    .btn:hover {
-      background: #2ecc71;
-    }
-
-    .highlight {
-      background-color: #1abc9c;
-      margin: 10px;
-      display: inline-block;
-      width: auto;
       text-align: center;
+      padding: 30px 15px 20px 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
 
-    .week-box {
-      background-color: #ffffffee;
-      border: 1px solid #bdc3c7;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 30px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-
-    .week-heading {
-      background-color: #2980b9;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 6px;
+    header img {
+      max-width: 120px;
       margin-bottom: 15px;
-      font-size: 1.4em;
-      text-align: center;
     }
 
-    .footer {
-      margin-top: 60px;
-      font-size: 14px;
-      color: #7f8c8d;
+    header h1 {
+      margin: 0;
+      font-size: 2.2em;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin: 5px 0;
+      font-size: 1.1em;
+    }
+
+    .info-box, .week-box {
+      background-color: #ffffffdd;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 500px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border-left: 6px solid #2f80ed;
+    }
+
+    .info-box strong {
+      display: inline-block;
+      min-width: 100px;
+    }
+
+    .week-box h2 {
+      color: #2f80ed;
+      text-align: center;
+      font-size: 1.6em;
+      margin-bottom: 15px;
+    }
+
+    .week-box a {
+      display: block;
+      color: #2f80ed;
+      text-decoration: none;
+      font-weight: 500;
+      margin: 6px 0;
+      text-align: center;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .week-box a:hover {
+      text-decoration: underline;
+      color: #1746a2;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.7em;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="gndec.logo.png" alt="College Logo" class="logo">
-    <h1>Training TR-102 Report</h1>
-    <h2>By Simran Kaur</h2>
+
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Guru_Nanak_Dev_Engineering_College_logo.png/200px-Guru_Nanak_Dev_Engineering_College_logo.png" alt="College Logo" />
+    <h1>SMARTFUSION</h1>
+    <p>4-Week IoT + AI/ML Training</p>
     <p>Guru Nanak Dev Engineering College, Ludhiana</p>
-    <p>4 Week Training: <strong>Data Analytics using R</strong></p>
+  </header>
 
-    <div class="section">
-      <a href="certificate.pdf" class="btn highlight">Training Certificate</a>
-      <a href="final-report.pdf" class="btn highlight">Final Report</a>
-    </div>
-
-    <div class="section">
-      <div class="week-box">
-        <div class="week-heading">WEEK 1</div>
-        <a href="day1.html" class="btn">Day 1</a>
-        <a href="day2.html" class="btn">Day 2</a>
-        <a href="day3.html" class="btn">Day 3</a>
-        <a href="day4.html" class="btn">Day 4</a>
-        <a href="day5.html" class="btn">Day 5</a>
-      </div>
-
-      <div class="week-box">
-        <div class="week-heading">WEEK 2</div>
-        <a href="day6.html" class="btn">Day 6</a>
-        <a href="day7.html" class="btn">Day 7</a>
-        <a href="day8.html" class="btn">Day 8</a>
-        <a href="day9.html" class="btn">Day 9</a>
-        <a href="day10.html" class="btn">Day 10</a>
-      </div>
-
-      <div class="week-box">
-        <div class="week-heading">WEEK 3</div>
-        <a href="day11.html" class="btn">Day 11</a>
-        <a href="day12.html" class="btn">Day 12</a>
-        <a href="day13.html" class="btn">Day 13</a>
-        <a href="day14.html" class="btn">Day 14</a>
-        <a href="day15.html" class="btn">Day 15</a>
-        <a href="day16.html" class="btn">Day 16</a>
-      </div>
-    </div>
-
-    <div class="section">
-      <a href="gallery.html" class="btn highlight">Gallery</a>
-      <a href="projects.html" class="btn highlight">Projects</a>
-    </div>
-
-    <div class="footer">
-      &copy; Simran Kaur
-    </div>
+  <div class="info-box">
+    <p><strong>Name:</strong> Simran Kaur</p>
+    <p><strong>Department:</strong> Computer Science and Engineering</p>
+    <p><strong>URN:</strong> 2302680</p>
   </div>
+
+  <!-- WEEK 1 -->
+  <div class="week-box">
+    <h2>WEEK 1</h2>
+    <a href="#">Day 1</a>
+    <a href="#">Day 2</a>
+    <a href="#">Day 3</a>
+    <a href="#">Day 4</a>
+    <a href="#">Day 5</a>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="week-box">
+    <h2>WEEK 2</h2>
+    <a href="#">Day 1</a>
+    <a href="#">Day 2</a>
+    <a href="#">Day 3</a>
+    <a href="#">Day 4</a>
+    <a href="#">Day 5</a>
+  </div>
+
+  <!-- WEEK 3 -->
+  <div class="week-box">
+    <h2>WEEK 3</h2>
+    <a href="#">Day 1</a>
+    <a href="#">Day 2</a>
+    <a href="#">Day 3</a>
+    <a href="#">Day 4</a>
+    <a href="#">Day 5</a>
+  </div>
+
+
+
 </body>
 </html>
