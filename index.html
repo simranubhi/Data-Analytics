@@ -35,20 +35,36 @@
     }
 
     h1 {
-      color: #1a3d7c;
-      margin: 0.5rem 0;
+      color: white;
+      background-color: #1a3d7c;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      display: inline-block;
+      margin-bottom: 1rem;
     }
 
     h2 {
-      font-weight: normal;
-      color: #444;
-      margin-bottom: 0.2rem;
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: #1a3d7c;
+      margin-top: 1rem;
     }
 
-    .info-line {
-      font-size: 0.95rem;
-      color: #444;
-      margin: 0.2rem;
+    .info-box {
+      background-color: #f0f8ff;
+      border: 2px solid #1a3d7c;
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1rem auto 2rem auto;
+      width: 320px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      text-align: left;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .info-box div {
+      margin: 0.4rem 0;
     }
 
     p {
@@ -95,7 +111,10 @@
     .week-title {
       font-size: 1.2rem;
       font-weight: bold;
-      color: #1a3d7c;
+      color: white;
+      background-color: #1a3d7c;
+      padding: 0.5rem;
+      border-radius: 8px;
       margin-bottom: 0.5rem;
     }
 
@@ -109,12 +128,17 @@
 <body>
   <div class="container">
     <img src="gndec.logo.png" alt="College Logo" class="logo" />
+
     <h1>Training TR-102 Report</h1>
     <h2>Simran Kaur</h2>
-    <div class="info-line">Department of Computer Science and Engineering</div>
-    <div class="info-line">URN: 2302681</div>
-    <p>Guru Nanak Dev Engineering College, Ludhiana</p>
-    <p>4 Week Training: <strong>Data Analytics using R</strong></p>
+
+    <div class="info-box">
+      <div><strong>Name:</strong> Simran Kaur</div>
+      <div><strong>Department:</strong> Computer Science and Engineering</div>
+      <div><strong>URN:</strong> 2302681</div>
+      <div><strong>College:</strong> Guru Nanak Dev Engineering College, Ludhiana</div>
+      <div><strong>Training:</strong> 4 Week - <em>Data Analytics using R</em></div>
+    </div>
 
     <div class="section">
       <a href="certificate.pdf" class="btn highlight">Training Certificate</a>
@@ -133,20 +157,20 @@
 
       <div class="week-box">
         <div class="week-title">WEEK 2</div>
-         <a href="day1.html" class="btn">Day 1</a>
-        <a href="day2.html" class="btn">Day 2</a>
-        <a href="day3.html" class="btn">Day 3</a>
-        <a href="day4.html" class="btn">Day 4</a>
-        <a href="day5.html" class="btn">Day 5</a>
+        <a href="week2day1.html" class="btn">Day 1</a>
+        <a href="week2day2.html" class="btn">Day 2</a>
+        <a href="week2day3.html" class="btn">Day 3</a>
+        <a href="week2day4.html" class="btn">Day 4</a>
+        <a href="week2day5.html" class="btn">Day 5</a>
       </div>
 
       <div class="week-box">
         <div class="week-title">WEEK 3</div>
-        <a href="day1.html" class="btn">Day 1</a>
-        <a href="day2.html" class="btn">Day 2</a>
-        <a href="day3.html" class="btn">Day 3</a>
-        <a href="day4.html" class="btn">Day 4</a>
-        <a href="day5.html" class="btn">Day 5</a>
+        <a href="week3day1.html" class="btn">Day 1</a>
+        <a href="week3day2.html" class="btn">Day 2</a>
+        <a href="week3day3.html" class="btn">Day 3</a>
+        <a href="week3day4.html" class="btn">Day 4</a>
+        <a href="week3day5.html" class="btn">Day 5</a>
       </div>
     </div>
 
@@ -159,5 +183,3 @@
   </div>
 </body>
 </html>
-
-
