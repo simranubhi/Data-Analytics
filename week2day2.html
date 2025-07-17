@@ -1,123 +1,141 @@
-                                                                       <!DOCTYPE html>
+                                                                   <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Week 2 - Day 2</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Week 2 Day 2 - Data Analytics using R</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f8ff;
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f0f9ff;
       padding: 30px;
-      color: #333;
+      line-height: 1.6;
     }
-    .bbox3d {
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-      padding: 25px;
-      margin-bottom: 30px;
-    }
-    h2 {
+    h1, h2 {
       text-align: center;
-      color: #005b96;
-    }
-    h3 {
-      color: #0073aa;
+      color: #003366;
     }
     pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #0073aa;
+      background: #fff;
       padding: 12px;
+      border-left: 5px solid #3399ff;
       overflow-x: auto;
     }
-    code {
-      font-family: 'Courier New', monospace;
+    .concepts {
+      background-color: #e6f7ff;
+      border-left: 4px solid #007acc;
+      padding: 10px 15px;
+      margin: 20px 0;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <h2>---- WeeK 2 (DAY-2) ----</h2>
+  <h1>---- Week 2 (DAY-2) ----</h1>
 
-  <div class="bbox3d">
-    <h3>1. Data Frames and Tibbles</h3>
-    <p>Data frames are the most common way to store tabular data in R, consisting of rows and columns.</p>
-    <p>They can hold different data types (numeric, character, etc.) in each column.</p>
-    <p>Tibbles are a modern version of data frames from the tibble package, designed to print cleaner output and behave consistently with the tidyverse.</p>
-    <p>Tibbles don’t change column names or types automatically, making them more predictable and readable.</p>
-    <p>They are preferred when working with large datasets and complex pipelines.</p>
-    <pre><code>df &lt;- data.frame(ID = c(1, 2), Name = c("A", "B"))
+  <div class="concepts">1. Data Frames and Tibbles</div>
+  <p>Data frames are the most common way to store tabular data in R, consisting of rows and columns.<br>
+  They can hold different data types (numeric, character, etc.) in each column.<br>
+  Tibbles are a modern version of data frames from the tibble package, designed to print cleaner output and behave consistently with the tidyverse.<br>
+  Tibbles don’t change column names or types automatically, making them more predictable and readable.<br>
+  They are preferred when working with large datasets and complex pipelines.</p>
+
+  <pre><code>df &lt;- data.frame(ID = c(1, 2), Name = c("A", "B"))
 tb &lt;- tibble::tibble(ID = c(1, 2), Name = c("A", "B"))</code></pre>
-  </div>
 
-  <div class="bbox3d">
-    <h3>2. Reading/Writing CSV, Excel, and Text Files</h3>
-    <p>Data in real-world projects usually comes from external files like CSVs or Excel sheets.</p>
-    <p>R supports reading files using <code>read.csv()</code> and Excel files using <code>read_excel()</code> (via <code>readxl</code> package).</p>
-    <p>You can also export data frames back to files using <code>write.csv()</code> or <code>write_xlsx()</code>.</p>
-    <p>Reading text files, or tab-delimited data, is handled with <code>read.table()</code> or <code>read.delim()</code>.</p>
-    <pre><code>read.csv("file.csv")
+  <div class="concepts">2. Reading/Writing CSV, Excel, and Text Files</div>
+  <p>Data in real-world projects usually comes from external files like CSVs or Excel sheets.<br>
+  R supports reading files using read.csv() and Excel files using read_excel() (via readxl package).<br>
+  You can also export data frames back to files using write.csv() or write_xlsx().<br>
+  These functions make it easy to bring data into R for analysis and share results with others.<br>
+  Reading text files, or tab-delimited data, is handled with read.table() or read.delim().</p>
+
+  <pre><code>read.csv("file.csv")
 write.csv(data_frame, "output.csv")
 
-# For Excel
+# For Excel:
 install.packages("readxl")
 library(readxl)
 read_excel("file.xlsx")
 
-# To write Excel
+# To write Excel:
 install.packages("writexl")
 library(writexl)
 write_xlsx(data_frame, "output.xlsx")</code></pre>
-  </div>
 
-  <div class="bbox3d">
-    <h3>3. Data Exploration</h3>
-    <p>Functions like <code>head()</code>, <code>dim()</code>, <code>str()</code>, and <code>summary()</code> are used to inspect rows, columns, data types, and basic statistics.</p>
-    <pre><code>head(data)
-dim(data)
-names(data)
+  <div class="concepts">3. Data Exploration</div>
+  <p>Before analyzing data, it's important to explore and understand its structure and contents.<br>
+  Functions like head(), dim(), str(), and summary() are used to inspect rows, columns, data types, and basic statistics.<br>
+  Exploration helps identify missing values, unusual patterns, and variable types.<br>
+  It provides a quick snapshot of how clean or messy your dataset is.<br>
+  This is a key first step before any transformation or modeling.</p>
+
+  <pre><code>head(data) #review rows
+dim(data) #review columns
+names(data) #review variable names
 summary(data)
 str(data)</code></pre>
-  </div>
 
-  <div class="bbox3d">
-    <h3>4. Data Cleaning Basics</h3>
-    <p>Data cleaning involves removing errors, fixing inconsistencies, and preparing data for analysis.</p>
-    <p>R provides functions like <code>is.na()</code>, <code>na.omit()</code>, and <code>duplicated()</code>.</p>
-  </div>
+  <div class="concepts">4. Data Cleaning Basics</div>
+  <p>Data cleaning involves removing errors, fixing inconsistencies, and preparing data for analysis.<br>
+  It includes handling missing values, correcting data types, and removing duplicates.<br>
+  R provides functions like is.na(), na.omit(), and duplicated() to assist in cleaning.<br>
+  Proper cleaning ensures the quality and accuracy of analysis.<br>
+  Without this step, insights drawn from data may be unreliable or misleading.</p>
 
-  <div class="bbox3d">
-    <h3>5. Handling Missing Values</h3>
-    <p>You can detect missing values using <code>is.na()</code> and decide whether to drop or impute them.</p>
-    <pre><code>is.na(df)
+  <div class="concepts">5. Handling Missing Values</div>
+  <p>Missing data is common in real-world datasets, and must be addressed carefully.<br>
+  You can detect missing values using is.na() and decide whether to drop or impute them.<br>
+  na.omit() removes rows with NAs, while tidyr::fill() can propagate non-missing values.<br>
+  How you handle missing values depends on the context and the importance of the missing data.<br>
+  This is crucial for maintaining data integrity and preventing errors during analysis.</p>
+
+  <pre><code>is.na(df)
 df &lt;- tidyr::fill(df, column_name, .direction = "updown")</code></pre>
-  </div>
 
-  <div class="bbox3d">
-    <h3>6. Filtering, Selecting, and Renaming Columns</h3>
-    <pre><code>filter(df, Age &gt; 18)
+  <div class="concepts">6. Filtering, Selecting, and Renaming Columns</div>
+  <p>Using the dplyr package, you can filter rows (filter()), select specific columns (select()), and rename columns (rename()).<br>
+  This helps you focus only on relevant parts of the dataset for your task.<br>
+  For example, filtering students with marks &gt; 75, or selecting only Name and Age columns.<br>
+  Renaming columns improves readability and consistency in reports or code.<br>
+  These operations are basic but powerful tools for shaping data.</p>
+
+  <pre><code>filter(df, Age &gt; 18)
 select(df, Name, Age)
 rename(df, FullName = Name)</code></pre>
-  </div>
 
-  <div class="bbox3d">
-    <h3>7. Type Conversions and String Handling</h3>
-    <pre><code>as.numeric(), as.character(), as.factor()
+  <div class="concepts">7. Type Conversions and String Handling</div>
+  <p>Type conversion functions like as.numeric(), as.character(), and as.factor() ensure data is in the correct format.<br>
+  String handling includes modifying and inspecting text using functions like tolower(), toupper(), and nchar().<br>
+  These are useful when dealing with messy or imported data where formats are inconsistent.<br>
+  Proper formatting is important for analysis, plotting, and machine learning workflows.<br>
+  String operations also help clean labels, extract values, or format output.</p>
+
+  <pre><code># Type Conversions
+as.numeric(), as.character(), as.factor()
+
+# String Functions
 tolower("TEXT"), toupper("text"), nchar("string")</code></pre>
-  </div>
 
-  <div class="bbox3d">
-    <h3>8. Data Wrangling with dplyr and tidyr</h3>
-    <pre><code>mutate(df, AgeSquared = Age^2)
-group_by(df, Department) %&gt;% summarise(AvgSalary = mean(Salary, na.rm = TRUE))</code></pre>
-  </div>
+  <div class="concepts">8. Data Wrangling with dplyr and tidyr</div>
+  <p>Wrangling refers to transforming raw data into a usable format.<br>
+  dplyr offers functions like mutate() to create new variables and arrange() to sort data.</p>
 
-  <div class="bbox3d">
-    <h3>--- CODING PRACTICE ---</h3>
-    <pre><code># Load the required package for modern data reshaping
+  <pre><code># Mutating
+mutate(df, AgeSquared = Age^2)
+
+# Grouping and Summarizing
+group_by(df, Department) %&gt;%
+  summarise(AvgSalary = mean(Salary, na.rm = TRUE))</code></pre>
+
+  <h2>--- CODING PRACTICE ---</h2>
+
+  <pre><code># Load the required package
 library(tidyr)
 
-# Creating a sample wide-format data frame
+# Sample wide-format data
 st_test1 &lt;- data.frame(
   id = c(1, 2, 3), 
   name = c("Alice", "Bob", "John"),
@@ -126,52 +144,45 @@ st_test1 &lt;- data.frame(
   test3 = c(92, 93, 90)
 )
 
-# Reshape from WIDE to LONG
+# Wide to long
 st_test2 &lt;- pivot_longer(
   st_test1, 
   cols = starts_with("test"), 
   names_to = "test", 
   values_to = "score"
 )
+print(st_test2)
 
-# Install required packages
+# Install packages
 install.packages("stringi")
 install.packages("reshape2")
-
 library(reshape2)
 library(stringi)
 
-# Reshape using melt()
-st_test2 &lt;- melt(st_test1, id.vars = c("id", "name"),
-                variable.name = "test", value.name = "score")
+# melt()
+st_test2 &lt;- melt(st_test1, id.vars = c("id", "name"), variable.name = "test", value.name = "score")
+print(st_test2)
 
-# LONG to WIDE using pivot_wider()
-st_test3 &lt;- st_test2 %&gt;% pivot_wider(
-  names_from = test, 
-  values_from = score
-)
+# Long to wide
+st_test3 &lt;- st_test2 %&gt;% pivot_wider(names_from = test, values_from = score)
+print(st_test3)
 
-# Spread method
+# spread()
 st_test3 &lt;- spread(st_test2, test, score)
+print(st_test3)
 
-# Real-life Example: Monthly Expenses
+# Extended Example
 st_test4 &lt;- data.frame(
-  Year = rep(2021:2025, each = 12), 
-  month = rep(month.abb, times = 5), 
+  Year = rep(2021:2025, each = 12),
+  month = rep(month.abb, times = 5),
   expenses = 101:160
 )
 
-# WIDE
-wide_data &lt;- pivot_wider(
-  st_test4, names_from = month, values_from = expenses
-)
+wide_data &lt;- pivot_wider(st_test4, names_from = month, values_from = expenses)
+print(wide_data)
 
-# LONG
-long_data &lt;- pivot_longer(
-  wide_data, cols = -Year, 
-  names_to = "month", values_to = "expenses"
-)</code></pre>
-  </div>
+long_data &lt;- pivot_longer(wide_data, cols = -Year, names_to = "month", values_to = "expenses")
+print(long_data)</code></pre>
 
 </body>
 </html>
