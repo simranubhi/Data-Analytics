@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 3 - Day 1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f8f8f8;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    h3 {
+      color: #34495e;
+      margin-top: 25px;
+    }
+    pre {
+      background-color: #e8e8e8;
+      padding: 10px;
+      border-left: 5px solid #3498db;
+      overflow-x: auto;
+    }
+    ul {
+      line-height: 1.6;
+    }
+    .section {
+      background-color: #ffffff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <h2>---- WEEK 3 (DAY 1) ----</h2>
+
+  <div class="section">
+    <h3>Topics Covered:</h3>
+    <ul>
+      <li>Linear and multiple regression for stress-strain and flow rate modeling</li>
+      <li>Polynomial regression for non-linear trends</li>
+      <li>Curve fitting in mechanical systems (e.g., fatigue analysis)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>What is Time Series Analysis?</h3>
+    <ul>
+      <li>Time Series Analysis is a method of analyzing data points collected or recorded at specific time intervals (like daily, monthly, or yearly).</li>
+      <li>It helps to understand trends, seasonal effects, or make forecasts based on historical data.</li>
+    </ul>
+
+    <h4>Common Use Cases of Time Series:</h4>
+    <ul>
+      <li>Stock market prediction</li>
+      <li>Sales forecasting</li>
+      <li>Temperature and weather forecasting</li>
+      <li>Power consumption tracking</li>
+      <li>Website traffic monitoring</li>
+    </ul>
+
+    <h4>CODE for Time Series Analysis in R:</h4>
+    <pre>
+# Install and load correct package
+install.packages("forecast")      
+library(forecast)
+ts_data = ts(mtcars, frequency = 12, start = c(1999, 1))
+# Training data
+train_data = window(ts_data, start = c(1999, 1), end = c(2000, 12))
+test_data = window(ts_data, start = c(2001, 1))
+# Build and forecast ARIMA model
+arima_model = forecast::auto.arima(train_data)
+forecast_result = forecast::forecast(arima_model, h = 12)
+summary(arima_model)
+plot(forecast_result)
+    </pre>
+  </div>
+
+  <div class="section">
+    <h3>What is Regression?</h3>
+    <ul>
+      <li>Regression is a statistical technique that models and analyzes the relationships between a dependent variable and one or more independent variables.</li>
+      <li>In engineering and mechanical contexts, regression helps us model real-world physical systems using data collected through experiments or sensors.</li>
+    </ul>
+
+    <h4>-- Linear and Multiple Regression --</h4>
+    <p><strong>Definition:</strong><br>
+      Linear regression models the relationship between two variables using a straight line.<br>
+      Multiple regression involves more than one independent variable.
+    </p>
+
+    <p><strong>Use Case:</strong><br>
+      Modeling the stress-strain relationship in a material under tension or compression.<br>
+      Predicting fluid flow rate in a pipe based on diameter, pressure, and viscosity.
+    </p>
+
+    <p><strong>Real-Life Mechanical Example:</strong><br>
+      In a mechanical lab, engineers apply force to a metal rod and measure how much it stretches. By applying linear regression to the stress-strain data, they can determine the material's Young’s Modulus.
+    </p>
+
+    <h4>Polynomial Regression for Non-Linear Trends:</h4>
+    <p>
+      Polynomial regression is an extension of linear regression that models non-linear relationships by introducing powers (x², x³, etc.) of the independent variable.
+    </p>
+
+    <p><strong>Use Case:</strong> When a simple straight-line model doesn’t fit the data well.<br>
+      Ideal for material deformation, cooling curves, or motor efficiency curves.
+    </p>
+
+    <p><strong>Real-Life Mechanical Example:</strong> In a heat transfer experiment, the temperature drop of a heated metal plate over time shows a non-linear pattern. Polynomial regression helps model this decay more accurately.
+    </p>
+
+    <h4>-- Curve Fitting in Mechanical Systems (e.g., Fatigue Analysis):</h4>
+    <p>
+      Curve fitting involves finding the best-fit function (linear or non-linear) that closely follows a set of data points.
+    </p>
+
+    <p><strong>Use Case:</strong> Analyzing how a material fails over repeated cycles of stress (fatigue).</p>
+
+    <h4>---- CODE ----</h4>
+    <pre>
+# CURVE FITTING in R
+myframe = data.frame(x = c(5, 7, 8, 9, 11, 15), y = c(2, 4, 6, 8, 10, 12))
+plot(myframe$x, myframe$y, main = "Scatter Plot of x vs y",xlab = "X axis", 
+     ylab = "Y axis", pch = 10, col = "blue")
+
+# Fit models
+fit1 <- lm(y ~ x, data = myframe)                               
+fit2 <- lm(y ~ poly(x, 2, raw = TRUE), data = myframe)          
+fit3 <- lm(y ~ poly(x, 3, raw = TRUE), data = myframe) 
+fit4 <- lm(y ~ poly(x, 4, raw = TRUE), data = myframe)
+fit5 <- lm(y ~ poly(x, 5, raw = TRUE), data = myframe)
+
+# Regression models
+lines(x_axis, predict(fit1, new = data.frame(x = x_axis)), col = "green", lwd = 2)
+lines(x_axis, predict(fit2, new = data.frame(x = x_axis)), col = "red", lwd = 2)
+lines(x_axis, predict(fit3, new = data.frame(x = x_axis)), col = "purple", lwd = 2)
+lines(x_axis, predict(fit4, new = data.frame(x = x_axis)), col = "skyblue", lwd = 2)
+lines(x_axis, predict(fit5, new = data.frame(x = x_axis)), col = "yellow", lwd = 2)
+
+summary(fit1)$adj.r.squared
+summary(fit2)$adj.r.squared
+summary(fit3)$adj.r.squared
+summary(fit4)$adj.r.squared
+summary(fit5)$adj.r.squared
+    </pre>
+  </div>
+
+  <div class="section">
+    <h3>---- PROJECTS DISCUSSED ----</h3>
+    <ul>
+      <li>1. Explantory data analytics on real world data sets -- COVID 19/TITANIC</li>
+      <li>2. Time Series Forecasting on any data set</li>
+      <li>3. Sales visualizing dash board (weekly, monthly)</li>
+      <li>4. Student performance predictor and indicator</li>
+      <li>5. Health Care Data Analysis (Heart disease, Diabetes)</li>
+      <li>6. Resume screening (on text mining)</li>
+      <li>7. Web Scrapping (accumulating different info websites)</li>
+      <li>8. Statistical survey analysis</li>
+      <li>9. Geom special visualization (many S/W can be created, BEST OF ALL)</li>
+      <ul>
+        <li>9.1. For example in every city police station how many FIRs are registered → Crime rate</li>
+        <li>9.2. Air Quality of different regions in a particular city</li>
+        <li>9.3. Population density for any region</li>
+        <li><strong>Combining all: HYBRID MODEL (Take real data)</strong></li>
+      </ul>
+    </ul>
+  </div>
+
+</body>
+</html>
+                                                             
+
+
+                                                                          
