@@ -5,11 +5,20 @@
   <title>Data Analytics using R - Training Report</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* Background Animation */
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom, #2c3e50, #3498db);
-      color: #fff;
+      background: linear-gradient(120deg, #e0f7fa, #ffffff, #e8f5e9);
+      background-size: 400% 400%;
+      animation: gradientMove 20s ease infinite;
+      color: #333;
     }
 
     .container {
@@ -27,18 +36,19 @@
     h1 {
       font-size: 2.5em;
       margin-bottom: 10px;
-      color: #f1c40f;
+      color: #2c3e50;
     }
 
     h2 {
       font-size: 1.8em;
       margin-bottom: 5px;
-      color: #ecf0f1;
+      color: #2c3e50;
     }
 
     p {
       margin: 6px 0;
       font-size: 1.1em;
+      color: #34495e;
     }
 
     .section {
@@ -47,7 +57,7 @@
 
     .btn {
       display: block;
-      margin: 8px auto;
+      margin: 8px 0;
       padding: 12px 20px;
       font-size: 16px;
       border-radius: 10px;
@@ -56,8 +66,8 @@
       font-weight: bold;
       background: #34495e;
       transition: background 0.3s ease;
-      width: 200px;
-      text-align: center;
+      width: fit-content;
+      text-align: left;
     }
 
     .btn:hover {
@@ -66,31 +76,36 @@
 
     .highlight {
       background-color: #1abc9c;
+      margin: 10px;
+      display: inline-block;
+      width: auto;
+      text-align: center;
     }
 
     .week-box {
-      background-color: rgba(255, 255, 255, 0.05);
-      border: 1px solid #2980b9;
+      background-color: #ffffffee;
+      border: 1px solid #bdc3c7;
       border-radius: 10px;
       padding: 20px;
       margin-bottom: 30px;
       text-align: left;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
     .week-heading {
       background-color: #2980b9;
-      color: #fff;
+      color: white;
       padding: 10px 15px;
       border-radius: 6px;
       margin-bottom: 15px;
-      display: inline-block;
       font-size: 1.4em;
+      text-align: center;
     }
 
     .footer {
       margin-top: 60px;
       font-size: 14px;
-      color: #bdc3c7;
+      color: #7f8c8d;
     }
   </style>
 </head>
@@ -138,8 +153,8 @@
     </div>
 
     <div class="section">
-      <a href="gallery.html" class="btn">Gallery</a>
-      <a href="projects.html" class="btn">Projects</a>
+      <a href="gallery.html" class="btn highlight">Gallery</a>
+      <a href="projects.html" class="btn highlight">Projects</a>
     </div>
 
     <div class="footer">
@@ -148,5 +163,3 @@
   </div>
 </body>
 </html>
-
-    
