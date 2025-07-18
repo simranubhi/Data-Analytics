@@ -1,43 +1,38 @@
-                                                                     <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Week 2 - Day 1</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f9ff;
-      margin: 20px;
-      padding: 20px;
+body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
     }
-    h2 {
-      text-align: center;
-      color: #003366;
+    h1, h2, h3 {
+      color: #2c3e50;
     }
     pre {
-      background-color: #e6f2ff;
+      background: #f4f4f4;
       padding: 10px;
-      border-left: 5px solid #3399ff;
+      border-left: 4px solid #3498db;
       overflow-x: auto;
     }
-    .concept-box {
-      background-color: #dff0d8;
-      border-left: 5px solid #3c763d;
-      padding: 10px;
-      margin-bottom: 20px;
+    ul {
+      margin-top: 0;
     }
-    hr {
-      border: none;
-      border-top: 2px solid #ccc;
-      margin: 20px 0;
-    }
+
   </style>
 </head>
 <body>
 
-  <h2>---- Week 2 (DAY-1) ----</h2>
-  <h3 style="text-align: center;">Topics Covered:</h3>
+  <h2>Week 2 (DAY-1)</h2>
+  <h3 style="text-align: left;">Topics Covered:</h3>
   <ul>
     <li>Working with Built-in Datasets</li>
     <li>Data Exploration</li>
@@ -75,11 +70,11 @@ data(package = .packages(all.available = TRUE))
 all.datasets <- data(package = "datasets")$results[, "Item"]
 length(all.datasets)
   </pre>
-  <div class="concept-box">
+
     <b>Concepts Covered:</b><br/>
-    - Viewing all available datasets<br/>
-    - Counting the number of built-in datasets<br/>
-    - Loading specific datasets for analysis
+    <li> Viewing all available datasets<br/></li>
+    <li>Counting the number of built-in datasets<br/></li> 
+    <li>Loading specific datasets for analysis</li>
   </div>
 
   <h3>2. Exploring the AirPassengers Dataset (Time Series)</h3>
@@ -89,11 +84,11 @@ length(all.datasets)
 abc = AirPassengers
 dim(AirPassengers)
   </pre>
-  <div class="concept-box">
-    <b>Concepts Covered:</b><br/>
-    - Accessing help/documentation using ?<br/>
-    - Assigning a dataset to a variable<br/>
-    - Checking dataset structure using dim()
+  
+    <p><b>Concepts Covered:</b><br/></p>
+    <li>  Accessing help/documentation using ?<br/>  </li>
+    <li>  Assigning a dataset to a variable<br/> </li>
+    <li>  Checking dataset structure using dim() </li>
   </div>
 
   <h3>3. Exploring the iris Dataset (Data Frame)</h3>
@@ -106,10 +101,10 @@ names(abc)
 rownames(abc)
   </pre>
   <div class="concept-box">
-    <b>Concepts Covered:</b><br/>
-    - Dataset exploration: dimensions, column names, row names<br/>
-    - Understanding data structure<br/>
-    - Assigning datasets to variables
+    <p><b>Concepts Covered:</b><br/></p>
+    <li>  Dataset exploration: dimensions, column names, row names<br/> </li>
+    <li>  Understanding data structure<br/> </li> 
+    <li>  Assigning datasets to variables </li> 
   </div>
 
   <h3>4. Accessing Columns and Data Values</h3>
@@ -119,11 +114,10 @@ abc$Sepal.Length
 sort(abc$Sepal.Length)
 summary(abc)
   </pre>
-  <div class="concept-box">
-    <b>Concepts Covered:</b><br/>
-    - Extracting a column using $<br/>
-    - Sorting data in ascending order<br/>
-    - Getting summary statistics like min, max, median, and quartiles
+<p> <b>Concepts Covered:</b><br/> </p>
+    <li> Extracting a column using $<br/> </li> 
+    <li>  Sorting data in ascending order<br/> </li>
+    <li> Getting summary statistics like min, max, median, and quartiles </li> 
   </div>
 
   <h3>5. Descriptive Statistics</h3>
@@ -138,11 +132,11 @@ max(abc$Sepal.Length)
 mean(abc$Sepal.Length)
 median(abc$Sepal.Length)
   </pre>
-  <div class="concept-box">
-    <b>Concepts Covered:</b><br/>
-    - Finding minimum and maximum values<br/>
-    - Identifying the row index of min/max using which.min() and which.max()<br/>
-    - Calculating mean and median
+  
+   <p>  <b>Concepts Covered:</b><br/> </p>
+    <li> Finding minimum and maximum values<br/> </li> 
+    <li> Identifying the row index of min/max using which.min() and which.max()<br/></li>
+    <li> Calculating mean and median </li> 
   </div>
 
   <h3>6. Finding the Mode (Most Frequent Value)</h3>
@@ -150,12 +144,13 @@ median(abc$Sepal.Length)
   <pre>
 names(sort(-table(abc$Sepal.Length)))  # mode
   </pre>
-  <div class="concept-box">
-    <b>Concepts Covered:</b><br/>
-    - Creating a frequency table using table()<br/>
-    - Sorting frequencies in descending order<br/>
-    - Extracting the value with the highest frequency (mode)
+  <p>  <b>Concepts Covered:</b><br/>  </p>
+    
+    <li> Creating a frequency table using table()<br/> </li> 
+    <li>  Sorting frequencies in descending order<br/> </li>
+    <li>  Extracting the value with the highest frequency (mode)</li> 
   </div>
 
 </body>
 </html>
+
