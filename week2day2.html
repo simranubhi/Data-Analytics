@@ -1,4 +1,4 @@
-                                                                   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -6,36 +6,33 @@
   <title>Week 2 Day 2 - Data Analytics using R</title>
   <style>
     body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background-color: #f0f9ff;
-      padding: 30px;
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
       line-height: 1.6;
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
     }
-    h1, h2 {
-      text-align: center;
-      color: #003366;
+    h1, h2, h3 {
+      color: #2c3e50;
     }
     pre {
-      background: #fff;
-      padding: 12px;
-      border-left: 5px solid #3399ff;
+      background: #f4f4f4;
+      padding: 10px;
+      border-left: 4px solid #3498db;
       overflow-x: auto;
     }
-    .concepts {
-      background-color: #e6f7ff;
-      border-left: 4px solid #007acc;
-      padding: 10px 15px;
-      margin: 20px 0;
-      font-weight: bold;
+    ul {
+      margin-top: 0;
     }
   </style>
 </head>
 <body>
 
-  <h1>---- Week 2 (DAY-2) ----</h1>
+  <h1>Week 2 (DAY-2)</h1>
 
-  <div class="concepts">1. Data Frames and Tibbles</div>
+1. Data Frames and Tibbles</div>
   <p>Data frames are the most common way to store tabular data in R, consisting of rows and columns.<br>
   They can hold different data types (numeric, character, etc.) in each column.<br>
   Tibbles are a modern version of data frames from the tibble package, designed to print cleaner output and behave consistently with the tidyverse.<br>
@@ -45,7 +42,7 @@
   <pre><code>df &lt;- data.frame(ID = c(1, 2), Name = c("A", "B"))
 tb &lt;- tibble::tibble(ID = c(1, 2), Name = c("A", "B"))</code></pre>
 
-  <div class="concepts">2. Reading/Writing CSV, Excel, and Text Files</div>
+  2. Reading/Writing CSV, Excel, and Text Files</div>
   <p>Data in real-world projects usually comes from external files like CSVs or Excel sheets.<br>
   R supports reading files using read.csv() and Excel files using read_excel() (via readxl package).<br>
   You can also export data frames back to files using write.csv() or write_xlsx().<br>
@@ -65,7 +62,7 @@ install.packages("writexl")
 library(writexl)
 write_xlsx(data_frame, "output.xlsx")</code></pre>
 
-  <div class="concepts">3. Data Exploration</div>
+ 3. Data Exploration</div>
   <p>Before analyzing data, it's important to explore and understand its structure and contents.<br>
   Functions like head(), dim(), str(), and summary() are used to inspect rows, columns, data types, and basic statistics.<br>
   Exploration helps identify missing values, unusual patterns, and variable types.<br>
@@ -78,14 +75,14 @@ names(data) #review variable names
 summary(data)
 str(data)</code></pre>
 
-  <div class="concepts">4. Data Cleaning Basics</div>
+  4. Data Cleaning Basics</div>
   <p>Data cleaning involves removing errors, fixing inconsistencies, and preparing data for analysis.<br>
   It includes handling missing values, correcting data types, and removing duplicates.<br>
   R provides functions like is.na(), na.omit(), and duplicated() to assist in cleaning.<br>
   Proper cleaning ensures the quality and accuracy of analysis.<br>
   Without this step, insights drawn from data may be unreliable or misleading.</p>
 
-  <div class="concepts">5. Handling Missing Values</div>
+5. Handling Missing Values</div>
   <p>Missing data is common in real-world datasets, and must be addressed carefully.<br>
   You can detect missing values using is.na() and decide whether to drop or impute them.<br>
   na.omit() removes rows with NAs, while tidyr::fill() can propagate non-missing values.<br>
@@ -95,7 +92,7 @@ str(data)</code></pre>
   <pre><code>is.na(df)
 df &lt;- tidyr::fill(df, column_name, .direction = "updown")</code></pre>
 
-  <div class="concepts">6. Filtering, Selecting, and Renaming Columns</div>
+  6. Filtering, Selecting, and Renaming Columns</div>
   <p>Using the dplyr package, you can filter rows (filter()), select specific columns (select()), and rename columns (rename()).<br>
   This helps you focus only on relevant parts of the dataset for your task.<br>
   For example, filtering students with marks &gt; 75, or selecting only Name and Age columns.<br>
@@ -106,7 +103,7 @@ df &lt;- tidyr::fill(df, column_name, .direction = "updown")</code></pre>
 select(df, Name, Age)
 rename(df, FullName = Name)</code></pre>
 
-  <div class="concepts">7. Type Conversions and String Handling</div>
+7. Type Conversions and String Handling</div>
   <p>Type conversion functions like as.numeric(), as.character(), and as.factor() ensure data is in the correct format.<br>
   String handling includes modifying and inspecting text using functions like tolower(), toupper(), and nchar().<br>
   These are useful when dealing with messy or imported data where formats are inconsistent.<br>
@@ -119,7 +116,7 @@ as.numeric(), as.character(), as.factor()
 # String Functions
 tolower("TEXT"), toupper("text"), nchar("string")</code></pre>
 
-  <div class="concepts">8. Data Wrangling with dplyr and tidyr</div>
+  8. Data Wrangling with dplyr and tidyr</div>
   <p>Wrangling refers to transforming raw data into a usable format.<br>
   dplyr offers functions like mutate() to create new variables and arrange() to sort data.</p>
 
@@ -130,7 +127,7 @@ mutate(df, AgeSquared = Age^2)
 group_by(df, Department) %&gt;%
   summarise(AvgSalary = mean(Salary, na.rm = TRUE))</code></pre>
 
-  <h2>--- CODING PRACTICE ---</h2>
+  <h2>CODING PRACTICE</h2>
 
   <pre><code># Load the required package
 library(tidyr)
@@ -186,3 +183,4 @@ print(long_data)</code></pre>
 
 </body>
 </html>
+
