@@ -1,142 +1,160 @@
-Week 2 (DAY-5)
-Advanced Plotting and Layout Management in R
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 2 (DAY-5) - Advanced Plotting in R</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .concept-box {
+      background-color: #f0f9ff;
+      border-left: 5px solid #3498db;
+      padding: 10px;
+      margin: 20px 0;
+    }
+    pre {
+      background-color: #f4f4f4;
+      border-left: 4px solid #3498db;
+      padding: 10px;
+      overflow-x: auto;
+    }
+    strong {
+      background-color: #e0f0ff;
+      padding: 2px 6px;
+    }
+    p {
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <h1>Week 2 (DAY-5)</h1>
+  <h2>Advanced Plotting and Layout Management in R</h2>
 
+  <div class="concept-box">
+    <strong>Topics Covered:</strong>
+    <ul>
+      <li>Creating Boxplots, Density plots, Line charts, and Scatter plots.</li>
+      <li>Customizing and combining plots.</li>
+      <li>Creating multi-plot layouts.</li>
+      <li>Improving data presentation for reports/dashboards.</li>
+    </ul>
+  </div>
 
-To learn how to generate multiple types of statistical plots using the `ggplot2` package in R and arrange them into customized layouts
-using the `patchwork` and `cowplot` libraries.
+  <h2>1. Introduction to Plotting in R</h2>
+  <p>In data analytics, visualizing data is critical for understanding underlying patterns, distributions, and relationships. R provides a wide range of plotting options, and one of the most widely used libraries is <code>ggplot2</code>, which follows the <strong>Grammar of Graphics</strong> concept.</p>
+  <p>Data visualization helps uncover trends and patterns that are not easily observable in raw data tables. A well-designed plot can convey complex information quickly and effectively. R offers both base plotting functions and advanced plotting systems like <code>ggplot2</code> for more elegant and flexible visualizations.</p>
 
-Topics Covered:
-- Creating Boxplots, Density plots, Line charts, and Scatter plots.
-- Customizing and combining plots.
-- Creating multi-plot layouts.
-- Improving data presentation for reports/dashboards.
+  <p>This session explores how to:</p>
+  <ul>
+    <li>Generate statistical plots using <code>ggplot2</code></li>
+    <li>Arrange multiple plots in complex layouts using <code>patchwork</code> and <code>cowplot</code></li>
+  </ul>
 
-
-1. Introduction to Plotting in R
-
-In data analytics, visualizing data is critical for understanding underlying patterns, distributions, and relationships. R provides a wide range of plotting options, and one of the most widely used libraries is `ggplot2`, which follows the **Grammar of Graphics** concept.
-
-This session explores how to:
-- Generate statistical plots using `ggplot2`
-- Arrange multiple plots in complex layouts using `patchwork` and `cowplot`
-
-
-2. Installing and Loading Required Packages
-
-Before plotting, we install and load the required R packages.
-
-install.packages("ggplot2")     # Main plotting library
+  <h2>2. Installing and Loading Required Packages</h2>
+  <p>Before plotting, we need to install and load essential libraries that offer extended functionalities. The <code>ggplot2</code> package is part of the tidyverse and provides a system for declaratively creating graphics. The <code>patchwork</code> and <code>cowplot</code> libraries help in managing layouts and combining multiple plots.</p>
+  <pre><code>install.packages("ggplot2")     # Main plotting library
 install.packages("patchwork")   # For combining plots easily
 install.packages("cowplot")     # Advanced layout customizations
 
 library(ggplot2)
 library(patchwork)
-library(cowplot)
+library(cowplot)</code></pre>
 
-
-3. Data Generation
-We create a synthetic dataset using the runif() function to simulate 100 uniformly distributed values.
-
-set.seed(123)                        # Ensure reproducibility
+  <h2>3. Data Generation</h2>
+  <p>For plotting, we often use sample data to demonstrate features. Here we generate a uniform distribution of 100 values and wrap it inside a data frame for visualization. Uniform distributions are useful when we want evenly spread random data across a range.</p>
+  <pre><code>set.seed(123)                        # Ensure reproducibility
 x = runif(100)                       # 100 random numbers from Uniform(0,1)
 myframe = data.frame(x = seq_along(x), var = x)  # Combine into data frame
-print(myframe)
-runif(n): Generates n random numbers from a uniform distribution between 0 and 1.
-seq_along(x): Creates a sequence from 1 to the length of x.
+print(myframe)</code></pre>
+  <p><strong>runif(n)</strong>: Generates n random numbers from a uniform distribution between 0 and 1.<br>
+  <strong>seq_along(x)</strong>: Creates a sequence from 1 to the length of x.</p>
 
-4. Creating Individual Plots Using ggplot2
-a. Boxplot
-Purpose: A boxplot, or box-and-whisker plot, provides a graphical summary of the distribution of a numeric variable. It highlights:
+  <h2>4. Creating Individual Plots Using ggplot2</h2>
+  <strong>a. Boxplot</strong>
+  <p>Purpose: A boxplot provides a graphical summary of the distribution of a numeric variable. It highlights:</p>
+  <ul>
+    <li>Median (central value)</li>
+    <li>Interquartile range (IQR - middle 50%)</li>
+    <li>Outliers</li>
+    <li>Minimum and maximum values</li>
+  </ul>
+  <p>Boxplots are essential when comparing distributions across groups. They are widely used in exploratory data analysis.</p>
+  <pre><code>plot1 = ggplot(myframe, aes(x = " ", y = var)) + geom_boxplot()
+print(plot1)</code></pre>
 
-Median (central value)
-Interquartile range (IQR - middle 50%)
-Outliers
-Minimum and maximum values
+  <strong>b. Density Plot</strong>
+  <p>Purpose: A density plot is a smoothed version of a histogram, used to visualize the probability distribution of a continuous numeric variable.</p>
+  <p>Density plots are particularly useful when comparing the distribution shapes of multiple variables or groups. The area under the density curve represents the probability distribution of the variable.</p>
+  <pre><code>plot2 = ggplot(myframe, aes(x = var)) + geom_density(fill = "white")
+print(plot2)</code></pre>
 
-Code:
-plot1 = ggplot(myframe, aes(x = " ", y = var)) + geom_boxplot()
-print(plot1)
+  <strong>c. Line Chart</strong>
+  <p>Purpose: A line chart is useful for visualizing data trends or changes across a sequence.</p>
+  <p>Line charts are ideal for time-series data and are effective in showing continuous changes over a period. They help in spotting trends, cycles, and fluctuations.</p>
+  <pre><code>plot3 = ggplot(myframe, aes(x = x, y = var)) + geom_line()
+print(plot3)</code></pre>
 
-Explanation: Here, the boxplot shows how the randomly generated variable var is distributed. Since we use a single variable,
-the x-axis is set as a blank string " " to indicate it's a single-group visualization. The y-axis shows the variable distribution.
+  <strong>d. Scatter Plot</strong>
+  <p>Purpose: A scatter plot is used to visualize the relationship between two numeric variables.</p>
+  <p>Scatter plots help identify correlations, clusters, or anomalies in data. When used with color or size encodings, they become a powerful multi-dimensional visualization tool.</p>
+  <pre><code>plot4 = ggplot(myframe, aes(x = x, y = var)) + geom_point()
+print(plot4)</code></pre>
 
-b. Density Plot
-Purpose: A density plot is a smoothed version of a histogram, used to visualize the probability distribution of a continuous numeric variable.
-It gives a clearer view of where values are concentrated over the range.
-
-Code:
-plot2 = ggplot(myframe, aes(x = var)) + geom_density(fill = "white")
-print(plot2)
-
-Explanation: This code plots the kernel density estimate of var. The geom_density() layer automatically smooths the frequency of data points, 
-giving a curve that highlights where the data is most dense. This plot is helpful to see skewness or multimodal distributions.
-
-Note: This corrects the earlier misuse of stat_function(fun = pnorm), which is typically applied to plot theoretical distributions like the standard normal curve.
-
-c. Line Chart
-Purpose: A line chart is useful for visualizing data trends or changes across a sequence, such as over time, indices, or ordered categories.
-
-Code:
-plot3 = ggplot(myframe, aes(x = x, y = var)) + geom_line()
-print(plot3)
-Explanation: Here, x is a sequence from 1 to 100 and var is the corresponding randomly generated value. 
-The line chart connects each point with lines, which makes it easy to spot upward or downward patterns, fluctuations, or cycles in the data.
-
-d. Scatter Plot
-Purpose: A scatter plot is used to visualize the relationship between two numeric variables. It helps detect correlations, clustering, or patterns.
-
-Code:
-plot4 = ggplot(myframe, aes(x = x, y = var)) + geom_point()
-print(plot4)
-Explanation: This plot shows each (x, var) pair as an individual point on the plane. If there were any correlation or trend, it would become
-apparent through the clustering or orientation of points. In this example, since var is generated randomly, the plot shows no obvious pattern.
-
-5. Combining Plots using Patchwork
-The patchwork package is a powerful layout system for ggplot2 plots. It uses intuitive operators like | and / to arrange plots horizontally or vertically.
-
-a. Custom Layout Using Design String
-design <- "234
+  <h2>5. Combining Plots using Patchwork</h2>
+  <p>The <code>patchwork</code> package allows users to combine multiple <code>ggplot</code> objects into a single visualization layout. It uses intuitive syntax to design custom layouts, enabling comparison and storytelling through visual design.</p>
+  <strong>a. Custom Layout Using Design String</strong>
+  <pre><code>design &lt;- "234
            111"
 plot = plot1 + plot2 + plot3 + plot4 + plot_layout(design = design)
-plot
-This layout places plot1 at the bottom, and plots 2, 3, 4 at the top.
+plot</code></pre>
 
-b. Using wrap_plots() with Custom Dimensions
-var1 = wrap_plots(plot1, plot2, plot3, plot4, 
+  <strong>b. Using wrap_plots() with Custom Dimensions</strong>
+  <pre><code>var1 = wrap_plots(plot1, plot2, plot3, plot4, 
                   nrow = 2, ncol = 2,
                   widths = c(0.5, 2), heights = c(0.5, 1))
-var1
-wrap_plots() arranges plots in a grid with control over spacing.
+var1</code></pre>
 
-c. Adding Empty Spaces with plot_spacer()
-var1 = wrap_plots(plot1, plot_spacer(), plot_spacer(), plot4, 
+  <strong>c. Adding Empty Spaces with plot_spacer()</strong>
+  <pre><code>var1 = wrap_plots(plot1, plot_spacer(), plot_spacer(), plot4, 
                   nrow = 2, ncol = 2)
-var1
-plot_spacer() is used to leave blank cells in the layout.
+var1</code></pre>
 
- 6. Combining Plots Using Operators
-Patchwork also supports shorthand notation using / (vertical) and | (horizontal).
+  <h2>6. Combining Plots Using Operators</h2>
+  <p>Patchwork allows use of operators like <code>|</code> (horizontal) and <code>/</code> (vertical) to align plots logically. This syntax is both intuitive and powerful for complex layout designs.</p>
+  <pre><code>plot1 | plot2            # Horizontal combination
+plot1 / plot2            # Vertical combination</code></pre>
 
-plot1 | plot2            # Horizontal combination
-plot1 / plot2            # Vertical combination
+  <strong>Nested Layout Example</strong>
+  <pre><code>plot1 | (plot2 / plot3)</code></pre>
 
-  Nested Layout Example
-plot1 | (plot2 / plot3)
-
-  With Annotations
-(plot1 | ((plot2 | plot3) / plot4)) + 
+  <strong>With Annotations</strong>
+  <pre><code>(plot1 | ((plot2 | plot3) / plot4)) + 
   plot_annotation(
     title = "PLOTS",
     subtitle = "Plot1",
     caption = "Combination of 4 plots"
-  )
+  )</code></pre>
 
-  7. Plot Nesting and Layout using Cowplot
-The cowplot library gives finer control over spacing, alignment, and nested grid layout.
-plot_grid(plot1, plot2, plot3, plot4, 
-          nrow = 3, ncol = 3, align = "h")
-plot_grid() is used for structured grid layouts.
+  <h2>7. Plot Nesting and Layout using Cowplot</h2>
+  <p>The <code>cowplot</code> package offers tools for aligning and nesting plots with great control over spacing, margins, and relative sizes. It's commonly used for publication-ready multi-panel figures.</p>
+  <pre><code>plot_grid(plot1, plot2, plot3, plot4, 
+          nrow = 3, ncol = 3, align = "h")</code></pre>
 
- Nesting Example
-plot_grid(plot1, plot_grid(plot2, plot3), ncol = 1)
-This nests plot2 and plot3 vertically beside plot1.
+  <strong>Nesting Example</strong>
+  <pre><code>plot_grid(plot1, plot_grid(plot2, plot3), ncol = 1)</code></pre>
+
+</body>
+</html>
+
