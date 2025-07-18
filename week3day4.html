@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Week 3 (DAY-3)</title>
+  <title>Week 4 (DAY-1)</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -18,7 +18,7 @@
       color: #2c3e50;
     }
     pre {
-      background-color: #f4f4f4;
+      background-color: #f0f0f0;
       padding: 10px;
       border-left: 5px solid #3498db;
       overflow-x: auto;
@@ -32,139 +32,107 @@
   </style>
 </head>
 <body>
-  <h1>Week 3 (DAY-3)</h1>
+  <h1>WEEK 4 - DAY 1</h1>
+  <h2>3D Plotting, Animation & Histograms in R</h2>
 
   <div class="concept-box">
-    <strong>Concepts Covered:</strong>
-    <ul>
-      <li>Spatial & Geotechnical Data in Civil Engineering</li>
-      <li>Mapping with sf or leaflet</li>
-      <li>Geotechnical Borehole Data Visualization</li>
-      <li>Soil Type Mapping and Interpolation</li>
-      <li>Mechanical Testing and Simulation Data</li>
-    </ul>
+    <strong>Concepts Covered:</strong> 3D plotting using rgl, animated bar plots using gganimate, base R histograms and bar plots, multiple histograms, histograms using ggplot2.
   </div>
 
-  <h2>1. Spatial & Geotechnical Data in Civil Engineering</h2>
-  <p>
-    Spatial and geotechnical data play a critical role in civil engineering for site investigation, foundation design, and risk assessment. Spatial data includes coordinates and shapes of geographical features, while geotechnical data includes subsurface properties such as soil type, density, moisture content, etc.
-  </p>
-  <p>
-    These datasets help engineers make informed decisions on infrastructure safety and sustainability. With R, these data types can be processed together, enhancing the visualization and predictive analysis for civil applications.
-  </p>
+  <h3>1. 3D Plotting Using <code>rgl</code></h3>
+  <p>The <code>rgl</code> package in R facilitates real-time 3D plotting, providing interactive and animated visualizations. It is widely used in spatial analytics, geospatial mapping, and visual exploration of multivariate datasets.</p>
+  <p>It supports scatter plots, bar plots, bounding boxes, and rotation/animation controls, offering high flexibility.</p>
+  <pre><code>library(rgl)
 
-  <h2>2. Mapping with sf or leaflet</h2>
-  <p>
-    <code>sf</code> is used for reading and analyzing spatial vector data like points (boreholes), lines (roads), or polygons (land parcels). 
-    <code>leaflet</code> creates interactive web maps to visualize spatial data.
-  </p>
-  <p>
-    These libraries are essential in visualizing spatial patterns and conducting geographical analysis. Interactive maps using leaflet are especially useful for presenting data to stakeholders and clients.
-  </p>
-  <pre><code># Load required libraries
-library(sf)
-library(leaflet)
+# Custom Data
+myframe &lt;- data.frame(x = c(1, 2, 3), y = c(5, 6, 7), z = c(2, 5, 7))
+plot3d(myframe$x, myframe$y, myframe$z, col = "blue",
+       xlab = "X axis", ylab = "Y axis", zlab = "Z axis")
+bg3d(color = "skyblue")
+bbox3d(color = "yellow")
+play3d(spin3d(axis = c(0, 0, 1), rpm = 2), duration = 20)
 
-# Reading a shapefile (replace with your file path)
-soil_map &lt;- st_read("data/soil_shapes.shp")
+# Using iris dataset
+plot3d(iris$Sepal.Length, iris$Sepal.Width, iris$Petal.Length,
+       size = 1, xlab = "Sepal Length", ylab = "Sepal Width", zlab = "Petal Length")
 
-# Basic plot using sf
-plot(soil_map["Soil_Type"])
+# 3D Bar Chart
+for(i in 1:5) {
+  lines3d(x = rep(i, 2), y = rep(0, 2), z = c(0, iris$Petal.Length[i]), col = "skyblue", lwd = 10)
+}
+axes3d()
+title3d(main = "3D Bar Plot for First 5 Petal Lengths", 
+        xlab = "Index (1 to 5)", ylab = "Fixed Y (0)", zlab = "Petal Length")
+view3d(theta = 45, phi = 30)
+play3d(spin3d(axis = c(0, 0, 1), rpm = 10), duration = 5)</code></pre>
 
-# Interactive map with leaflet
-leaflet(soil_map) %&gt;%
-  addTiles() %&gt;%
-  addPolygons(color = "blue", weight = 1, fillOpacity = 0.5, popup = ~Soil_Type)</code></pre>
+  <h3>2. Animated Bar Plots Using <code>gganimate</code></h3>
+  <p><code>gganimate</code> extends <code>ggplot2</code> to animate time-based or state-based transitions, making data visualization more engaging and intuitive.</p>
+  <p>These animations are ideal for comparing monthly trends, dynamic metrics, and changing values in a categorical context.</p>
+  <pre><code>library(ggplot2)
+library(gganimate)
+library(gifski)
 
-  <h2>3. Geotechnical Borehole Data Visualization</h2>
-  <p>
-    Borehole data includes depth-wise soil strata information and is crucial for understanding the subsurface profile. Visualization helps geotechnical engineers see soil transitions, water table depth, and rock layers.
-  </p>
-  <p>
-    R’s visualization tools like ggplot2 make it easy to interpret borehole logs, aiding in safe foundation and excavation planning. These visualizations support quick and accurate decision-making.
-  </p>
-  <pre><code># Simulated borehole data
-borehole &lt;- data.frame(
-  Depth = c(0, 1.5, 3, 5, 7),
-  Soil = c("Topsoil", "Clay", "Silty Clay", "Sand", "Gravel")
+# Sample Data
+mydata &lt;- data.frame(
+  Month = rep(c("January", "February", "March"), each = 4),
+  Category = rep(c("Rent", "Water", "Electricity", "Groceries"), times = 3),
+  Amount = c(15000, 3000, 1200, 4300, 11000, 1200, 2250, 4100, 9000, 3356, 3300, 1231)
 )
 
-# Visualizing borehole strata
-library(ggplot2)
+# Plot
+p &lt;- ggplot(mydata, aes(x = Category, y = Amount, fill = Category)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Monthly Expenses", x = "Category", y = "Amount (₹)") +
+  theme_minimal() +
+  transition_states(Month, transition_length = 1, state_length = 1) +
+  ggtitle("Month: {closest_state}")
 
-ggplot(borehole, aes(x = "", y = Depth, fill = Soil)) +
-  geom_bar(stat = "identity", width = 0.5) +
-  scale_y_reverse() +
-  labs(title = "Borehole Profile", y = "Depth (m)", x = "") +
+animate(p, renderer = gifski_renderer())
+anim_save("monthly_expenses.gif", animation = last_animation())</code></pre>
+
+  <h3>3. Base R Histogram & Bar Plots</h3>
+  <p>Histograms and bar plots in base R provide essential ways to examine data distribution and comparisons without any external packages.</p>
+  <p>These plots can be customized with colors, labels, breakpoints, and legends for better clarity in communication.</p>
+  <pre><code># Histogram with labels
+v &lt;- c(19, 23, 11, 5, 16, 21, 32, 14, 19, 27, 39, 120, 40, 70, 90)
+m &lt;- hist(v, xlab = "Weight", ylab = "Frequency", col = "darkmagenta", border = "pink", breaks = 5)
+text(m$mids, m$counts, labels = m$counts, adj = c(0.5, -0.5))
+
+# Bar Plot
+sepal_length &lt;- iris$Sepal.Length[1:5]
+sepal_width &lt;- iris$Sepal.Width[1:5]
+petal_length &lt;- iris$Petal.Length[1:5]
+
+data_matrix &lt;- rbind(sepal_length, sepal_width, petal_length)
+par(bg = "lightyellow")
+barplot(data_matrix, beside = TRUE,
+        col = c("skyblue", "orange", "lightgreen"),
+        names.arg = paste("Row", 1:5),
+        legend.text = c("Sepal Length", "Sepal Width", "Petal Length"),
+        args.legend = list(x = "topright", bty = "n"),
+        xlab = "Sample Index", ylab = "Value",
+        main = "Bar Chart of Sepal & Petal Measurements (First 5 Samples)")</code></pre>
+
+  <h3>4. Multiple Histograms in One Frame</h3>
+  <p>By using the <code>par(mfrow = c(...))</code> function, R allows users to layout multiple plots in one screen. This is useful for comparative analysis across variables.</p>
+  <p>This technique helps in efficient visual scanning of variable-wise distributions for patterns and anomalies.</p>
+  <pre><code>par(mfrow = c(2, 2), bg = "lightyellow")
+
+hist(iris$Sepal.Length, main = "Sepal Length", xlab = "Length", col = "skyblue", border = "blue")
+hist(iris$Sepal.Width, main = "Sepal Width", xlab = "Width", col = "orange", border = "darkorange")
+hist(iris$Petal.Length, main = "Petal Length", xlab = "Length", col = "lightgreen", border = "green4")
+hist(iris$Petal.Width, main = "Petal Width", xlab = "Width", col = "plum", border = "purple")</code></pre>
+
+  <h3>5. Histogram Using <code>ggplot2</code></h3>
+  <p><code>ggplot2</code> offers aesthetically pleasing histogram plots using grammar of graphics. It supports layering, color scaling, bin control, and species-based filtering.</p>
+  <p>This approach is widely used in modern analytics dashboards and publications for its clean output and flexibility.</p>
+  <pre><code>library(ggplot2)
+
+ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
+  geom_histogram(binwidth = 0.3, position = "identity", alpha = 0.5) +
+  labs(title = "Histogram of Sepal Length by Species") +
   theme_minimal()</code></pre>
-
-  <h2>4. Case: Soil Type Mapping and Interpolation</h2>
-  <p>
-    Soil properties are often measured at specific locations, and interpolation helps estimate values at unknown locations. Common techniques include:
-    IDW (Inverse Distance Weighting), Kriging, and Spline interpolation.
-  </p>
-  <p>
-    These techniques help build continuous maps from discrete data points. R’s geostatistical packages like <code>gstat</code> and <code>sp</code> allow robust spatial interpolation and visualization.
-  </p>
-  <pre><code>library(sp)
-library(gstat)
-
-# Simulated soil data
-coords &lt;- data.frame(x = c(1, 2, 3, 4), y = c(1, 2, 1, 2))
-values &lt;- data.frame(soil_ph = c(6.5, 6.8, 7.0, 6.9))
-soil_points &lt;- SpatialPointsDataFrame(coords, data = values)
-
-# Create interpolation grid
-x.range &lt;- seq(0, 5, by = 0.1)
-y.range &lt;- seq(0, 5, by = 0.1)
-grid &lt;- expand.grid(x = x.range, y = y.range)
-coordinates(grid) &lt;- ~x + y
-gridded(grid) &lt;- TRUE
-
-# IDW interpolation
-idw_result &lt;- idw(soil_ph ~ 1, soil_points, newdata = grid)
-
-# Plot result
-spplot(idw_result, main = "Interpolated Soil pH Map")</code></pre>
-
-  <h2>5. Mechanical Testing and Simulation Data</h2>
-  <p>
-    Simulations like FEA (Finite Element Analysis) or CFD (Computational Fluid Dynamics) are used to model structural stress, deformations, heat flow or fluid dynamics.
-  </p>
-  <p>
-    These methods generate large datasets that reflect performance under various conditions. R enables detailed post-processing, visualization, and statistical analysis of such simulation outputs.
-  </p>
-
-  <h2>6. Importing Simulation Output (FEA/CFD)</h2>
-  <p>
-    You can import CSV or text output from simulation software (like ANSYS or ABAQUS) into R for summary or visualization.
-  </p>
-  <p>
-    This process helps engineers interpret results quickly, especially for large node-based data from mesh simulations.
-  </p>
-  <pre><code># Reading simulation output
-fea_data &lt;- read.csv("data/fea_output.csv")
-
-# Example: columns might be NodeID, Stress, Displacement
-head(fea_data)</code></pre>
-
-  <h2>7. Statistical Summary of Output Variables</h2>
-  <p>
-    Analyzing simulation results involves understanding variation in stress, strain, or velocity to evaluate safety and performance.
-  </p>
-  <p>
-    This statistical overview helps engineers identify potential failure zones, optimize designs, and report key findings clearly.
-  </p>
-  <pre><code># Summary statistics
-summary(fea_data$Stress)
-summary(fea_data$Displacement)
-
-# Histogram of stress
-ggplot(fea_data, aes(x = Stress)) +
-  geom_histogram(fill = "skyblue", bins = 30) +
-  labs(title = "Stress Distribution", x = "Stress (MPa)", y = "Count") +
-  theme_minimal()</code></pre>
-
 </body>
 </html>
 
