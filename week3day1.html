@@ -7,29 +7,35 @@
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
-      background-color: #f8f8f8;
+      background-color: #fdfdfd;
       max-width: 900px;
       margin: auto;
       color: #333;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+      text-align: left;
     }
     h2 {
-      text-align: center;
-      color: #2c3e50;
       border-bottom: 2px solid #ccc;
       padding-bottom: 5px;
     }
-    h3, h4 {
-      color: #34495e;
-      margin-top: 25px;
-    }
     pre {
-      background-color: #e8e8e8;
+      background-color: #f4f4f4;
       padding: 10px;
-      border-left: 5px solid #3498db;
+      border-left: 4px solid #3498db;
       overflow-x: auto;
     }
     ul {
+      margin-top: 0;
       line-height: 1.6;
+    }
+    .concept-box {
+      background-color: #e0f7fa;
+      border-left: 4px solid #00796b;
+      padding: 10px 20px;
+      margin: 20px 0;
     }
     .section {
       background-color: #ffffff;
@@ -38,11 +44,19 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
+    .section h3 {
+      color: #34495e;
+    }
   </style>
 </head>
 <body>
+  <h1>Week 3 (DAY 1)</h1>
+  <h2>Topics on Regression & Time Series Analysis</h2>
 
-  <h2>---- WEEK 3 (DAY 1) ----</h2>
+  <div class="concept-box">
+    <strong>Concepts Covered:</strong><br>
+    Linear and multiple regression for stress-strain and flow rate modeling, Polynomial regression for non-linear trends, Curve fitting in mechanical systems (e.g., fatigue analysis)
+  </div>
 
   <div class="section">
     <h3>Topics Covered:</h3>
@@ -77,9 +91,11 @@
 install.packages("forecast")      
 library(forecast)
 ts_data = ts(mtcars, frequency = 12, start = c(1999, 1))
+
 # Training data
 train_data = window(ts_data, start = c(1999, 1), end = c(2000, 12))
 test_data = window(ts_data, start = c(2001, 1))
+
 # Build and forecast ARIMA model
 arima_model = forecast::auto.arima(train_data)
 forecast_result = forecast::forecast(arima_model, h = 12)
@@ -138,7 +154,7 @@ plot(forecast_result)
     <pre>
 # CURVE FITTING in R
 myframe = data.frame(x = c(5, 7, 8, 9, 11, 15), y = c(2, 4, 6, 8, 10, 12))
-plot(myframe$x, myframe$y, main = "Scatter Plot of x vs y",xlab = "X axis", 
+plot(myframe$x, myframe$y, main = "Scatter Plot of x vs y", xlab = "X axis", 
      ylab = "Y axis", pch = 10, col = "blue")
 
 # Fit models
@@ -166,27 +182,14 @@ summary(fit5)$adj.r.squared
   <div class="section">
     <h3>---- PROJECTS DISCUSSED ----</h3>
     <ul>
-      <li>1. Explantory data analytics on real world data sets -- COVID 19/TITANIC</li>
+      <li>1. Explanatory data analytics on real world data sets -- COVID 19/TITANIC</li>
       <li>2. Time Series Forecasting on any data set</li>
-      <li>3. Sales visualizing dash board (weekly, monthly)</li>
+      <li>3. Sales visualizing dashboard (weekly, monthly)</li>
       <li>4. Student performance predictor and indicator</li>
       <li>5. Health Care Data Analysis (Heart disease, Diabetes)</li>
       <li>6. Resume screening (on text mining)</li>
-      <li>7. Web Scrapping (accumulating different info websites)</li>
-      <li>8. Statistical survey analysis</li>
-      <li>9. Geom special visualization (many S/W can be created, BEST OF ALL)
-        <ul>
-          <li>9.1. For example in every city police station how many FIRs are registered → Crime rate</li>
-          <li>9.2. Air Quality of different regions in a particular city</li>
-          <li>9.3. Population density for any region</li>
-          <li><strong>Combining all: HYBRID MODEL (Take real data)</strong></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
+      <li>7. Web
 
-</body>
-</html>
 
                                                              
 
