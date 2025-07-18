@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week 3 (DAY-1)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      margin: 0;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      color: #333;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f0f0f0;
+      border-left: 4px solid #3498db;
+      padding: 10px;
+      overflow-x: auto;
+    }
+    .concept-box {
+      background-color: #e0f7fa;
+      border-left: 4px solid #00796b;
+      padding: 10px 20px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Week 3 (DAY-1)</h1>
+  <h2>Understanding Repositories and Packages in R</h2>
+
+  <div class="concept-box">
+    <strong>Concepts Covered:</strong><br>
+    Repositories in R, Types of Repositories, Installing Packages, Bioconductor, GitHub, Loading Libraries, Updating Packages
+  </div>
+
+  <h3>Repositories in R</h3>
+  <p>
+    A <strong>repository</strong> in R is a storage location that hosts R packages. Think of it like an app store for R — you can search, download, and install packages based on your needs. You can switch between repositories or add your own.
+  </p>
+
+  <p>There are 3 main types of repositories:</p>
+  <ul>
+    <li><strong>1. CRAN (Comprehensive R Archive Network):</strong> This is the official and most widely used repository. It stores thousands of packages and connects directly to RStudio through secure FTP servers. It's stable, secure, and constantly updated.</li>
+    <li><strong>2. Bioconductor:</strong> A specialized repository mainly used for bioinformatics and computational biology. It includes packages for genomic data analysis and visualization.</li>
+    <li><strong>3. GitHub:</strong> A platform for open-source development. It's used to host R packages not yet available on CRAN. Developers use GitHub to collaborate, share, and improve packages. It supports version control and has unlimited hosting.</li>
+  </ul>
+
+  <h3> Viewing and Managing Repositories</h3>
+
+  <pre>
+# Shows the current library paths where packages are installed
+.libPaths()
+
+# Opens the path location in your system's file explorer
+shell.exec(.libPaths()[1])
+  </pre>
+
+  <h3>Viewing Available & Installed Packages</h3>
+
+  <pre>
+# Lists all available libraries (installed + standard)
+library()
+
+# Lists all installed packages in your R setup
+installed.packages()
+  </pre>
+
+  <h3> Installing Packages from CRAN</h3>
+  <p>To install any package from CRAN, use the <code>install.packages()</code> function. Example:</p>
+
+  <pre>
+# Installs the 'dplyr' package
+install.packages("dplyr")
+  </pre>
+
+  <h3>Updating Packages</h3>
+
+  <pre>
+# Updates the package 'ggplot2' if an update is available
+update.packages("ggplot2")
+  </pre>
+
+  <h3>Installing from Bioconductor</h3>
+
+  <p>First, install the BiocManager package. Then install any Bioconductor package using BiocManager:</p>
+
+  <pre>
+install.packages("BiocManager")      # Installs BiocManager
+BiocManager::install("edgeR")        # Installs 'edgeR' package from Bioconductor
+  </pre>
+
+  <h3>Installing Packages from GitHub</h3>
+
+  <p>To install packages from GitHub, use the <code>devtools</code> package:</p>
+
+  <pre>
+install.packages("devtools")                     # Installs devtools
+devtools::install_github("tidyverse/tidyverse")  # Installs tidyverse from GitHub repo
+  </pre>
+
+  <h3> Loading Packages</h3>
+
+  <p>You can load one or more packages using <code>library()</code> or <code>require()</code>:</p>
+
+  <pre>
+library(dplyr)                          # Loads dplyr
+require(dplyr)                          # Loads dplyr (returns TRUE/FALSE if successful)
+library(caret, dplyr, ggplot2)          # Loads multiple packages at once
+  </pre>
+
+  <h2>Summary</h2>
+  <p>
+    In R, understanding how repositories work is crucial for managing packages. CRAN is your go-to for reliable packages, Bioconductor for bioinformatics, and GitHub for cutting-edge or experimental tools. Always keep your packages updated and organized using functions like <code>library()</code>, <code>install.packages()</code>, and <code>update.packages()</code>.
+  </p>
+</body>
+</html>
