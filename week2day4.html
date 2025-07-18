@@ -77,7 +77,10 @@ vect2 &lt;- c(34, 21, 43, 23)
 
     <h4>1. T-Test</h4>
     <p>
-      Compares the means of two independent samples to determine if there is a statistically significant difference.
+    The T-Test compares the means of two independent samples to determine if there is a statistically
+  significant difference between them.
+Purpose: To check whether the average values of two groups are significantly different.
+Syntax Used:
     </p>
     <pre>
 result = t.test(vect1, vect2)
@@ -86,7 +89,10 @@ print(result)
 
     <h4>2. Chi-Square Test</h4>
     <p>
-      Compares observed frequencies with expected frequencies, used for categorical data.
+      The Chi-Square Test is used to compare observed frequencies with expected frequencies, often applied to categorical 
+  data to test goodness-of-fit or independence.
+Purpose: To check if the distribution of categorical data differs from what we expect.
+Syntax Used:
     </p>
     <pre>
 myChisq = vect1
@@ -95,7 +101,10 @@ chisq.test(myChisq)
 
     <h4>3. F-Test</h4>
     <p>
-      Compares variances of two samples to test if they come from populations with equal variances.
+ The F-Test is used to compare the variances of two samples to test if they come from populations
+with equal variances.
+Purpose: To verify if the spread (variance) of two datasets is significantly different.
+Syntax Used:
     </p>
     <pre>
 result = var.test(vect1, vect2)
@@ -104,7 +113,10 @@ print(result)
 
     <h4>4. Correlation Test</h4>
     <p>
-      Measures the strength and direction of a linear relationship between two numeric variables.
+The Correlation Test measures the strength and direction of a linear relationship between two numeric variables.
+Purpose: To evaluate whether an increase in one variable is associated with an increase or decrease in another
+variable.
+Syntax Used:
     </p>
     <pre>
 cor_result = cor.test(vect1[1:4], vect2)
@@ -115,17 +127,18 @@ print(cor_result)
 
     <h4>Basic Plotting</h4>
     <pre>
-plot(3, 2)
-plot(c(2, 3), c(3, 2))
-plot(1:10, col="magenta", type="s", xlab="TIME", ylab="DISTANCE", main="MY GRAPH")
+plot(3, 2) #Plots a single point at coordinates (3, 2).
+plot(c(2, 3), c(3, 2)) #Plots two points: (2, 3) and (3, 2).
+plot(1:10, col="magenta", type="s", xlab="TIME", ylab="DISTANCE", main="MY GRAPH") #Plots a step chart with magenta color. 
+      Labels for X and Y axes are provided with a main title.
     </pre>
 
     <h4>Custom Symbols and Line Types</h4>
     <pre>
-plot(1:10, cex=2, pch=0)
-plot(1:10, type="s", col="red", lwd=3, lty=6)
-    </pre>
+plot(1:10, cex=2, pch=0) #Plots square symbols (pch = 0). cex=2 increases symbol size.
+plot(1:10, type="s", col="red", lwd=3, lty=6) #Creates a step chart with red lines, thicker width (lwd=3) and dashed line style (lty=6).
 
+    </pre>
     <h4>Multiple Line Charts</h4>
     <pre>
 line1 &lt;- c(1, 3, 5, 7)
@@ -133,7 +146,9 @@ line2 &lt;- c(2, 4, 6, 8)
 plot(line1, type="l", col="blue", lwd=3)
 lines(line2, type="l", col="darkgreen", lwd=3)
     </pre>
-
+<li> Plots two lines on the same graph using plot() and lines() functions.</li>
+<li> Line colors and thickness are customized.</li>
+    
     <h4>Multiple Sets of Points</h4>
     <pre>
 x1 &lt;- c(1, 2, 3, 4)
@@ -146,9 +161,22 @@ plot(x1, y1, col="red")
 points(x2, y2, col="blue")
 points(x3, y3, col="darkgreen")
     </pre>
-
+<li> Plots multiple groups of data points on a single graph using points().</li>
+<li> Each group has a distinct color. </li>
+    
     <h3>Pie Charts</h3>
-    <p>Represents data in a circular chart divided by proportionate segments.</p>
+    <p>Pie chart is a circular chart divided into different segments according to the ratio of data
+provided. The total value of the pie is 100 and the segments tell the fraction of the whole pie.
+It is another method to represent statistical data in graphical form and pie() function is used to 
+      perform the same.</p>
+    Syntax:
+    <pre>pie(x, labels, col, main, radius)</pre>
+<li> x is data vector </li>
+<li>labels shows names given to slices</li>
+    <li>col fills the color in the slices as given parameter</li>
+    <li> main shows title name of the pie chart</li>
+    <li>radius indicates radius of the pie chart. It can be between -1 to +1 </li>
+    Example:
     <pre>
 x &lt;- c(100, 200, 300, 400, 200)
 colors &lt;- c("red", "darkgreen", "purple", "yellow", "orange")
@@ -158,7 +186,15 @@ legend("bottomright", mylabel, fill=colors)
     </pre>
 
     <h3>Bar Charts</h3>
-    <p>Represents categorical data using rectangular bars.</p>
+    <p>Bar plot or Bar Chart in R is used to represent the values in data vector as height of the bars.
+  The data vector passed to the function is represented over y-axis of the graph. Bar chart can 
+  behave like histogram by using table() function instead of data vector. </p>
+      Syntax:
+    <pre>barplot(data, xlab, ylab)</pre>
+<li>data is the data vector to be represented on y-axis</li>
+<li>xlab is the label given to x-axis</li>
+<li> ylab is the label given to y-axis</li>
+    Example:
     <pre>
 x &lt;- c("Housing", "Rent", "Electric", "Food", "Water")
 y &lt;- c(2, 4, 6, 8, 10)
@@ -168,4 +204,5 @@ barplot(y, names.arg=x, col=colors, density=20, width=c(0.5), horiz=TRUE)
   </div>
 </body>
 </html>
+
 
