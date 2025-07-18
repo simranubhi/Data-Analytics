@@ -32,7 +32,7 @@
 
   <h1>Week 2 (DAY-2)</h1>
 
-1. Data Frames and Tibbles</div>
+<strong> 1. Data Frames and Tibbles</div> </strong>
   <p>Data frames are the most common way to store tabular data in R, consisting of rows and columns.<br>
   They can hold different data types (numeric, character, etc.) in each column.<br>
   Tibbles are a modern version of data frames from the tibble package, designed to print cleaner output and behave consistently with the tidyverse.<br>
@@ -42,7 +42,7 @@
   <pre><code>df &lt;- data.frame(ID = c(1, 2), Name = c("A", "B"))
 tb &lt;- tibble::tibble(ID = c(1, 2), Name = c("A", "B"))</code></pre>
 
-  2. Reading/Writing CSV, Excel, and Text Files</div>
+  <strong> 2. Reading/Writing CSV, Excel, and Text Files</div> </strong>
   <p>Data in real-world projects usually comes from external files like CSVs or Excel sheets.<br>
   R supports reading files using read.csv() and Excel files using read_excel() (via readxl package).<br>
   You can also export data frames back to files using write.csv() or write_xlsx().<br>
@@ -62,7 +62,7 @@ install.packages("writexl")
 library(writexl)
 write_xlsx(data_frame, "output.xlsx")</code></pre>
 
- 3. Data Exploration</div>
+ <strong> 3. Data Exploration</div></strong>
   <p>Before analyzing data, it's important to explore and understand its structure and contents.<br>
   Functions like head(), dim(), str(), and summary() are used to inspect rows, columns, data types, and basic statistics.<br>
   Exploration helps identify missing values, unusual patterns, and variable types.<br>
@@ -75,14 +75,14 @@ names(data) #review variable names
 summary(data)
 str(data)</code></pre>
 
-  4. Data Cleaning Basics</div>
+  <strong>4. Data Cleaning Basics</div>  </strong>
   <p>Data cleaning involves removing errors, fixing inconsistencies, and preparing data for analysis.<br>
   It includes handling missing values, correcting data types, and removing duplicates.<br>
   R provides functions like is.na(), na.omit(), and duplicated() to assist in cleaning.<br>
   Proper cleaning ensures the quality and accuracy of analysis.<br>
   Without this step, insights drawn from data may be unreliable or misleading.</p>
 
-5. Handling Missing Values</div>
+<strong>5. Handling Missing Values</div> </strong>
   <p>Missing data is common in real-world datasets, and must be addressed carefully.<br>
   You can detect missing values using is.na() and decide whether to drop or impute them.<br>
   na.omit() removes rows with NAs, while tidyr::fill() can propagate non-missing values.<br>
@@ -92,7 +92,7 @@ str(data)</code></pre>
   <pre><code>is.na(df)
 df &lt;- tidyr::fill(df, column_name, .direction = "updown")</code></pre>
 
-  6. Filtering, Selecting, and Renaming Columns</div>
+  <strong> 6. Filtering, Selecting, and Renaming Columns</div> </strong>
   <p>Using the dplyr package, you can filter rows (filter()), select specific columns (select()), and rename columns (rename()).<br>
   This helps you focus only on relevant parts of the dataset for your task.<br>
   For example, filtering students with marks &gt; 75, or selecting only Name and Age columns.<br>
@@ -103,7 +103,7 @@ df &lt;- tidyr::fill(df, column_name, .direction = "updown")</code></pre>
 select(df, Name, Age)
 rename(df, FullName = Name)</code></pre>
 
-7. Type Conversions and String Handling</div>
+<strong>7. Type Conversions and String Handling</div>  </strong>
   <p>Type conversion functions like as.numeric(), as.character(), and as.factor() ensure data is in the correct format.<br>
   String handling includes modifying and inspecting text using functions like tolower(), toupper(), and nchar().<br>
   These are useful when dealing with messy or imported data where formats are inconsistent.<br>
@@ -116,7 +116,7 @@ as.numeric(), as.character(), as.factor()
 # String Functions
 tolower("TEXT"), toupper("text"), nchar("string")</code></pre>
 
-  8. Data Wrangling with dplyr and tidyr</div>
+  <strong> 8. Data Wrangling with dplyr and tidyr</div> </strong>
   <p>Wrangling refers to transforming raw data into a usable format.<br>
   dplyr offers functions like mutate() to create new variables and arrange() to sort data.</p>
 
