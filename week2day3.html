@@ -8,12 +8,12 @@
     body {
       margin: 0;
       padding: 2rem;
-      font-family: "Segoe UI", sans-serif;
+      font-family: "Times New Roman", serif;
       background-color: #f0f9ff;
       color: #000;
     }
     h1, h2, h3 {
-      text-align: center;
+      text-align: left;
     }
     .highlight-box {
       background-color: #d9f0fc;
@@ -37,8 +37,8 @@
   </style>
 </head>
 <body>
-  <h1>---- Week 2 (DAY-3) ----</h1>
-  <h2>-- Understanding Data Frames --</h2>
+  <h1>Week 2 (DAY-3) </h1>
+  <h2>Understanding Data Frames</h2>
   <p>In R, a data frame is the most commonly used data structure for storing tabular data. It is similar to an Excel spreadsheet or a SQL table, where:<br>
   Rows represent observations (e.g., each student or employee).<br>
   Columns represent variables or attributes (e.g., Name, Age, Salary).<br>
@@ -64,7 +64,7 @@
     <li>Pivot reports and dashboards</li>
   </ul>
 
-  <h2>-- pivot_longer() --</h2>
+  <h2>pivot_longer()</h2>
   <p>This function from the tidyr package is used to convert wide data into a longer, tidy format.</p>
 
   <pre><code>pivot_longer(data, 
@@ -74,14 +74,14 @@
 
   <p><strong>Use Case:</strong> Combine test1, test2, test3 columns into two columns: "test" and "score".</p>
 
-  <h2>-- pivot_wider() --</h2>
+  <h2>pivot_wider()</h2>
   <p>Used to convert long data back into wide format. Helps in summarizing or exporting data.</p>
 
   <pre><code>pivot_wider(data, 
             names_from = ..., 
             values_from = ...)</code></pre>
 
-  <h2>-- melt() --</h2>
+  <h2>melt()</h2>
   <p>An older alternative from the <code>reshape2</code> package to convert wide to long format.</p>
 
   <pre><code>melt(data, 
@@ -89,7 +89,7 @@
      variable.name = "test", 
      value.name = "score")</code></pre>
 
-  <h2>-- spread() --</h2>
+  <h2>spread()</h2>
   <p>An older function to go from long to wide format. It's still usable but replaced by <code>pivot_wider()</code>.</p>
 
   <h2>Why Reshaping is Important</h2>
@@ -104,7 +104,7 @@
     <strong>Example:</strong> Reshaping monthly sales data to compare across stores or time periods.
   </div>
 
-  <h2>---- CODE PRACTICE ----</h2>
+  <h2>CODE PRACTICE</h2>
   <pre><code># Load required packages
 library(tidyr)
 
