@@ -2,52 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Week 2 (DAY-4) - Data Analytics using R</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 2 (DAY-4) - Training Report</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
       background-color: #fdfdfd;
       color: #333;
+      margin: 0;
+      padding: 20px;
     }
     .container {
       max-width: 900px;
       margin: auto;
-      padding: 40px 20px;
     }
-    h1, h2, h3, h4 {
+    h1, h2, h3 {
+      text-align: left;
       color: #2c3e50;
-    }
-    .highlight-box {
-      background-color: #eef6fb;
-      padding: 12px;
-      border-left: 5px solid #3498db;
-      margin: 20px 0;
     }
     pre {
       background-color: #f4f4f4;
       border-left: 5px solid #3498db;
-      padding: 15px;
+      padding: 10px;
       overflow-x: auto;
-      font-family: Consolas, monospace;
-      white-space: pre-wrap;
     }
-    li {
-      margin-bottom: 6px;
+    .highlight-box {
+      background-color: #eef6fb;
+      padding: 10px;
+      border-left: 5px solid #3498db;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Week 2 (DAY-4)</h1>
-    <h2>Topics Covered:</h2>
-    <ul>
-      <li>Statistical Analysis</li>
-      <li>Statistical Tests in R</li>
-      <li>Graphs</li>
-    </ul>
-
+    <p>Topics Covered:</p>
+    <li>Statistical Analysis</li>
+<li> Statistical Tests in R</li>
+<li>Graphs</li>
     <h3>Statistical Analysis</h3>
     <p>
       Statistical analysis involves collecting, organizing, summarizing, and interpreting data to uncover patterns and trends.
@@ -55,72 +48,100 @@
       dispersion (variance, standard deviation), and position (quantiles, percentiles). In R, functions like <code>mean()</code>, <code>median()</code>, <code>var()</code>, and
       <code>quantile()</code> are commonly used for basic statistical analysis of numeric data.
     </p>
-
-    <p><strong>Example Code:</strong></p>
+ <p><strong>Example Code:</strong></p>
     <div class="highlight-box">
+   <p> Take this "myvector" as input</p>  
       <pre>
-myvector <- c(23, 43, 78, 21, 12, 32, 43, 54, 65, 16)
+myvector &lt;- c(23, 43, 78, 21, 12, 32, 43, 54, 65, 16)</pre>
+<p>1. Display the contents of the vector:</p>
+    <pre><code>print(myvector)</code></pre>
 
-print(myvector)              # Displays contents of the vector
-sum(myvector)                # Returns sum of all elements
-min(myvector)                # Smallest value
-max(myvector)                # Largest value
-sort(myvector)               # Ascending order
-which.max(myvector)          # Index of max value
-which.min(myvector)          # Index of min value
-mean(myvector)               # Average
-median(myvector)             # Middle value
-var(myvector)                # Variance
-quantile(myvector, 0.25)     # 25th percentile
-names(sort(-table(myvector))) # Most frequent values
-mode(myvector)               # Internal data type (e.g., "numeric")
-      </pre>
+    <p>2. Get the sum of all elements in the vector:</p>
+    <pre><code>sum(myvector)</code></pre>
+
+    <p>3. Find the smallest value:</p>
+    <pre><code>min(myvector)</code></pre>
+
+    <p>4. Find the largest value:</p>
+    <pre><code>max(myvector)</code></pre>
+
+    <p>5. Sort the vector in ascending order:</p>
+    <pre><code>sort(myvector)</code></pre>
+
+    <p>6. Get the index of the maximum value:</p>
+    <pre><code>which.max(myvector)</code></pre>
+
+    <p>7. Get the index of the minimum value:</p>
+    <pre><code>which.min(myvector)</code></pre>
+
+    <p>8. Calculate the mean (average) of the vector:</p>
+    <pre><code>mean(myvector)</code></pre>
+
+    <p>9. Get the median (middle value):</p>
+    <pre><code>median(myvector)</code></pre>
+
+    <p>10. Calculate the variance:</p>
+    <pre><code>var(myvector)</code></pre>
+
+    <p>11. Find the 25th percentile (1st quartile):</p>
+    <pre><code>quantile(myvector, 0.25)</code></pre>
+
+    <p>12. Get the most frequent values:</p>
+    <pre><code>names(sort(-table(myvector)))</code></pre>
+
+    <p>13. Check the internal data type of the vector:</p>
+    <pre><code>mode(myvector)</code></pre>
     </div>
 
     <h3>Statistical Tests in R</h3>
     <p>Input Vectors:</p>
     <pre>
-vect1 <- c(23, 34, 21, 12, 21, 34, 56, 62, 22, 18)
-vect2 <- c(34, 21, 43, 23)
+vect1 &lt;- c(23, 34, 21, 12, 21, 34, 56, 62, 22, 18)
+vect2 &lt;- c(34, 21, 43, 23)
     </pre>
 
     <h4>1. T-Test</h4>
-    <p><strong>Purpose:</strong> To check whether the average values of two groups are significantly different.</p>
-    <p>The T-Test compares the means of two independent samples to determine if there is a statistically significant difference between them.</p>
-    <p><strong>Syntax Used:</strong></p>
+    <p>
+    The T-Test compares the means of two independent samples to determine if there is a statistically
+  significant difference between them.</p>
+<p><strong>Purpose: </strong>To check whether the average values of two groups are significantly different.
+<p><strong>Syntax Used:</strong></p>
+    </p>
     <pre>
 result = t.test(vect1, vect2)
 print(result)
     </pre>
 
     <h4>2. Chi-Square Test</h4>
-    <p><strong>Purpose:</strong> To check if the distribution of categorical data differs from what we expect.</p>
     <p>
       The Chi-Square Test is used to compare observed frequencies with expected frequencies, often applied to categorical 
-      data to test goodness-of-fit or independence.
+  data to test goodness-of-fit or independence.</p>
+<p>Purpose: To check if the distribution of categorical data differs from what we expect.
+<p><strong>Syntax Used:</strong></p>
     </p>
-    <p><strong>Syntax Used:</strong></p>
     <pre>
 myChisq = vect1
 chisq.test(myChisq)
     </pre>
 
     <h4>3. F-Test</h4>
-    <p><strong>Purpose:</strong> To verify if the spread (variance) of two datasets is significantly different.</p>
     <p>
-      The F-Test is used to compare the variances of two samples to test if they come from populations
-      with equal variances.
-    </p>
-    <p><strong>Syntax Used:</strong></p>
+ The F-Test is used to compare the variances of two samples to test if they come from populations
+with equal variances.</p>
+<p>Purpose: To verify if the spread (variance) of two datasets is significantly different.</p>
+<P> <strong> Syntax Used:</strong></P>    
     <pre>
 result = var.test(vect1, vect2)
 print(result)
     </pre>
 
     <h4>4. Correlation Test</h4>
-    <p><strong>Purpose:</strong> To evaluate whether an increase in one variable is associated with an increase or decrease in another variable.</p>
-    <p>The Correlation Test measures the strength and direction of a linear relationship between two numeric variables.</p>
-    <p><strong>Syntax Used:</strong></p>
+    <p>
+The Correlation Test measures the strength and direction of a linear relationship between two numeric variables.
+<p>Purpose: To evaluate whether an increase in one variable is associated with an increase or decrease in another
+variable.</p>
+<p><strong>Syntax Used:</strong></p>
+    </p>
     <pre>
 cor_result = cor.test(vect1[1:4], vect2)
 print(cor_result)
@@ -131,89 +152,91 @@ print(cor_result)
     <h4>Basic Plotting</h4>
     <pre>
 plot(3, 2)
-# Plots a single point at coordinates (3, 2).
-
+<p>#Plots a single point at coordinates (3, 2).</p>
 plot(c(2, 3), c(3, 2)) 
-# Plots two points: (2, 3) and (3, 2).
-
-plot(1:10, col="magenta", type="s", xlab="TIME", ylab="DISTANCE", main="MY GRAPH")
-# Step chart with labels and title
+<p>#Plots two points: (2, 3) and (3, 2).</p>
+plot(1:10, col="magenta", type="s", xlab="TIME", ylab="DISTANCE", main="MY GRAPH") 
+    <p>#Plots a step chart with magenta color. 
+      Labels for X and Y axes are provided with a main title.</p>
     </pre>
 
     <h4>Custom Symbols and Line Types</h4>
     <pre>
-plot(1:10, cex=2, pch=0)
-# Plots square symbols, enlarged
-
-plot(1:10, type="s", col="red", lwd=3, lty=6)
-# Step chart with red dashed lines
+plot(1:10, cex=2, pch=0) 
+      <p>#Plots square symbols (pch = 0). cex=2 increases symbol size.</p>
+plot(1:10, type="s", col="red", lwd=3, lty=6) 
+      <p> #Creates a step chart with red lines, thicker width (lwd=3) and dashed line style (lty=6).
+</p>
     </pre>
-
     <h4>Multiple Line Charts</h4>
-    <p>Plots two lines on the same graph using <code>plot()</code> and <code>lines()</code>.</p>
+    <p>Plots two lines on the same graph using plot() and lines() functions.
+ Line colors and thickness are customized.</p>
     <pre>
-line1 <- c(1, 3, 5, 7)
-line2 <- c(2, 4, 6, 8)
+line1 &lt;- c(1, 3, 5, 7)
+line2 &lt;- c(2, 4, 6, 8)
 plot(line1, type="l", col="blue", lwd=3)
 lines(line2, type="l", col="darkgreen", lwd=3)
     </pre>
 
+    
     <h4>Multiple Sets of Points</h4>
-    <p>Each group of points is plotted in a different color.</p>
+    <p> Plots multiple groups of data points on a single graph using points().
+      Each group has a distinct color. </p>
     <pre>
-x1 <- c(1, 2, 3, 4)
-y1 <- c(5, 6, 7, 8)
-x2 <- c(2, 3, 4)
-y2 <- c(7, 8, 9)
-x3 <- c(3, 4, 5)
-y3 <- c(5, 6, 7)
+x1 &lt;- c(1, 2, 3, 4)
+y1 &lt;- c(5, 6, 7, 8)
+x2 &lt;- c(2, 3, 4)
+y2 &lt;- c(7, 8, 9)
+x3 &lt;- c(3, 4, 5)
+y3 &lt;- c(5, 6, 7)
 plot(x1, y1, col="red")
 points(x2, y2, col="blue")
 points(x3, y3, col="darkgreen")
     </pre>
 
+    
     <h3>Pie Charts</h3>
-    <p>
-      Pie chart is a circular chart divided into segments representing proportions. The <code>pie()</code> function is used in R.
-    </p>
-    <p><strong>Syntax:</strong></p>
+    <p>Pie chart is a circular chart divided into different segments according to the ratio of data
+provided. The total value of the pie is 100 and the segments tell the fraction of the whole pie.
+It is another method to represent statistical data in graphical form and pie() function is used to 
+      perform the same.</p>
+   <p><strong>Syntax:</strong></p> 
     <pre>pie(x, labels, col, main, radius)</pre>
-    <ul>
-      <li><strong>x:</strong> Data vector</li>
-      <li><strong>labels:</strong> Names for slices</li>
-      <li><strong>col:</strong> Colors</li>
-      <li><strong>main:</strong> Title</li>
-      <li><strong>radius:</strong> Size of pie (between -1 and +1)</li>
-    </ul>
+<li> x is data vector </li>
+<li>labels shows names given to slices</li>
+    <li>col fills the color in the slices as given parameter</li>
+    <li> main shows title name of the pie chart</li>
+    <li>radius indicates radius of the pie chart. It can be between -1 to +1 </li>
+
     <p><strong>Example:</strong></p>
     <pre>
-x <- c(100, 200, 300, 400, 200)
-colors <- c("red", "darkgreen", "purple", "yellow", "orange")
-mylabel <- c("apple", "pear", "jamun", "banana", "oranges")
+x &lt;- c(100, 200, 300, 400, 200)
+colors &lt;- c("red", "darkgreen", "purple", "yellow", "orange")
+mylabel &lt;- c("apple", "pear", "jamun", "banana", "oranges")
 pie(x, init.angle=100, mylabel, radius=0.75, main="MY PIE CHART", col=colors)
 legend("bottomright", mylabel, fill=colors)
     </pre>
 
     <h3>Bar Charts</h3>
-    <p>
-      Bar plots represent data using vertical or horizontal bars. The <code>barplot()</code> function is used.
-    </p>
-    <p><strong>Syntax:</strong></p>
+    <p>Bar plot or Bar Chart in R is used to represent the values in data vector as height of the bars.
+  The data vector passed to the function is represented over y-axis of the graph. Bar chart can 
+  behave like histogram by using table() function instead of data vector. </p>
+     <p><strong>  Syntax:</strong></p>
     <pre>barplot(data, xlab, ylab)</pre>
-    <ul>
-      <li><strong>data:</strong> Vector of values</li>
-      <li><strong>xlab:</strong> Label for x-axis</li>
-      <li><strong>ylab:</strong> Label for y-axis</li>
-    </ul>
-    <p><strong>Example:</strong></p>
+<li>data is the data vector to be represented on y-axis</li>
+<li>xlab is the label given to x-axis</li>
+<li> ylab is the label given to y-axis</li>
+  <p><strong>  Example:</strong></p>
     <pre>
-x <- c("Housing", "Rent", "Electric", "Food", "Water")
-y <- c(2, 4, 6, 8, 10)
-colors <- c("red", "darkgreen", "purple", "yellow", "orange")
+x &lt;- c("Housing", "Rent", "Electric", "Food", "Water")
+y &lt;- c(2, 4, 6, 8, 10)
+colors &lt;- c("red", "darkgreen", "purple", "yellow", "orange")
 barplot(y, names.arg=x, col=colors, density=20, width=c(0.5), horiz=TRUE)
     </pre>
   </div>
 </body>
 </html>
+
+
 
 
