@@ -1,38 +1,30 @@
-                                                         <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Week 2 Day 3 - Training Report</title>
   <style>
-    body {
-      margin: 0;
-      padding: 2rem;
-      font-family: "Times New Roman", serif;
-      background-color: #f0f9ff;
-      color: #000;
+     body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
     }
     h1, h2, h3 {
-      text-align: left;
-    }
-    .highlight-box {
-      background-color: #d9f0fc;
-      padding: 1rem;
-      border-left: 5px solid #2196f3;
-      margin: 1rem 0;
-    }
-    code {
-      background-color: #eaeaea;
-      padding: 2px 4px;
-      font-family: monospace;
-      border-radius: 4px;
+      color: #2c3e50;
     }
     pre {
-      background-color: #f4f4f4;
-      padding: 1rem;
-      overflow: auto;
-      border-radius: 5px;
-      border: 1px solid #ddd;
+      background: #f4f4f4;
+      padding: 10px;
+      border-left: 4px solid #3498db;
+      overflow-x: auto;
+    }
+    ul {
+      margin-top: 0;
     }
   </style>
 </head>
@@ -44,7 +36,6 @@
   Columns represent variables or attributes (e.g., Name, Age, Salary).<br>
   Each column can have a different data type (numeric, character, factor, etc.), which makes data frames extremely flexible for handling real-world data.</p>
 
-  <div class="highlight-box">
     <strong>Example:</strong><br>
     <code>data.frame(ID = c(1, 2), Name = c("Alice", "Bob"), Age = c(21, 22))</code>
   </div>
@@ -66,6 +57,7 @@
 
   <h2>pivot_longer()</h2>
   <p>This function from the tidyr package is used to convert wide data into a longer, tidy format.</p>
+  <p>It simplifies columns into key-value pairs, making the data more suitable for analysis and visualization. This is especially useful when there are repeated measures like test scores or monthly readings.</p>
 
   <pre><code>pivot_longer(data, 
              cols = ..., 
@@ -76,6 +68,7 @@
 
   <h2>pivot_wider()</h2>
   <p>Used to convert long data back into wide format. Helps in summarizing or exporting data.</p>
+  <p>It is commonly used when preparing data for reports, dashboards, or machine learning input formats. This function is ideal when each row should represent a single entity.</p>
 
   <pre><code>pivot_wider(data, 
             names_from = ..., 
@@ -83,6 +76,7 @@
 
   <h2>melt()</h2>
   <p>An older alternative from the <code>reshape2</code> package to convert wide to long format.</p>
+  <p>Though slightly less flexible than tidyr's functions, it remains useful in legacy systems or for quick reshaping tasks. It retains identifier variables while collapsing others.</p>
 
   <pre><code>melt(data, 
      id.vars = c("id", "name"), 
@@ -91,6 +85,7 @@
 
   <h2>spread()</h2>
   <p>An older function to go from long to wide format. It's still usable but replaced by <code>pivot_wider()</code>.</p>
+  <p>spread() provides similar functionality to pivot_wider(), but lacks some modern features and error handling. It's still found in older scripts and tutorials.</p>
 
   <h2>Why Reshaping is Important</h2>
   <ul>
@@ -100,7 +95,6 @@
     <li>Customize for dashboards/reports</li>
   </ul>
 
-  <div class="highlight-box">
     <strong>Example:</strong> Reshaping monthly sales data to compare across stores or time periods.
   </div>
 
@@ -184,3 +178,4 @@ print(long_data)</code></pre>
 
 </body>
 </html>
+
