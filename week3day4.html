@@ -4,23 +4,22 @@
   <meta charset="UTF-8">
   <title>Week 3 (DAY-4)</title>
   <style>
-    body {
+   body {
       font-family: Arial, sans-serif;
       background-color: #fdfdfd;
-      margin: 0;
-      padding: 20px;
+      color: #333;
+      line-height: 1.6;
       max-width: 900px;
       margin: auto;
-      color: #333;
+      padding: 40px 20px;
     }
-    h1, h2 {
-      text-align: left;
+    h1, h2, h3 {
       color: #2c3e50;
     }
     pre {
-      background-color: #f0f0f0;
+      background: #f4f4f4;
       padding: 10px;
-      border-left: 5px solid #3498db;
+      border-left: 4px solid #3498db;
       overflow-x: auto;
     }
     .concept-box {
@@ -42,8 +41,9 @@
   <h3>1. 3D Plotting Using <code>rgl</code></h3>
   <p>The <code>rgl</code> package in R facilitates real-time 3D plotting, providing interactive and animated visualizations. It is widely used in spatial analytics, geospatial mapping, and visual exploration of multivariate datasets.</p>
   <p>It supports scatter plots, bar plots, bounding boxes, and rotation/animation controls, offering high flexibility.</p>
-  <pre><code>library(rgl)
+  
 <p><strong>Example:</strong></p>
+  <pre><code>library(rgl)
 # Custom Data
 myframe &lt;- data.frame(x = c(1, 2, 3), y = c(5, 6, 7), z = c(2, 5, 7))
 plot3d(myframe$x, myframe$y, myframe$z, col = "blue",
