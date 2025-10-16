@@ -1,1 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 5 - Data Import and Cleaning</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-left: 4px solid #3498db;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Week 1 (DAY-5)</h1>
+  <h2>DATA IMPORT AND CLEANING BASICS</h2>
+
+  <h3>Reading and Writing CSV Files</h3>
+  <p>
+    In R, the most common format for importing and exporting datasets is the CSV (Comma-Separated Values) file.
+    The functions <code>read.csv()</code> and <code>write.csv()</code> are used for reading and writing CSV files respectively.
+  </p>
+  <pre>
+# Reading a CSV file
+data <- read.csv("students.csv")
+
+# Writing to a CSV file
+write.csv(data, "output_students.csv", row.names = FALSE)
+  </pre>
+
+  <h3>Reading Excel Files</h3>
+  <p>
+    To read Excel files, use the <code>readxl</code> or <code>openxlsx</code> packages. These allow importing data from multiple sheets or writing Excel files easily.
+  </p>
+  <pre>
+library(readxl)
+excel_data <- read_excel("data_file.xlsx", sheet = "Sheet1")
+
+library(openxlsx)
+write.xlsx(excel_data, "output_data.xlsx")
+  </pre>
+
+  <h3>Reading and Writing Text Files</h3>
+  <p>
+    Text files can be read using <code>read.table()</code> and written using <code>write.table()</code>.
+    The delimiter and header options can be customized based on the file type.
+  </p>
+  <pre>
+text_data <- read.table("data.txt", header = TRUE, sep = "\t")
+write.table(text_data, "output.txt", sep = "\t", row.names = FALSE)
+  </pre>
+
+  <h3>Data Exploration Basics</h3>
+  <p>
+    Once data is imported, it is essential to explore its structure, dimensions, and summary statistics before analysis.
+  </p>
+  <pre>
+str(data)        # Structure of dataset
+summary(data)    # Statistical summary
+head(data)       # First few rows
+tail(data)       # Last few rows
+ncol(data)       # Number of columns
+nrow(data)       # Number of rows
+  </pre>
+
+  <h3>Handling Missing Values</h3>
+  <p>
+    Missing values in R are represented by <code>NA</code>. They can be detected, replaced, or removed depending on the situation.
+  </p>
+  <pre>
+# Detect missing values
+sum(is.na(data))
+
+# Remove rows with missing values
+clean_data <- na.omit(data)
+
+# Replace missing values with mean of the column
+data$Marks[is.na(data$Marks)] <- mean(data$Marks, na.rm = TRUE)
+  </pre>
+
+  <h3>Filtering and Selecting Columns</h3>
+  <p>
+    The <code>dplyr</code> package provides easy and readable syntax for filtering and selecting data.
+  </p>
+  <pre>
+library(dplyr)
+
+# Filter rows where Marks > 50
+filtered <- filter(data, Marks > 50)
+
+# Select only specific columns
+selected <- select(data, Name, Marks)
+  </pre>
+
+  <h3>Renaming Columns</h3>
+  <p>
+    Columns can be renamed using <code>rename()</code> from the <code>dplyr</code> package.
+  </p>
+  <pre>
+data <- rename(data, StudentName = Name, Score = Marks)
+  </pre>
+
+  <h3>Type Conversion</h3>
+  <p>
+    You can convert column data types using <code>as.numeric()</code>, <code>as.character()</code>, or <code>as.factor()</code>.
+  </p>
+  <pre>
+data$RollNo <- as.numeric(data$RollNo)
+data$Class <- as.character(data$Class)
+data$Grade <- as.factor(data$Grade)
+  </pre>
+
+  <h3>String Handling</h3>
+  <p>
+    String manipulation is commonly performed using the <code>stringr</code> package. It provides functions for pattern matching and modification.
+  </p>
+  <pre>
+library(stringr)
+
+# Convert text to upper/lower case
+data$Name <- str_to_upper(data$Name)
+data$City <- str_to_title(data$City)
+
+# Detect and replace patterns
+data$City <- str_replace(data$City, "Delhi", "New Delhi")
+
+# Count characters in strings
+str_length(data$Name)
+  </pre>
+
+  <h3>Exporting Cleaned Data</h3>
+  <p>
+    After cleaning and processing, the dataset can be saved as a new CSV or Excel file for further use.
+  </p>
+  <pre>
+write.csv(clean_data, "cleaned_students.csv", row.names = FALSE)
+write.xlsx(clean_data, "cleaned_students.xlsx")
+  </pre>
+
+</body>
+</html>
 
