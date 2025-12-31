@@ -6,7 +6,6 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
       background-color: #fdfdfd;
       max-width: 900px;
       margin: auto;
@@ -15,7 +14,7 @@
     }
     h1, h2, h3 {
       color: #2c3e50;
-      text-align: left;
+      text-align: center;
     }
     h2 {
       border-bottom: 2px solid #ccc;
@@ -28,7 +27,6 @@
       overflow-x: auto;
     }
     ul {
-      margin-top: 0;
       line-height: 1.6;
     }
     .concept-box {
@@ -37,154 +35,88 @@
       padding: 10px 20px;
       margin: 20px 0;
     }
-    
   </style>
 </head>
+
 <body>
+
   <h1>Week 3 (DAY 1)</h1>
-  <h2>Topics on Regression & Time Series Analysis</h2>
+  <h2>Exploratory Data Analysis (EDA)</h2>
 
   <div class="concept-box">
     <strong>Concepts Covered:</strong><br>
-    Linear and multiple regression for stress-strain and flow rate modeling, Polynomial regression for non-linear trends, Curve fitting in mechanical systems (e.g., fatigue analysis)
+    Exploratory Data Analysis, Descriptive Statistics, Data Distribution,
+    Outlier Detection, Summary Statistics, Initial Data Inspection in R
   </div>
 
-  
-
-
-  
-    <h3>What is Time Series Analysis?</h3>
-    <ul>
-      <li>Time Series Analysis is a method of analyzing data points collected or recorded at specific time intervals (like daily, monthly, or yearly).</li>
-      <li>It helps to understand trends, seasonal effects, or make forecasts based on historical data.</li>
-      <li>This technique is essential in engineering and manufacturing where machine readings are collected over time for quality monitoring.</li>
-    </ul>
-
-    <h4>Common Use Cases of Time Series:</h4>
-    <ul>
-      <li>Stock market prediction</li>
-      <li>Sales forecasting</li>
-      <li>Temperature and weather forecasting</li>
-      <li>Power consumption tracking</li>
-      <li>Website traffic monitoring</li>
-      <li>Predictive maintenance in mechanical systems</li>
-    </ul>
-
-    <h4>CODE for Time Series Analysis in R:</h4>
-    <pre>
-# Install and load correct package
-install.packages("forecast")      
-library(forecast)
-ts_data = ts(mtcars, frequency = 12, start = c(1999, 1))
-
-# Training data
-train_data = window(ts_data, start = c(1999, 1), end = c(2000, 12))
-test_data = window(ts_data, start = c(2001, 1))
-
-# Build and forecast ARIMA model
-arima_model = forecast::auto.arima(train_data)
-forecast_result = forecast::forecast(arima_model, h = 12)
-summary(arima_model)
-plot(forecast_result)
-    </pre>
-  </div>
-
-  
-    <h3>What is Regression?</h3>
-    <ul>
-      <li>Regression is a statistical technique that models and analyzes the relationships between a dependent variable and one or more independent variables.</li>
-      <li>In engineering and mechanical contexts, regression helps us model real-world physical systems using data collected through experiments or sensors.</li>
-      <li>It aids in decision-making by identifying the influence of various input parameters on a specific output.</li>
-    </ul>
-
-    <h4>Linear and Multiple Regression </h4>
-    <p><strong>Definition:</strong><br>
-      Linear regression models the relationship between two variables using a straight line.<br>
-      Multiple regression involves more than one independent variable.
-    </p>
-
-    <p><strong>Use Case:</strong><br>
-      Modeling the stress-strain relationship in a material under tension or compression.<br>
-      Predicting fluid flow rate in a pipe based on diameter, pressure, and viscosity.
-    </p>
-
-    <p><strong>Real-Life Mechanical Example:</strong><br>
-      In a mechanical lab, engineers apply force to a metal rod and measure how much it stretches. By applying linear regression to the stress-strain data, they can determine the material's Young’s Modulus.<br>
-      Similarly, automotive engineers may use multiple regression to predict fuel efficiency based on speed, load, and tire pressure.
-    </p>
-
-    <h4>Polynomial Regression for Non-Linear Trends:</h4>
-    <p>
-      Polynomial regression is an extension of linear regression that models non-linear relationships by introducing powers (x², x³, etc.) of the independent variable.
-    </p>
-
-    <p><strong>Use Case:</strong> When a simple straight-line model doesn’t fit the data well.<br>
-      Ideal for material deformation, cooling curves, or motor efficiency curves.
-    </p>
-
-    <p><strong>Real-Life Mechanical Example:</strong> In a heat transfer experiment, the temperature drop of a heated metal plate over time shows a non-linear pattern. Polynomial regression helps model this decay more accurately.<br>
-      Engineers can use this approach to design efficient cooling systems in thermal applications.
-    </p>
-
-    <h4>-- Curve Fitting in Mechanical Systems (e.g., Fatigue Analysis):</h4>
-    <p>
-      Curve fitting involves finding the best-fit function (linear or non-linear) that closely follows a set of data points.
-    </p>
-
-    <p><strong>Use Case:</strong> Analyzing how a material fails over repeated cycles of stress (fatigue).<br>
-      It is also useful in pump performance modeling, vibration analysis, and temperature decay functions.
-    </p>
-
-    <h4>CODE</h4>
-    <pre>
-# CURVE FITTING in R
-myframe = data.frame(x = c(5, 7, 8, 9, 11, 15), y = c(2, 4, 6, 8, 10, 12))
-plot(myframe$x, myframe$y, main = "Scatter Plot of x vs y", xlab = "X axis", 
-     ylab = "Y axis", pch = 10, col = "blue")
-
-# Fit models
-fit1 <- lm(y ~ x, data = myframe)                               
-fit2 <- lm(y ~ poly(x, 2, raw = TRUE), data = myframe)          
-fit3 <- lm(y ~ poly(x, 3, raw = TRUE), data = myframe) 
-fit4 <- lm(y ~ poly(x, 4, raw = TRUE), data = myframe)
-fit5 <- lm(y ~ poly(x, 5, raw = TRUE), data = myframe)
-
-# Regression models
-lines(x_axis, predict(fit1, new = data.frame(x = x_axis)), col = "green", lwd = 2)
-lines(x_axis, predict(fit2, new = data.frame(x = x_axis)), col = "red", lwd = 2)
-lines(x_axis, predict(fit3, new = data.frame(x = x_axis)), col = "purple", lwd = 2)
-lines(x_axis, predict(fit4, new = data.frame(x = x_axis)), col = "skyblue", lwd = 2)
-lines(x_axis, predict(fit5, new = data.frame(x = x_axis)), col = "yellow", lwd = 2)
-
-summary(fit1)$adj.r.squared
-summary(fit2)$adj.r.squared
-summary(fit3)$adj.r.squared
-summary(fit4)$adj.r.squared
-summary(fit5)$adj.r.squared
-    </pre>
-  </div>
-
-  
-    <h3>PROJECTS DISCUSSED</h3>
-      <ul>
-    <li>1. Explanatory Data Analytics on Real World Datasets (COVID-19/TITANIC)</li>
-    <li>2. Time Series Forecasting on Any Dataset</li>
-    <li>3. Sales Visualization Dashboard (Weekly, Monthly)</li>
-    <li>4. Student Performance Predictor and Indicator</li>
-    <li>5. Health Care Data Analysis (Heart Disease, Diabetes)</li>
-    <li>6. Resume Screening (Text Mining)</li>
-    <li>7. Web Scraping (Accumulating Different Info from Websites)</li>
-    <li>8. Statistical Survey Analysis</li>
-    <li>9. Geospatial Visualization (Various Software Options)</li>
-    <ul class="sub-list">
-      <li>9.1. For Example: In every city police station, how many FIRs are registered → Crime Rate</li>
-      <li>9.2. Air Quality of Different Regions in a City</li>
-      <li>9.3. Population Density for Any Region</li>
-    </ul>
-    <li>10. Hybrid Model (Combining Real Data)</li>
+  <h3>Introduction to Exploratory Data Analysis (EDA)</h3>
+  <ul>
+    <li>Exploratory Data Analysis (EDA) is the first and most important step in data analysis.</li>
+    <li>It focuses on understanding the structure, patterns, and quality of data.</li>
+    <li>EDA helps identify missing values, outliers, trends, and relationships.</li>
+    <li>It ensures that the dataset is suitable for further statistical modeling.</li>
   </ul>
 
-                                                             
+  <h3>Understanding Data Distributions</h3>
+  <ul>
+    <li>Data distribution describes how values are spread across a dataset.</li>
+    <li>Common distributions include normal, skewed, and uniform distributions.</li>
+    <li>Visualization techniques such as histograms and boxplots are used.</li>
+  </ul>
 
+  <h3>Descriptive Statistics</h3>
+  <ul>
+    <li><strong>Mean:</strong> Average value of the dataset</li>
+    <li><strong>Median:</strong> Middle value when data is ordered</li>
+    <li><strong>Mode:</strong> Most frequently occurring value</li>
+    <li><strong>Variance:</strong> Measure of data spread</li>
+    <li><strong>Standard Deviation:</strong> Dispersion around the mean</li>
+    <li><strong>Quantiles:</strong> Data split into equal parts</li>
+  </ul>
 
-                                                                          
+  <h3>Outlier Detection</h3>
+  <ul>
+    <li>Outliers are extreme values that differ significantly from others.</li>
+    <li>They may indicate errors, noise, or rare events.</li>
+    <li>Boxplots are commonly used for identifying outliers.</li>
+  </ul>
+
+  <h3>Basic Data Inspection Functions in R</h3>
+  <ul>
+    <li><code>head()</code> – View first few rows</li>
+    <li><code>summary()</code> – Statistical summary</li>
+    <li><code>str()</code> – Structure of dataset</li>
+    <li><code>boxplot()</code> – Outlier visualization</li>
+  </ul>
+
+  <h3>EDA Example Using R</h3>
+  <pre>
+# Load dataset
+data(mtcars)
+
+# View dataset
+head(mtcars)
+
+# Structure of data
+str(mtcars)
+
+# Summary statistics
+summary(mtcars)
+
+# Histogram
+hist(mtcars$mpg, main = "Distribution of MPG", xlab = "Miles Per Gallon")
+
+# Boxplot for outlier detection
+boxplot(mtcars$mpg, main = "Boxplot of MPG")
+  </pre>
+
+  <h3>Engineering Applications of EDA</h3>
+  <ul>
+    <li>Analyzing sensor data before modeling</li>
+    <li>Understanding stress–strain experimental data</li>
+    <li>Environmental pollution level analysis</li>
+    <li>Quality control and fault detection</li>
+  </ul>
+
+</body>
+</html>
