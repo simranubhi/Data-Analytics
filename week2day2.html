@@ -30,157 +30,130 @@
 </head>
 <body>
 
-  <h1>Week 2 (DAY-2)</h1>
+<h1>Week 2 (DAY-2)</h1>
 
-<strong> 1. Data Frames and Tibbles</div> </strong>
-  <p>Data frames are the most common way to store tabular data in R, consisting of rows and columns.<br>
-  They can hold different data types (numeric, character, etc.) in each column.<br>
-  Tibbles are a modern version of data frames from the tibble package, designed to print cleaner output and behave consistently with the tidyverse.<br>
-  Tibbles don’t change column names or types automatically, making them more predictable and readable.<br>
-  They are preferred when working with large datasets and complex pipelines.</p>
+<h3>Topics Covered:</h3>
+<ul>
+  <li>Introduction to dplyr</li>
+  <li>Filtering rows using <code>filter()</code></li>
+  <li>Selecting columns using <code>select()</code></li>
+  <li>Sorting data using <code>arrange()</code></li>
+  <li>Creating new variables using <code>mutate()</code></li>
+</ul>
 
-  <pre><code>df &lt;- data.frame(ID = c(1, 2), Name = c("A", "B"))
-tb &lt;- tibble::tibble(ID = c(1, 2), Name = c("A", "B"))</code></pre>
+<hr/>
 
-  <strong> 2. Reading/Writing CSV, Excel, and Text Files</div> </strong>
-  <p>Data in real-world projects usually comes from external files like CSVs or Excel sheets.<br>
-  R supports reading files using read.csv() and Excel files using read_excel() (via readxl package).<br>
-  You can also export data frames back to files using write.csv() or write_xlsx().<br>
-  These functions make it easy to bring data into R for analysis and share results with others.<br>
-  Reading text files, or tab-delimited data, is handled with read.table() or read.delim().</p>
+<p>
+Data manipulation is a core step in data analytics where raw datasets are transformed into a meaningful and
+analysis-ready format. In R, the <b>dplyr</b> package provides a consistent and intuitive set of functions
+for performing common data manipulation tasks efficiently.
+</p>
 
-  <pre><code>read.csv("file.csv")
-write.csv(data_frame, "output.csv")
+<p>
+This session focuses on row-wise and column-wise operations such as filtering records, selecting relevant
+variables, sorting observations, and creating new derived columns. These operations are essential for
+cleaning datasets, preparing features, and simplifying complex data analysis workflows.
+</p>
 
-# For Excel:
-install.packages("readxl")
-library(readxl)
-read_excel("file.xlsx")
+<hr/>
 
-# To write Excel:
-install.packages("writexl")
-library(writexl)
-write_xlsx(data_frame, "output.xlsx")</code></pre>
+<h3>1. Introduction to dplyr</h3>
+<p>
+The <b>dplyr</b> package is part of the tidyverse and is designed for fast and readable data manipulation.
+It works primarily with data frames and tibbles.
+</p>
 
- <strong> 3. Data Exploration</div></strong>
-  <p>Before analyzing data, it's important to explore and understand its structure and contents.<br>
-  Functions like head(), dim(), str(), and summary() are used to inspect rows, columns, data types, and basic statistics.<br>
-  Exploration helps identify missing values, unusual patterns, and variable types.<br>
-  It provides a quick snapshot of how clean or messy your dataset is.<br>
-  This is a key first step before any transformation or modeling.</p>
+<pre>
+library(dplyr)
+</pre>
 
-  <pre><code>head(data) #review rows
-dim(data) #review columns
-names(data) #review variable names
-summary(data)
-str(data)</code></pre>
+<p><b>Concepts Covered:</b></p>
+<li>Tidy data philosophy</li>
+<li>Pipe-friendly data manipulation</li>
 
-  <strong>4. Data Cleaning Basics</div>  </strong>
-  <p>Data cleaning involves removing errors, fixing inconsistencies, and preparing data for analysis.<br>
-  It includes handling missing values, correcting data types, and removing duplicates.<br>
-  R provides functions like is.na(), na.omit(), and duplicated() to assist in cleaning.<br>
-  Proper cleaning ensures the quality and accuracy of analysis.<br>
-  Without this step, insights drawn from data may be unreliable or misleading.</p>
+<h3>2. Filtering Rows using <code>filter()</code></h3>
+<p>
+The <code>filter()</code> function is used to extract rows that satisfy given logical conditions.
+</p>
 
-<strong>5. Handling Missing Values</div> </strong>
-  <p>Missing data is common in real-world datasets, and must be addressed carefully.<br>
-  You can detect missing values using is.na() and decide whether to drop or impute them.<br>
-  na.omit() removes rows with NAs, while tidyr::fill() can propagate non-missing values.<br>
-  How you handle missing values depends on the context and the importance of the missing data.<br>
-  This is crucial for maintaining data integrity and preventing errors during analysis.</p>
+<pre>
+filter(df, Age > 18)
+filter(df, Department == "IT")
+</pre>
 
-  <pre><code>is.na(df)
-df &lt;- tidyr::fill(df, column_name, .direction = "updown")</code></pre>
+<p><b>Concepts Covered:</b></p>
+<li>Row-wise filtering</li>
+<li>Logical conditions</li>
 
-  <strong> 6. Filtering, Selecting, and Renaming Columns</div> </strong>
-  <p>Using the dplyr package, you can filter rows (filter()), select specific columns (select()), and rename columns (rename()).<br>
-  This helps you focus only on relevant parts of the dataset for your task.<br>
-  For example, filtering students with marks &gt; 75, or selecting only Name and Age columns.<br>
-  Renaming columns improves readability and consistency in reports or code.<br>
-  These operations are basic but powerful tools for shaping data.</p>
+<h3>3. Selecting Columns using <code>select()</code></h3>
+<p>
+The <code>select()</code> function allows choosing specific columns from a dataset, helping reduce clutter
+and focus on relevant variables.
+</p>
 
-  <pre><code>filter(df, Age &gt; 18)
+<pre>
 select(df, Name, Age)
-rename(df, FullName = Name)</code></pre>
+select(df, starts_with("Sal"))
+</pre>
 
-<strong>7. Type Conversions and String Handling</div>  </strong>
-  <p>Type conversion functions like as.numeric(), as.character(), and as.factor() ensure data is in the correct format.<br>
-  String handling includes modifying and inspecting text using functions like tolower(), toupper(), and nchar().<br>
-  These are useful when dealing with messy or imported data where formats are inconsistent.<br>
-  Proper formatting is important for analysis, plotting, and machine learning workflows.<br>
-  String operations also help clean labels, extract values, or format output.</p>
+<p><b>Concepts Covered:</b></p>
+<li>Column selection</li>
+<li>Helper functions</li>
 
-  <pre><code># Type Conversions
-as.numeric(), as.character(), as.factor()
+<h3>4. Sorting Data using <code>arrange()</code></h3>
+<p>
+The <code>arrange()</code> function is used to sort rows in ascending or descending order based on one or
+more variables.
+</p>
 
-# String Functions
-tolower("TEXT"), toupper("text"), nchar("string")</code></pre>
+<pre>
+arrange(df, Age)
+arrange(df, desc(Salary))
+</pre>
 
-  <strong> 8. Data Wrangling with dplyr and tidyr</div> </strong>
-  <p>Wrangling refers to transforming raw data into a usable format.<br>
-  dplyr offers functions like mutate() to create new variables and arrange() to sort data.</p>
+<p><b>Concepts Covered:</b></p>
+<li>Ascending and descending sorting</li>
+<li>Multi-column sorting</li>
 
-  <pre><code># Mutating
+<h3>5. Creating New Columns using <code>mutate()</code></h3>
+<p>
+The <code>mutate()</code> function creates new variables or modifies existing ones using calculations
+based on other columns.
+</p>
+
+<pre>
+mutate(df, Bonus = Salary * 0.10)
 mutate(df, AgeSquared = Age^2)
+</pre>
 
-# Grouping and Summarizing
-group_by(df, Department) %&gt;%
-  summarise(AvgSalary = mean(Salary, na.rm = TRUE))</code></pre>
+<p><b>Concepts Covered:</b></p>
+<li>Feature engineering</li>
+<li>Derived variables</li>
 
-  <h2>CODING PRACTICE</h2>
+<h2>CODING PRACTICE</h2>
 
-  <pre><code># Load the required package
-library(tidyr)
+<pre>
+library(dplyr)
 
-# Sample wide-format data
-st_test1 &lt;- data.frame(
-  id = c(1, 2, 3), 
-  name = c("Alice", "Bob", "John"),
-  test1 = c(95, 91, 85), 
-  test2 = c(98, 80, 87), 
-  test3 = c(92, 93, 90)
+employees <- data.frame(
+  Name = c("Amit", "Neha", "Ravi", "Simran"),
+  Age = c(23, 29, 21, 25),
+  Department = c("IT", "HR", "IT", "Finance"),
+  Salary = c(40000, 50000, 35000, 45000)
 )
 
-# Wide to long
-st_test2 &lt;- pivot_longer(
-  st_test1, 
-  cols = starts_with("test"), 
-  names_to = "test", 
-  values_to = "score"
-)
-print(st_test2)
+# Filter employees older than 22
+filter(employees, Age > 22)
 
-# Install packages
-install.packages("stringi")
-install.packages("reshape2")
-library(reshape2)
-library(stringi)
+# Select relevant columns
+select(employees, Name, Department)
 
-# melt()
-st_test2 &lt;- melt(st_test1, id.vars = c("id", "name"), variable.name = "test", value.name = "score")
-print(st_test2)
+# Sort by salary
+arrange(employees, desc(Salary))
 
-# Long to wide
-st_test3 &lt;- st_test2 %&gt;% pivot_wider(names_from = test, values_from = score)
-print(st_test3)
-
-# spread()
-st_test3 &lt;- spread(st_test2, test, score)
-print(st_test3)
-
-# Extended Example
-st_test4 &lt;- data.frame(
-  Year = rep(2021:2025, each = 12),
-  month = rep(month.abb, times = 5),
-  expenses = 101:160
-)
-
-wide_data &lt;- pivot_wider(st_test4, names_from = month, values_from = expenses)
-print(wide_data)
-
-long_data &lt;- pivot_longer(wide_data, cols = -Year, names_to = "month", values_to = "expenses")
-print(long_data)</code></pre>
+# Create new column
+mutate(employees, AnnualSalary = Salary * 12)
+</pre>
 
 </body>
 </html>
-
