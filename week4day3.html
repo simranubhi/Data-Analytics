@@ -8,6 +8,7 @@
     h1, h2, h3 { color: #2c3e50; text-align: left; }
     pre { background: #f4f4f4; padding: 10px; border-left: 4px solid #3498db; overflow-x: auto; }
     .concept-box { background-color: #e0f7fa; border-left: 5px solid #00796b; padding: 10px 20px; margin: 20px 0; }
+    p { margin-bottom: 10px; }
   </style>
 </head>
 <body>
@@ -16,10 +17,12 @@
 
   <div class="concept-box">
     <strong>Concepts Covered:</strong><br>
-    Descriptive statistics, mean, median, variance, standard deviation, t-tests, chi-square tests, correlation, ANOVA
+    Descriptive statistics, mean, median, variance, standard deviation, t-tests, chi-square tests, correlation, ANOVA, practical interpretation
   </div>
 
   <h3>1. Descriptive Statistics</h3>
+  <p>Descriptive statistics provide a quick summary of the dataset to understand its main characteristics. Measures like mean, median, and mode help identify central tendency, while variance and standard deviation show the spread of data. Quantiles and percentiles help in understanding distribution, detecting skewness, and identifying outliers. These are often the first step before applying advanced statistical tests.</p>
+  <p><strong>Example:</strong> In a material testing lab, calculating the mean and standard deviation of stress values from multiple samples helps understand material consistency and variation.</p>
   <pre><code>summary(iris)
 mean(iris$Sepal.Length)
 sd(iris$Sepal.Length)
@@ -27,20 +30,35 @@ var(iris$Sepal.Length)
 quantile(iris$Sepal.Length, probs = c(0.25, 0.5, 0.75))</code></pre>
 
   <h3>2. Correlation Analysis</h3>
+  <p>Correlation measures the strength and direction of the linear relationship between two numeric variables. A positive correlation indicates that as one variable increases, the other also increases. A negative correlation indicates an inverse relationship. Correlation matrices can be used to check multicollinearity before modeling. Keep in mind that correlation does not imply causation.</p>
+  <p><strong>Example:</strong> In agriculture, analyzing the correlation between rainfall and crop yield can help predict output based on rainfall patterns.</p>
   <pre><code>cor(iris$Sepal.Length, iris$Petal.Length)
-cor(iris[,1:4])  # Pairwise correlation for all numeric columns</code></pre>
+cor(iris[,1:4])</code></pre>
 
   <h3>3. T-Test</h3>
-  <pre><code># Compare Sepal.Length between two species
-t.test(Sepal.Length ~ Species, data = subset(iris, Species != "virginica"))</code></pre>
+  <p>The t-test is a statistical test that compares the means of two groups to check if they differ significantly. It assumes normally distributed data and can be two-sample (independent groups) or paired (related observations). P-values indicate whether the observed difference is statistically significant (commonly <0.05). Always check assumptions before applying.</p>
+  <p><strong>Example:</strong> Comparing the average tensile strength of two different batches of steel rods to ensure consistent production quality.</p>
+  <pre><code>t.test(Sepal.Length ~ Species, data = subset(iris, Species != "virginica"))</code></pre>
 
-  <h3>4. ANOVA</h3>
+  <h3>4. ANOVA (Analysis of Variance)</h3>
+  <p>ANOVA is used when comparing means across three or more groups. It evaluates whether at least one group mean is significantly different, reducing the risk of Type I errors that may occur if multiple t-tests are used. Post-hoc tests (like Tukey HSD) can identify which groups differ. ANOVA assumes independence, normality, and equal variance.</p>
+  <p><strong>Example:</strong> Testing whether three different fertilizers lead to significantly different plant growth in an agricultural experiment.</p>
   <pre><code>anova_result <- aov(Sepal.Length ~ Species, data = iris)
 summary(anova_result)</code></pre>
 
   <h3>5. Chi-Square Test</h3>
+  <p>The Chi-Square test evaluates the association between two categorical variables. It compares the observed frequencies to expected frequencies under the assumption of independence. High Chi-Square values indicate strong association. This test is widely used in surveys, quality control, and contingency table analysis.</p>
+  <p><strong>Example:</strong> Checking whether defect type in manufactured products depends on the production shift or is independent.</p>
   <pre><code>table_data <- table(iris$Species, iris$Sepal.Width > 3)
 chisq.test(table_data)</code></pre>
+
+  <h3>6. Practical Tips</h3>
+  <ul>
+    <li>Always visualize data before applying tests (histograms, boxplots).</li>
+    <li>Check assumptions: normality, independence, equal variance.</li>
+    <li>Interpret p-values in context; statistical significance does not always imply practical significance.</li>
+    <li>Use descriptive stats to report central tendency and spread alongside hypothesis test results.</li>
+  </ul>
 
 </body>
 </html>
