@@ -4,138 +4,126 @@
   <meta charset="UTF-8">
   <title>Week 3 (DAY-4)</title>
   <style>
-   body {
+    body {
       font-family: Arial, sans-serif;
       background-color: #fdfdfd;
-      color: #333;
-      line-height: 1.6;
       max-width: 900px;
       margin: auto;
-      padding: 40px 20px;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
     }
     h1, h2, h3 {
       color: #2c3e50;
+      text-align: center;
+    }
+    h2 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
     }
     pre {
-      background: #f4f4f4;
+      background-color: #f4f4f4;
       padding: 10px;
       border-left: 4px solid #3498db;
       overflow-x: auto;
     }
+    ul {
+      line-height: 1.6;
+    }
     .concept-box {
       background-color: #e0f7fa;
-      border-left: 5px solid #00796b;
-      padding: 10px;
+      border-left: 4px solid #00796b;
+      padding: 10px 20px;
       margin: 20px 0;
     }
   </style>
 </head>
 <body>
-  <h1>WEEK 4 - DAY 1</h1>
+  <h1>Week 3 (DAY-4)</h1>
   <h2>3D Plotting, Animation & Histograms in R</h2>
 
   <div class="concept-box">
-    <strong>Concepts Covered:</strong> 3D plotting using rgl, animated bar plots using gganimate, base R histograms and bar plots, multiple histograms, histograms using ggplot2.
+    <strong>Concepts Covered:</strong><br>
+    3D plotting using rgl, animated bar plots using gganimate, base R histograms and bar plots, multiple histograms, histograms using ggplot2
   </div>
 
   <h3>1. 3D Plotting Using <code>rgl</code></h3>
-  <p>The <code>rgl</code> package in R facilitates real-time 3D plotting, providing interactive and animated visualizations. It is widely used in spatial analytics, geospatial mapping, and visual exploration of multivariate datasets.</p>
-  <p>It supports scatter plots, bar plots, bounding boxes, and rotation/animation controls, offering high flexibility.</p>
-  
-<p><strong>Example:</strong></p>
-  <pre><code>library(rgl)
-# Custom Data
-myframe &lt;- data.frame(x = c(1, 2, 3), y = c(5, 6, 7), z = c(2, 5, 7))
-plot3d(myframe$x, myframe$y, myframe$z, col = "blue",
-       xlab = "X axis", ylab = "Y axis", zlab = "Z axis")
-bg3d(color = "skyblue")
-bbox3d(color = "yellow")
-play3d(spin3d(axis = c(0, 0, 1), rpm = 2), duration = 20)
+  <p><code>rgl</code> enables interactive 3D plotting, rotation, and animation, useful for spatial analytics and multivariate data visualization.</p>
+  <pre>
+library(rgl)
+myframe <- data.frame(x=c(1,2,3), y=c(5,6,7), z=c(2,5,7))
+plot3d(myframe$x, myframe$y, myframe$z, col="blue", xlab="X axis", ylab="Y axis", zlab="Z axis")
+bg3d(color="skyblue")
+bbox3d(color="yellow")
+play3d(spin3d(axis=c(0,0,1), rpm=2), duration=20)
 
 # Using iris dataset
-plot3d(iris$Sepal.Length, iris$Sepal.Width, iris$Petal.Length,
-       size = 1, xlab = "Sepal Length", ylab = "Sepal Width", zlab = "Petal Length")
-
-# 3D Bar Chart
-for(i in 1:5) {
-  lines3d(x = rep(i, 2), y = rep(0, 2), z = c(0, iris$Petal.Length[i]), col = "skyblue", lwd = 10)
-}
-axes3d()
-title3d(main = "3D Bar Plot for First 5 Petal Lengths", 
-        xlab = "Index (1 to 5)", ylab = "Fixed Y (0)", zlab = "Petal Length")
-view3d(theta = 45, phi = 30)
-play3d(spin3d(axis = c(0, 0, 1), rpm = 10), duration = 5)</code></pre>
+plot3d(iris$Sepal.Length, iris$Sepal.Width, iris$Petal.Length, size=1, xlab="Sepal Length", ylab="Sepal Width", zlab="Petal Length")
+  </pre>
 
   <h3>2. Animated Bar Plots Using <code>gganimate</code></h3>
-  <p><code>gganimate</code> extends <code>ggplot2</code> to animate time-based or state-based transitions, making data visualization more engaging and intuitive.</p>
-  <p>These animations are ideal for comparing monthly trends, dynamic metrics, and changing values in a categorical context.</p>
-  <p><strong>Example:</strong></p>
-  <pre><code>library(ggplot2)
+  <p>Extends ggplot2 to animate time-based transitions for dynamic visualization of trends.</p>
+  <pre>
+library(ggplot2)
 library(gganimate)
 library(gifski)
 
-# Sample Data
-mydata &lt;- data.frame(
-  Month = rep(c("January", "February", "March"), each = 4),
-  Category = rep(c("Rent", "Water", "Electricity", "Groceries"), times = 3),
-  Amount = c(15000, 3000, 1200, 4300, 11000, 1200, 2250, 4100, 9000, 3356, 3300, 1231)
+mydata <- data.frame(
+  Month = rep(c("January","February","March"), each=4),
+  Category = rep(c("Rent","Water","Electricity","Groceries"), times=3),
+  Amount = c(15000,3000,1200,4300,11000,1200,2250,4100,9000,3356,3300,1231)
 )
 
-# Plot
-p &lt;- ggplot(mydata, aes(x = Category, y = Amount, fill = Category)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Monthly Expenses", x = "Category", y = "Amount (₹)") +
+p <- ggplot(mydata, aes(x=Category, y=Amount, fill=Category)) +
+  geom_bar(stat="identity") +
+  labs(title="Monthly Expenses", x="Category", y="Amount (₹)") +
   theme_minimal() +
-  transition_states(Month, transition_length = 1, state_length = 1) +
+  transition_states(Month, transition_length=1, state_length=1) +
   ggtitle("Month: {closest_state}")
 
-animate(p, renderer = gifski_renderer())
-anim_save("monthly_expenses.gif", animation = last_animation())</code></pre>
+animate(p, renderer=gifski_renderer())
+anim_save("monthly_expenses.gif", animation=last_animation())
+  </pre>
 
   <h3>3. Base R Histogram & Bar Plots</h3>
-  <p>Histograms and bar plots in base R provide essential ways to examine data distribution and comparisons without any external packages.</p>
-  <p>These plots can be customized with colors, labels, breakpoints, and legends for better clarity in communication.</p>
-  <p><strong>Example:</strong></p>
-  <pre><code># Histogram with labels
-v &lt;- c(19, 23, 11, 5, 16, 21, 32, 14, 19, 27, 39, 120, 40, 70, 90)
-m &lt;- hist(v, xlab = "Weight", ylab = "Frequency", col = "darkmagenta", border = "pink", breaks = 5)
-text(m$mids, m$counts, labels = m$counts, adj = c(0.5, -0.5))
+  <pre>
+v <- c(19,23,11,5,16,21,32,14,19,27,39,120,40,70,90)
+m <- hist(v, xlab="Weight", ylab="Frequency", col="darkmagenta", border="pink", breaks=5)
+text(m$mids, m$counts, labels=m$counts, adj=c(0.5,-0.5))
 
-# Bar Plot
-sepal_length &lt;- iris$Sepal.Length[1:5]
-sepal_width &lt;- iris$Sepal.Width[1:5]
-petal_length &lt;- iris$Petal.Length[1:5]
+sepal_length <- iris$Sepal.Length[1:5]
+sepal_width <- iris$Sepal.Width[1:5]
+petal_length <- iris$Petal.Length[1:5]
+data_matrix <- rbind(sepal_length, sepal_width, petal_length)
 
-data_matrix &lt;- rbind(sepal_length, sepal_width, petal_length)
-par(bg = "lightyellow")
-barplot(data_matrix, beside = TRUE,
-        col = c("skyblue", "orange", "lightgreen"),
-        names.arg = paste("Row", 1:5),
-        legend.text = c("Sepal Length", "Sepal Width", "Petal Length"),
-        args.legend = list(x = "topright", bty = "n"),
-        xlab = "Sample Index", ylab = "Value",
-        main = "Bar Chart of Sepal & Petal Measurements (First 5 Samples)")</code></pre>
+par(bg="lightyellow")
+barplot(data_matrix, beside=TRUE, col=c("skyblue","orange","lightgreen"),
+        names.arg=paste("Row",1:5),
+        legend.text=c("Sepal Length","Sepal Width","Petal Length"),
+        args.legend=list(x="topright", bty="n"),
+        xlab="Sample Index", ylab="Value",
+        main="Bar Chart of Sepal & Petal Measurements (First 5 Samples)")
+  </pre>
 
   <h3>4. Multiple Histograms in One Frame</h3>
-  <p>By using the <code>par(mfrow = c(...))</code> function, R allows users to layout multiple plots in one screen. This is useful for comparative analysis across variables.</p>
-  <p>This technique helps in efficient visual scanning of variable-wise distributions for patterns and anomalies.</p>
-  <p><strong>Example:</strong></p>
-  <pre><code>par(mfrow = c(2, 2), bg = "lightyellow")
+  <pre>
+par(mfrow=c(2,2), bg="lightyellow")
 
-hist(iris$Sepal.Length, main = "Sepal Length", xlab = "Length", col = "skyblue", border = "blue")
-hist(iris$Sepal.Width, main = "Sepal Width", xlab = "Width", col = "orange", border = "darkorange")
-hist(iris$Petal.Length, main = "Petal Length", xlab = "Length", col = "lightgreen", border = "green4")
-hist(iris$Petal.Width, main = "Petal Width", xlab = "Width", col = "plum", border = "purple")</code></pre>
+hist(iris$Sepal.Length, main="Sepal Length", xlab="Length", col="skyblue", border="blue")
+hist(iris$Sepal.Width, main="Sepal Width", xlab="Width", col="orange", border="darkorange")
+hist(iris$Petal.Length, main="Petal Length", xlab="Length", col="lightgreen", border="green4")
+hist(iris$Petal.Width, main="Petal Width", xlab="Width", col="plum", border="purple")
+  </pre>
 
   <h3>5. Histogram Using <code>ggplot2</code></h3>
-  <p><code>ggplot2</code> offers aesthetically pleasing histogram plots using grammar of graphics. It supports layering, color scaling, bin control, and species-based filtering.</p>
-  <p>This approach is widely used in modern analytics dashboards and publications for its clean output and flexibility.</p>
-  <p><strong>Example:</strong></p>
-  <pre><code>library(ggplot2)
+  <pre>
+library(ggplot2)
 
-ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
-  geom_histogram(binwidth = 0.3, position = "identity", alpha = 0.5) +
-  labs(title = "Histogram of Sepal Length by Species") +
-  theme_minimal()</code></pre>
+ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
+  geom_histogram(binwidth=0.3, position="identity", alpha=0.5) +
+  labs(title="Histogram of Sepal Length by Species") +
+  theme_minimal()
+  </pre>
+
 </body>
 </html>
