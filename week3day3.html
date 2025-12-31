@@ -7,24 +7,28 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #fdfdfd;
-      color: #333;
-      line-height: 1.6;
       max-width: 900px;
       margin: auto;
-      padding: 40px 20px;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
     }
     h1, h2, h3 {
       color: #2c3e50;
-      text-align: left;
+      text-align: center;
+    }
+    h2 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
     }
     pre {
-      background: #f4f4f4;
+      background-color: #f4f4f4;
       padding: 10px;
       border-left: 4px solid #3498db;
       overflow-x: auto;
     }
     ul {
-      margin-top: 0;
+      line-height: 1.6;
     }
     .concept-box {
       background-color: #e0f7fa;
@@ -39,56 +43,35 @@
   <h2>Spatial & Geotechnical Data Analysis in R</h2>
 
   <div class="concept-box">
-    <strong>Topics Covered:</strong><br>
+    <strong>Concepts Covered:</strong><br>
     Spatial and Geotechnical Data, sf and leaflet, Borehole Visualization, Soil Type Interpolation, FEA/CFD Output, Simulation Data Analysis
   </div>
 
   <h3>1. Spatial & Geotechnical Data in Civil Engineering</h3>
-  <p>
-    Spatial and geotechnical data play a critical role in civil engineering for site investigation, foundation design, and risk assessment. Spatial data includes coordinates and shapes of geographical features, while geotechnical data includes subsurface properties such as soil type, density, moisture content, etc.
-  </p>
-  <p>
-    R allows integration of both using spatial data structures and mapping libraries.
-  </p>
+  <p>Spatial and geotechnical data are crucial for site investigation, foundation design, and risk assessment. Spatial data includes coordinates and geographical features, while geotechnical data includes soil properties like density, moisture, and type.</p>
 
   <h3>2. Mapping with <code>sf</code> or <code>leaflet</code></h3>
-  <p>
-    <code>sf</code> is used for reading and analyzing spatial vector data like points (boreholes), lines (roads), or polygons (land parcels).<br>
-    <code>leaflet</code> creates interactive web maps to visualize spatial data.
-  </p>
-
+  <p><code>sf</code> handles vector spatial data (points, lines, polygons). <code>leaflet</code> creates interactive maps for visualization.</p>
   <pre>
-# Load required libraries
 library(sf)
 library(leaflet)
 
-# Reading a shapefile (replace with your file path)
 soil_map <- st_read("data/soil_shapes.shp")
-
-# Basic plot using sf
 plot(soil_map["Soil_Type"])
 
-# Interactive map with leaflet
 leaflet(soil_map) %>%
   addTiles() %>%
   addPolygons(color = "blue", weight = 1, fillOpacity = 0.5, popup = ~Soil_Type)
   </pre>
 
   <h3>3. Geotechnical Borehole Data Visualization</h3>
-  <p>
-    Borehole data includes depth-wise soil strata information and is crucial for understanding the subsurface profile. Visualization helps geotechnical engineers see soil transitions, water table depth, and rock layers.
-  </p>
-
   <pre>
-# Simulated borehole data
 borehole <- data.frame(
   Depth = c(0, 1.5, 3, 5, 7),
   Soil = c("Topsoil", "Clay", "Silty Clay", "Sand", "Gravel")
 )
 
-# Visualizing borehole strata
 library(ggplot2)
-
 ggplot(borehole, aes(x = "", y = Depth, fill = Soil)) +
   geom_bar(stat = "identity", width = 0.5) +
   scale_y_reverse() +
@@ -96,82 +79,43 @@ ggplot(borehole, aes(x = "", y = Depth, fill = Soil)) +
   theme_minimal()
   </pre>
 
-  <h3>4. Case: Soil Type Mapping and Interpolation</h3>
-  <p>
-    Soil properties are often measured at specific locations, and interpolation helps estimate values at unknown locations.
-  </p>
-  <p>
-    Common techniques include:
-  </p>
-  <ul>
-    <li>IDW (Inverse Distance Weighting)</li>
-    <li>Kriging</li>
-    <li>Spline interpolation</li>
-  </ul>
-  <p>
-    R provides powerful geostatistical tools via the <code>gstat</code> and <code>sp</code> packages.
-  </p>
-
+  <h3>4. Soil Type Mapping and Interpolation</h3>
+  <p>Interpolation estimates soil properties at unmeasured locations using techniques like IDW, Kriging, or Spline.</p>
   <pre>
 library(sp)
 library(gstat)
 
-# Simulated soil data
-coords <- data.frame(x = c(1, 2, 3, 4), y = c(1, 2, 1, 2))
+coords <- data.frame(x = c(1,2,3,4), y = c(1,2,1,2))
 values <- data.frame(soil_ph = c(6.5, 6.8, 7.0, 6.9))
 soil_points <- SpatialPointsDataFrame(coords, data = values)
 
-# Create interpolation grid
-x.range <- seq(0, 5, by = 0.1)
-y.range <- seq(0, 5, by = 0.1)
-grid <- expand.grid(x = x.range, y = y.range)
+x.range <- seq(0,5,0.1)
+y.range <- seq(0,5,0.1)
+grid <- expand.grid(x=x.range, y=y.range)
 coordinates(grid) <- ~x + y
 gridded(grid) <- TRUE
 
-# IDW interpolation
 idw_result <- idw(soil_ph ~ 1, soil_points, newdata = grid)
-
-# Plot result
 spplot(idw_result, main = "Interpolated Soil pH Map")
   </pre>
 
-  <h3>5. Mechanical Testing and Simulation Data</h3>
-  <p>
-    Simulations like FEA or CFD are used to model:
-  </p>
+  <h3>5. Mechanical Testing & Simulation Data</h3>
   <ul>
-    <li>Structural stress</li>
-    <li>Deformations</li>
-    <li>Heat flow or fluid dynamics</li>
+    <li>FEA/CFD simulations model stress, deformation, heat flow, and fluid dynamics.</li>
+    <li>Simulation outputs are analyzed in R for post-processing and visualization.</li>
   </ul>
-  <p>
-    These simulations output large datasets typically in CSV or mesh formats that can be analyzed in R for post-processing.
-  </p>
 
-  <h3>6. Importing Simulation Output (FEA/CFD)</h3>
-  <p>
-    You can import CSV or text output from simulation software (like ANSYS or ABAQUS) into R for summary or visualization.
-  </p>
-
+  <h3>6. Importing Simulation Output</h3>
   <pre>
-# Reading simulation output
 fea_data <- read.csv("data/fea_output.csv")
-
-# Example: columns might be NodeID, Stress, Displacement
 head(fea_data)
   </pre>
 
   <h3>7. Statistical Summary of Output Variables</h3>
-  <p>
-    Analyzing simulation results involves understanding variation in stress, strain, or velocity to evaluate safety and performance.
-  </p>
-
   <pre>
-# Summary statistics
 summary(fea_data$Stress)
 summary(fea_data$Displacement)
 
-# Histogram of stress
 ggplot(fea_data, aes(x = Stress)) +
   geom_histogram(fill = "skyblue", bins = 30) +
   labs(title = "Stress Distribution", x = "Stress (MPa)", y = "Count") +
