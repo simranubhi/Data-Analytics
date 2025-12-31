@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 4 - Day 2</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+      text-align: left;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-left: 4px solid #3498db;
+      overflow-x: auto;
+    }
+    .concept-box {
+      background-color: #e0f7fa;
+      border-left: 5px solid #00796b;
+      padding: 10px 20px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Week 4 - Day 2</h1>
+  <h2>Advanced Data Visualization in R: ggplot2 & plotly</h2>
+
+  <div class="concept-box">
+    <strong>Concepts Covered:</strong><br>
+    Layered plots using ggplot2, scatter plots, line plots, boxplots, interactive plots using plotly, 3D interactive plots, combining multiple plots
+  </div>
+
+  <h3>1. ggplot2 Basics</h3>
+  <p>ggplot2 uses the Grammar of Graphics for building complex plots layer by layer. You can add points, lines, smoothers, labels, and themes incrementally.</p>
+
+  <pre><code>library(ggplot2)
+
+# Scatter Plot
+ggplot(iris, aes(x = Sepal.Length, y = Petal.Length, color = Species)) +
+  geom_point(size = 3) +
+  labs(title = "Sepal vs Petal Length", x = "Sepal Length", y = "Petal Length") +
+  theme_minimal()
+
+# Line Plot
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line(color = "darkred", size = 1) +
+  labs(title = "Unemployment Over Time", x = "Date", y = "Number of Unemployed") +
+  theme_light()</code></pre>
+
+  <h3>2. Boxplots and Violin Plots</h3>
+  <p>Used to visualize distribution and spread of data, including outliers.</p>
+
+  <pre><code># Boxplot
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_boxplot() +
+  labs(title = "Sepal Length Distribution by Species") +
+  theme_minimal()
+
+# Violin plot
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_violin(trim = FALSE) +
+  labs(title = "Violin Plot of Sepal Length") +
+  theme_minimal()</code></pre>
+
+  <h3>3. Interactive Plots Using plotly</h3>
+  <p>plotly converts ggplot2 plots into interactive plots with zoom, pan, hover info.</p>
+
+  <pre><code>library(plotly)
+
+# Convert ggplot to interactive
+p <- ggplot(iris, aes(x = Sepal.Length, y = Petal.Length, color = Species)) +
+  geom_point(size = 3)
+ggplotly(p)
+
+# 3D Scatter Plot
+plot_ly(iris, x = ~Sepal.Length, y = ~Sepal.Width, z = ~Petal.Length,
+        color = ~Species, size = ~Petal.Width, type = "scatter3d", mode = "markers")</code></pre>
+
+  <h3>4. Combining Multiple Plots</h3>
+  <p>Use <code>patchwork</code> or <code>gridExtra</code> to combine multiple ggplot plots.</p>
+
+  <pre><code>library(gridExtra)
+
+p1 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) + geom_point()
+p2 <- ggplot(iris, aes(Sepal.Width, Petal.Width, color = Species)) + geom_point()
+
+grid.arrange(p1, p2, ncol = 2)</code></pre>
+
+</body>
+</html>
