@@ -29,153 +29,139 @@
   </style>
 </head>
 <body>
-  <h1>Week 2 (DAY-3) </h1>
-  <h2>Understanding Data Frames</h2>
-  <p>In R, a data frame is the most commonly used data structure for storing tabular data. It is similar to an Excel spreadsheet or a SQL table, where:<br>
-  Rows represent observations (e.g., each student or employee).<br>
-  Columns represent variables or attributes (e.g., Name, Age, Salary).<br>
-  Each column can have a different data type (numeric, character, factor, etc.), which makes data frames extremely flexible for handling real-world data.</p>
 
-    <strong>Example:</strong><br>
-    <code>data.frame(ID = c(1, 2), Name = c("Alice", "Bob"), Age = c(21, 22))</code>
-  </div>
+<h1>Week 2 (DAY-3)</h1>
 
-  <h2>1. Data Reshaping</h2>
-  <p>Data reshaping refers to transforming the format of a dataset to suit a specific analysis, model, or visualization.</p>
-  <ul>
-    <li><strong>Wide to Long</strong>: Collapse multiple columns into key-value pairs.</li>
-    <li><strong>Long to Wide</strong>: Spread rows back into columns.</li>
-  </ul>
+<h3>Topics Covered:</h3>
+<ul>
+  <li>Grouping Data using <code>group_by()</code></li>
+  <li>Summarizing Data using <code>summarise()</code></li>
+  <li>Group-wise Analysis</li>
+  <li>Wide vs Long Data Formats</li>
+  <li>Data Reshaping using <code>pivot_longer()</code> and <code>pivot_wider()</code></li>
+</ul>
 
-  <p>This process is crucial for:</p>
-  <ul>
-    <li>Statistical models</li>
-    <li>Plotting with ggplot2</li>
-    <li>Machine learning workflows</li>
-    <li>Pivot reports and dashboards</li>
-  </ul>
+<hr/>
 
-  <h2>pivot_longer()</h2>
-  <p>This function from the tidyr package is used to convert wide data into a longer, tidy format.</p>
-  <p>It simplifies columns into key-value pairs, making the data more suitable for analysis and visualization. This is especially useful when there are repeated measures like test scores or monthly readings.</p>
+<p>
+Many real-world datasets require group-wise analysis and restructuring before meaningful insights
+can be extracted. In R, the <b>dplyr</b> and <b>tidyr</b> packages provide powerful tools to group,
+summarize, and reshape data efficiently.
+</p>
 
-  <pre><code>pivot_longer(data, 
-             cols = ..., 
-             names_to = ..., 
-             values_to = ...)</code></pre>
+<hr/>
 
-  <p><strong>Use Case:</strong> Combine test1, test2, test3 columns into two columns: "test" and "score".</p>
+<h2>1. Grouping and Summarizing Data</h2>
+<p>
+Grouping allows operations to be performed separately for each category in a dataset.
+The <code>group_by()</code> function groups data, while <code>summarise()</code> computes
+aggregate statistics for each group.
+</p>
 
-  <h2>pivot_wider()</h2>
-  <p>Used to convert long data back into wide format. Helps in summarizing or exporting data.</p>
-  <p>It is commonly used when preparing data for reports, dashboards, or machine learning input formats. This function is ideal when each row should represent a single entity.</p>
+<pre>
+library(dplyr)
 
-  <pre><code>pivot_wider(data, 
-            names_from = ..., 
-            values_from = ...)</code></pre>
+group_by(df, Department) %>%
+  summarise(
+    AvgSalary = mean(Salary, na.rm = TRUE),
+    Count = n()
+  )
+</pre>
 
-  <h2>melt()</h2>
-  <p>An older alternative from the <code>reshape2</code> package to convert wide to long format.</p>
-  <p>Though slightly less flexible than tidyr's functions, it remains useful in legacy systems or for quick reshaping tasks. It retains identifier variables while collapsing others.</p>
+<p><b>Concepts Covered:</b></p>
+<ul>
+  <li>Group-wise calculations</li>
+  <li>Aggregate functions (mean, count)</li>
+</ul>
 
-  <pre><code>melt(data, 
-     id.vars = c("id", "name"), 
-     variable.name = "test", 
-     value.name = "score")</code></pre>
+<h2>2. Understanding Wide vs Long Data</h2>
+<p>
+Data can be structured in different formats depending on the task.
+</p>
+<ul>
+  <li><b>Wide format:</b> Multiple columns represent repeated measurements</li>
+  <li><b>Long format:</b> Key-value pairs represent measurements</li>
+</ul>
 
-  <h2>spread()</h2>
-  <p>An older function to go from long to wide format. It's still usable but replaced by <code>pivot_wider()</code>.</p>
-  <p>spread() provides similar functionality to pivot_wider(), but lacks some modern features and error handling. It's still found in older scripts and tutorials.</p>
+<p>
+Most statistical models and visualizations in R prefer long (tidy) data.
+</p>
 
-  <h2>Why Reshaping is Important</h2>
-  <ul>
-    <li>Make data tidy</li>
-    <li>Convert complex data into analysis-ready formats</li>
-    <li>Organize time-series data</li>
-    <li>Customize for dashboards/reports</li>
-  </ul>
+<hr/>
 
-    <strong>Example:</strong> Reshaping monthly sales data to compare across stores or time periods.
-  </div>
+<h2>3. Data Reshaping using pivot_longer()</h2>
+<p>
+The <code>pivot_longer()</code> function converts wide-format data into a long, tidy format,
+making it suitable for analysis and visualization.
+</p>
 
-  <h2>CODE PRACTICE</h2>
-  <pre><code># Load required packages
+<pre>
+pivot_longer(
+  data,
+  cols = ...,
+  names_to = "variable",
+  values_to = "value"
+)
+</pre>
+
+<h2>4. Data Reshaping using pivot_wider()</h2>
+<p>
+The <code>pivot_wider()</code> function converts long-format data back into wide format.
+This is useful for reporting and exporting results.
+</p>
+
+<pre>
+pivot_wider(
+  data,
+  names_from = variable,
+  values_from = value
+)
+</pre>
+
+<h2>5. Older Reshaping Functions</h2>
+<p>
+Older functions such as <code>melt()</code> and <code>spread()</code> are still encountered
+in legacy code but have largely been replaced by tidyr functions.
+</p>
+
+<hr/>
+
+<h2>CODE PRACTICE</h2>
+
+<pre>
+library(dplyr)
 library(tidyr)
 
-# Sample data
-st_test1 &lt;- data.frame(
-  id = c(1, 2, 3), 
+# Sample dataset
+st_test1 <- data.frame(
+  id = c(1, 2, 3),
   name = c("Alice", "Bob", "John"),
-  test1 = c(95, 91, 85), 
-  test2 = c(98, 80, 87), 
+  test1 = c(95, 91, 85),
+  test2 = c(98, 80, 87),
   test3 = c(92, 93, 90)
 )
 
-# WIDE to LONG
-st_test2 &lt;- pivot_longer(
-  st_test1, 
-  cols = starts_with("test"), 
-  names_to = "test", 
+# Wide to Long
+st_long <- pivot_longer(
+  st_test1,
+  cols = starts_with("test"),
+  names_to = "test",
   values_to = "score"
 )
-print(st_test2)
+print(st_long)
 
-# Install older packages
-install.packages("stringi")
-install.packages("reshape2")
+# Group-wise summary
+group_by(st_long, test) %>%
+  summarise(AverageScore = mean(score))
 
-# Load them
-library(reshape2)
-library(stringi)
-
-# Using melt()
-st_test2 &lt;- melt(
-  st_test1, 
-  id.vars = c("id", "name"), 
-  variable.name = "test", 
-  value.name = "score"
-)
-print(st_test2)
-
-# LONG to WIDE
-st_test3 &lt;- st_test2 %&gt;% pivot_wider(
-  names_from = test, 
+# Long to Wide
+st_wide <- pivot_wider(
+  st_long,
+  names_from = test,
   values_from = score
 )
-print(st_test3)
-
-# Using spread()
-st_test3 &lt;- spread(
-  st_test2, 
-  test, 
-  score
-)
-print(st_test3)
-
-# Monthly expenses example
-st_test4 &lt;- data.frame(
-  Year = rep(2021:2025, each = 12),
-  month = rep(month.abb, times = 5),
-  expenses = 101:160
-)
-
-# Convert to WIDE
-wide_data &lt;- pivot_wider(
-  st_test4, 
-  names_from = month, 
-  values_from = expenses
-)
-print(wide_data)
-
-# Convert back to LONG
-long_data &lt;- pivot_longer(
-  wide_data,
-  cols = -Year,
-  names_to = "month",
-  values_to = "expenses"
-)
-print(long_data)</code></pre>
+print(st_wide)
+</pre>
 
 </body>
 </html>
-
