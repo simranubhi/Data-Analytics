@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Week 3 (DAY-5)</title>
+  <title>Week 3 (DAY-4)</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -39,29 +39,91 @@
   </style>
 </head>
 <body>
-  <h1>Week 3 (DAY-5)</h1>
-  <h2>Reproducible Research & Version Control in R</h2>
+  <h1>Week 3 (DAY-4)</h1>
+  <h2>3D Plotting, Animation & Histograms in R</h2>
 
   <div class="concept-box">
     <strong>Concepts Covered:</strong><br>
-    R Markdown, Dynamic Reports, Knitr, Report Generation, Git & GitHub basics, Version Control, Collaborative R Projects
+    3D plotting using rgl, animated bar plots using gganimate, base R histograms and bar plots, multiple histograms, histograms using ggplot2
   </div>
 
-  <h3>1. Introduction to R Markdown</h3>
-  <p>
-    R Markdown combines R code, outputs, and text in a single document, allowing reproducible research and automated reporting.
-  </p>
+  <h3>1. 3D Plotting Using <code>rgl</code></h3>
+  <p><code>rgl</code> enables interactive 3D plotting, rotation, and animation, useful for spatial analytics and multivariate data visualization.</p>
   <pre>
-# Create a new R Markdown document
-# File -> New File -> R Markdown
-# Choose output format: HTML, PDF, or Word
+library(rgl)
+myframe <- data.frame(x=c(1,2,3), y=c(5,6,7), z=c(2,5,7))
+plot3d(myframe$x, myframe$y, myframe$z, col="blue", xlab="X axis", ylab="Y axis", zlab="Z axis")
+bg3d(color="skyblue")
+bbox3d(color="yellow")
+play3d(spin3d(axis=c(0,0,1), rpm=2), duration=20)
+
+# Using iris dataset
+plot3d(iris$Sepal.Length, iris$Sepal.Width, iris$Petal.Length, size=1, xlab="Sepal Length", ylab="Sepal Width", zlab="Petal Length")
   </pre>
 
-  <h3>2. Writing Dynamic Reports with Knitr</h3>
-  <p>
-    The <code>knitr</code> package allows R code chunks to be executed and outputs automatically included in the final report.
-  </p>
+  <h3>2. Animated Bar Plots Using <code>gganimate</code></h3>
+  <p>Extends ggplot2 to animate time-based transitions for dynamic visualization of trends.</p>
   <pre>
-# Example code chunk in R Markdown
-```{r summary, echo=TRUE}
-summary(iris)
+library(ggplot2)
+library(gganimate)
+library(gifski)
+
+mydata <- data.frame(
+  Month = rep(c("January","February","March"), each=4),
+  Category = rep(c("Rent","Water","Electricity","Groceries"), times=3),
+  Amount = c(15000,3000,1200,4300,11000,1200,2250,4100,9000,3356,3300,1231)
+)
+
+p <- ggplot(mydata, aes(x=Category, y=Amount, fill=Category)) +
+  geom_bar(stat="identity") +
+  labs(title="Monthly Expenses", x="Category", y="Amount (₹)") +
+  theme_minimal() +
+  transition_states(Month, transition_length=1, state_length=1) +
+  ggtitle("Month: {closest_state}")
+
+animate(p, renderer=gifski_renderer())
+anim_save("monthly_expenses.gif", animation=last_animation())
+  </pre>
+
+  <h3>3. Base R Histogram & Bar Plots</h3>
+  <pre>
+v <- c(19,23,11,5,16,21,32,14,19,27,39,120,40,70,90)
+m <- hist(v, xlab="Weight", ylab="Frequency", col="darkmagenta", border="pink", breaks=5)
+text(m$mids, m$counts, labels=m$counts, adj=c(0.5,-0.5))
+
+sepal_length <- iris$Sepal.Length[1:5]
+sepal_width <- iris$Sepal.Width[1:5]
+petal_length <- iris$Petal.Length[1:5]
+data_matrix <- rbind(sepal_length, sepal_width, petal_length)
+
+par(bg="lightyellow")
+barplot(data_matrix, beside=TRUE, col=c("skyblue","orange","lightgreen"),
+        names.arg=paste("Row",1:5),
+        legend.text=c("Sepal Length","Sepal Width","Petal Length"),
+        args.legend=list(x="topright", bty="n"),
+        xlab="Sample Index", ylab="Value",
+        main="Bar Chart of Sepal & Petal Measurements (First 5 Samples)")
+  </pre>
+
+  <h3>4. Multiple Histograms in One Frame</h3>
+  <pre>
+par(mfrow=c(2,2), bg="lightyellow")
+
+hist(iris$Sepal.Length, main="Sepal Length", xlab="Length", col="skyblue", border="blue")
+hist(iris$Sepal.Width, main="Sepal Width", xlab="Width", col="orange", border="darkorange")
+hist(iris$Petal.Length, main="Petal Length", xlab="Length", col="lightgreen", border="green4")
+hist(iris$Petal.Width, main="Petal Width", xlab="Width", col="plum", border="purple")
+  </pre>
+
+  <h3>5. Histogram Using <code>ggplot2</code></h3>
+  <pre>
+library(ggplot2)
+
+ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
+  geom_histogram(binwidth=0.3, position="identity", alpha=0.5) +
+  labs(title="Histogram of Sepal Length by Species") +
+  theme_minimal()
+  </pre>
+
+</body>
+</html>
