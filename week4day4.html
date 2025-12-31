@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 4 - Day 4</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #fdfdfd; color: #333; line-height: 1.6; max-width: 900px; margin: auto; padding: 40px 20px; }
+    h1, h2, h3 { color: #2c3e50; text-align: left; }
+    pre { background: #f4f4f4; padding: 10px; border-left: 4px solid #3498db; overflow-x: auto; }
+    .concept-box { background-color: #e0f7fa; border-left: 5px solid #00796b; padding: 10px 20px; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <h1>Week 4 - Day 4</h1>
+  <h2>Data Preprocessing & Feature Engineering in R</h2>
+
+  <div class="concept-box">
+    <strong>Concepts Covered:</strong><br>
+    Handling missing values, scaling, normalization, encoding categorical variables, feature creation, outlier detection
+  </div>
+
+  <h3>1. Handling Missing Values</h3>
+  <pre><code>data <- data.frame(x = c(1, 2, NA, 4, 5))
+is.na(data$x)
+data$x[is.na(data$x)] <- mean(data$x, na.rm = TRUE)</code></pre>
+
+  <h3>2. Scaling & Normalization</h3>
+  <pre><code># Min-Max Normalization
+normalize <- function(x) (x - min(x)) / (max(x) - min(x))
+normalize(c(2, 4, 6, 8, 10))
+
+# Z-score Standardization
+scale(c(2, 4, 6, 8, 10))</code></pre>
+
+  <h3>3. Encoding Categorical Variables</h3>
+  <pre><code>factor_var <- factor(c("low", "medium", "high", "low"))
+as.numeric(factor_var)  # Converts to 1,2,3</code></pre>
+
+  <h3>4. Feature Engineering</h3>
+  <pre><code>data$Sepal.Ratio <- data$Sepal.Length / iris$Sepal.Width
+head(data$Sepal.Ratio)</code></pre>
+
+  <h3>5. Outlier Detection</h3>
+  <pre><code>boxplot(iris$Sepal.Length, main = "Sepal Length Boxplot")
+outliers <- boxplot.stats(iris$Sepal.Length)$out</code></pre>
+
+</body>
+</html>
