@@ -29,6 +29,7 @@
       padding: 10px 20px;
       margin: 20px 0;
     }
+    p { margin-bottom: 10px; }
   </style>
 </head>
 <body>
@@ -37,11 +38,12 @@
 
   <div class="concept-box">
     <strong>Concepts Covered:</strong><br>
-    Layered plots using ggplot2, scatter plots, line plots, boxplots, interactive plots using plotly, 3D interactive plots, combining multiple plots
+    Layered plots using ggplot2, scatter plots, line plots, boxplots, violin plots, color palettes, themes, facets, interactive plots using plotly, 3D interactive plots, annotations, combining multiple plots
   </div>
 
   <h3>1. ggplot2 Basics</h3>
-  <p>ggplot2 uses the Grammar of Graphics for building complex plots layer by layer. You can add points, lines, smoothers, labels, and themes incrementally.</p>
+  <p>ggplot2 is based on the Grammar of Graphics. A plot is built by layering <code>geoms</code> (geometrical objects) like points, lines, or bars, along with scales, labels, and themes.</p>
+  <p>This approach allows highly flexible and aesthetically pleasing visualizations.</p>
 
   <pre><code>library(ggplot2)
 
@@ -49,16 +51,20 @@
 ggplot(iris, aes(x = Sepal.Length, y = Petal.Length, color = Species)) +
   geom_point(size = 3) +
   labs(title = "Sepal vs Petal Length", x = "Sepal Length", y = "Petal Length") +
-  theme_minimal()
+  theme_minimal()</code></pre>
 
-# Line Plot
+  <h3>2. Line Plots and Trendlines</h3>
+  <p>Line plots are useful for time-series or continuous data. You can also add trendlines using <code>geom_smooth()</code>.</p>
+
+  <pre><code># Line Plot with Trendline
 ggplot(economics, aes(x = date, y = unemploy)) +
   geom_line(color = "darkred", size = 1) +
-  labs(title = "Unemployment Over Time", x = "Date", y = "Number of Unemployed") +
+  geom_smooth(method = "loess", se = TRUE, color = "blue") +
+  labs(title = "Unemployment Over Time with Trendline", x = "Date", y = "Number of Unemployed") +
   theme_light()</code></pre>
 
-  <h3>2. Boxplots and Violin Plots</h3>
-  <p>Used to visualize distribution and spread of data, including outliers.</p>
+  <h3>3. Boxplots and Violin Plots</h3>
+  <p>Boxplots summarize distribution using median, quartiles, and outliers. Violin plots combine density plots with boxplots to show distribution shape.</p>
 
   <pre><code># Boxplot
 ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
@@ -72,12 +78,30 @@ ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
   labs(title = "Violin Plot of Sepal Length") +
   theme_minimal()</code></pre>
 
-  <h3>3. Interactive Plots Using plotly</h3>
-  <p>plotly converts ggplot2 plots into interactive plots with zoom, pan, hover info.</p>
+  <h3>4. Color Palettes and Themes</h3>
+  <p>Color palettes and themes improve readability and aesthetics. ggplot2 has built-in themes like <code>theme_minimal()</code>, <code>theme_light()</code>, <code>theme_bw()</code>, etc.</p>
+
+  <pre><code># Custom colors
+ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("setosa" = "red", "versicolor" = "green", "virginica" = "blue")) +
+  theme_classic()</code></pre>
+
+  <h3>5. Facets for Multi-Panel Plots</h3>
+  <p>Facets allow splitting data into multiple panels based on a factor variable for easy comparison.</p>
+
+  <pre><code>ggplot(iris, aes(x = Sepal.Length, y = Petal.Length)) +
+  geom_point(aes(color = Species)) +
+  facet_wrap(~Species) +
+  labs(title = "Scatter Plot Faceted by Species") +
+  theme_minimal()</code></pre>
+
+  <h3>6. Interactive Plots Using plotly</h3>
+  <p>plotly converts ggplot2 plots into interactive plots, supporting zoom, pan, and hover info. You can also create fully 3D plots.</p>
 
   <pre><code>library(plotly)
 
-# Convert ggplot to interactive
+# Interactive Scatter Plot
 p <- ggplot(iris, aes(x = Sepal.Length, y = Petal.Length, color = Species)) +
   geom_point(size = 3)
 ggplotly(p)
@@ -86,8 +110,17 @@ ggplotly(p)
 plot_ly(iris, x = ~Sepal.Length, y = ~Sepal.Width, z = ~Petal.Length,
         color = ~Species, size = ~Petal.Width, type = "scatter3d", mode = "markers")</code></pre>
 
-  <h3>4. Combining Multiple Plots</h3>
-  <p>Use <code>patchwork</code> or <code>gridExtra</code> to combine multiple ggplot plots.</p>
+  <h3>7. Annotations and Labels</h3>
+  <p>Annotations help highlight important points, adding text, arrows, or custom labels.</p>
+
+  <pre><code>ggplot(iris, aes(Sepal.Length, Petal.Length)) +
+  geom_point(aes(color = Species)) +
+  geom_text(aes(label = ifelse(Sepal.Length > 7, Species, "")), vjust = -1, hjust = 0.5) +
+  labs(title = "Scatter Plot with Annotations") +
+  theme_minimal()</code></pre>
+
+  <h3>8. Combining Multiple Plots</h3>
+  <p>Use <code>patchwork</code> or <code>gridExtra</code> to combine multiple ggplot2 plots into a single figure.</p>
 
   <pre><code>library(gridExtra)
 
@@ -95,6 +128,9 @@ p1 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) + geom_poin
 p2 <- ggplot(iris, aes(Sepal.Width, Petal.Width, color = Species)) + geom_point()
 
 grid.arrange(p1, p2, ncol = 2)</code></pre>
+
+  <h3>Summary</h3>
+  <p>Advanced visualization in R combines **ggplot2 for layered static plots** and **plotly for interactive 2D/3D plots**. Understanding aesthetics, scales, facets, themes, and annotations allows creating professional-grade visualizations for analysis and reporting.</p>
 
 </body>
 </html>
