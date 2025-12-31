@@ -2,29 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Week 3 (DAY-2)</title>
+  <title>Week 3 - Day 2</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #fdfdfd;
-      color: #333;
-      line-height: 1.6;
       max-width: 900px;
       margin: auto;
-      padding: 40px 20px;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
     }
     h1, h2, h3 {
       color: #2c3e50;
-      text-align: left;
+      text-align: center;
+    }
+    h2 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
     }
     pre {
-      background: #f4f4f4;
+      background-color: #f4f4f4;
       padding: 10px;
       border-left: 4px solid #3498db;
       overflow-x: auto;
     }
     ul {
-      margin-top: 0;
+      line-height: 1.6;
     }
     .concept-box {
       background-color: #e0f7fa;
@@ -34,84 +38,83 @@
     }
   </style>
 </head>
+
 <body>
-  <h1>Week 3 (DAY-2)</h1>
-  <h2>Understanding Repositories and Packages in R</h2>
+  <h1>Week 3 (DAY 2)</h1>
+  <h2>Correlation & Hypothesis Testing</h2>
 
   <div class="concept-box">
     <strong>Concepts Covered:</strong><br>
-    Repositories in R, Types of Repositories, Installing Packages, Bioconductor, GitHub, Loading Libraries, Updating Packages
+    Correlation Analysis, Pearson & Spearman correlation, Hypothesis testing, t-test, Chi-square test, p-value interpretation
   </div>
 
-  <h3>Repositories in R</h3>
-  <p>
-    A <strong>repository</strong> in R is a storage location that hosts R packages. Think of it like an app store for R — you can search, download, and install packages based on your needs. You can switch between repositories or add your own.
-  </p>
-
-  <p>There are 3 main types of repositories:</p>
+  <h3>1. Correlation Analysis</h3>
   <ul>
-    <li><strong>1. CRAN (Comprehensive R Archive Network):</strong> This is the official and most widely used repository. It stores thousands of packages and connects directly to RStudio through secure FTP servers. It's stable, secure, and constantly updated.</li>
-    <li><strong>2. Bioconductor:</strong> A specialized repository mainly used for bioinformatics and computational biology. It includes packages for genomic data analysis and visualization.</li>
-    <li><strong>3. GitHub:</strong> A platform for open-source development. It's used to host R packages not yet available on CRAN. Developers use GitHub to collaborate, share, and improve packages. It supports version control and has unlimited hosting.</li>
+    <li>Measures the strength and direction of the relationship between two numeric variables.</li>
+    <li>Correlation coefficient ranges from -1 to +1.</li>
+    <li>Positive correlation: variables increase together.</li>
+    <li>Negative correlation: one variable increases while the other decreases.</li>
+    <li>Zero correlation: no linear relationship.</li>
   </ul>
 
-  <h3>Viewing and Managing Repositories</h3>
+  <h4>Example in R:</h4>
   <pre>
-# Shows the current library paths where packages are installed
-.libPaths()
+# Sample vectors
+x <- c(10, 20, 30, 40, 50)
+y <- c(15, 25, 35, 45, 55)
 
-# Opens the path location in your system's file explorer
-shell.exec(.libPaths()[1])
+# Pearson correlation
+cor(x, y, method = "pearson")
+
+# Spearman correlation
+cor(x, y, method = "spearman")
   </pre>
 
-  <h3>Viewing Available & Installed Packages</h3>
-  <pre>
-# Lists all available libraries (installed + standard)
-library()
+  <h3>2. Hypothesis Testing</h3>
+  <ul>
+    <li>Hypothesis testing checks whether a claim about a population is true using sample data.</li>
+    <li><strong>Null Hypothesis (H0):</strong> Assumes no effect or no difference.</li>
+    <li><strong>Alternative Hypothesis (H1):</strong> Assumes there is an effect or difference.</li>
+    <li>Decisions are based on p-value and significance level (α = 0.05).</li>
+  </ul>
 
-# Lists all installed packages in your R setup
-installed.packages()
+  <h4>Common Tests:</h4>
+  <ul>
+    <li><strong>t-test:</strong> Compares means of two groups.</li>
+    <li><strong>Chi-square test:</strong> Tests association between categorical variables.</li>
+    <li><strong>F-test:</strong> Compares variances of two samples.</li>
+  </ul>
+
+  <h4>t-test Example in R:</h4>
+  <pre>
+group1 <- c(23, 34, 21, 45, 33)
+group2 <- c(30, 40, 28, 50, 36)
+
+# Two-sample t-test
+t.test(group1, group2)
   </pre>
 
-  <h3>Installing Packages from CRAN</h3>
-  <p>To install any package from CRAN, use the <code>install.packages()</code> function. Example:</p>
+  <h4>Chi-square Test Example in R:</h4>
   <pre>
-# Installs the 'dplyr' package
-install.packages("dplyr")
+# Observed frequencies
+observed <- c(20, 30, 50)
+
+# Chi-square goodness of fit test
+chisq.test(observed)
   </pre>
 
-  <h3>Updating Packages</h3>
-  <pre>
-# Updates the package 'ggplot2' if an update is available
-update.packages("ggplot2")
-  </pre>
+  <h4>Interpreting p-values</h4>
+  <ul>
+    <li>If p-value &lt; α (0.05), reject H0 → evidence supports H1.</li>
+    <li>If p-value &gt; α, fail to reject H0 → not enough evidence to support H1.</li>
+  </ul>
 
-  <h3>Installing from Bioconductor</h3>
-  <p>First, install the BiocManager package. Then install any Bioconductor package using BiocManager:</p>
-  <pre>
-install.packages("BiocManager")      # Installs BiocManager
-BiocManager::install("edgeR")        # Installs 'edgeR' package from Bioconductor
-  </pre>
+  <h3>Engineering Applications</h3>
+  <ul>
+    <li>Correlation between temperature and material expansion.</li>
+    <li>Hypothesis testing to validate machine calibration.</li>
+    <li>Comparing efficiency of two pump models using t-tests.</li>
+  </ul>
 
-  <h3>Installing Packages from GitHub</h3>
-  <p>To install packages from GitHub, use the <code>devtools</code> package:</p>
-  <pre>
-install.packages("devtools")                     # Installs devtools
-devtools::install_github("tidyverse/tidyverse")  # Installs tidyverse from GitHub repo
-  </pre>
-
-  <h3>Loading Packages</h3>
-  <p>You can load one or more packages using <code>library()</code> or <code>require()</code>:</p>
-  <pre>
-library(dplyr)                          # Loads dplyr
-require(dplyr)                          # Loads dplyr (returns TRUE/FALSE if successful)
-library(caret, dplyr, ggplot2)          # Loads multiple packages at once
-  </pre>
-
-  <h2>Summary</h2>
-  <p>
-    In R, understanding how repositories work is crucial for managing packages. CRAN is your go-to for reliable packages, Bioconductor for bioinformatics, and GitHub for cutting-edge or experimental tools. Always keep your packages updated and organized using functions like <code>library()</code>, <code>install.packages()</code>, and <code>update.packages()</code>.
-  </p>
 </body>
 </html>
-
