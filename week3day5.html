@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 3 (DAY-5)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      max-width: 900px;
+      margin: auto;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+      text-align: center;
+    }
+    h2 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    pre {
+      background-color: #f4f4f4;
+      padding: 10px;
+      border-left: 4px solid #3498db;
+      overflow-x: auto;
+    }
+    ul {
+      line-height: 1.6;
+    }
+    .concept-box {
+      background-color: #e0f7fa;
+      border-left: 4px solid #00796b;
+      padding: 10px 20px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Week 3 (DAY-5)</h1>
+  <h2>Reproducible Research & Version Control in R</h2>
+
+  <div class="concept-box">
+    <strong>Concepts Covered:</strong><br>
+    R Markdown, Dynamic Reports, Knitr, Report Generation, Git & GitHub basics, Version Control, Collaborative R Projects
+  </div>
+
+  <h3>1. Introduction to R Markdown</h3>
+  <p>
+    R Markdown combines R code, outputs, and text in a single document, allowing reproducible research and automated reporting.
+  </p>
+  <pre>
+# Create a new R Markdown document
+# File -> New File -> R Markdown
+# Choose output format: HTML, PDF, or Word
+  </pre>
+
+  <h3>2. Writing Dynamic Reports with Knitr</h3>
+  <p>
+    The <code>knitr</code> package allows R code chunks to be executed and outputs automatically included in the final report.
+  </p>
+  <pre>
+# Example code chunk in R Markdown
+```{r summary, echo=TRUE}
+summary(iris)
