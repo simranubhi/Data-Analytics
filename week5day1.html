@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 4 - Day 1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+      text-align: left;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-left: 4px solid #3498db;
+      overflow-x: auto;
+    }
+    .concept-box {
+      background-color: #e0f7fa;
+      border-left: 5px solid #00796b;
+      padding: 10px 20px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Week 4 - Day 1</h1>
+  <h2>3D Plotting, Animation & Histograms in R</h2>
+
+  <div class="concept-box">
+    <strong>Concepts Covered:</strong><br>
+    3D plotting using <code>rgl</code>, animated bar plots using <code>gganimate</code>, base R histograms and bar plots, multiple histograms, advanced histograms using <code>ggplot2</code>
+  </div>
+
+  <h3>1. 3D Plotting Using <code>rgl</code></h3>
+  <p>The <code>rgl</code> package enables interactive 3D plotting, rotation, zooming, and real-time visualization for multivariate data.</p>
+
+  <pre><code>library(rgl)
+
+# Sample Data
+x <- c(1, 2, 3, 4, 5)
+y <- c(2, 5, 3, 6, 4)
+z <- c(4, 7, 5, 8, 6)
+
+# 3D Scatter Plot
+plot3d(x, y, z, col = "blue", size = 5, 
+       xlab = "X axis", ylab = "Y axis", zlab = "Z axis")
+
+# 3D Lines
+lines3d(x, y, z, col = "red", lwd = 3)
+
+# Add bounding box and background
+bg3d(color = "lightgrey")
+bbox3d(color = c("black", "green", "blue"))
+
+# 3D Animation
+play3d(spin3d(axis = c(0, 0, 1), rpm = 5), duration = 10)</code></pre>
+
+  <p><strong>Additional Features:</strong> points3d(), text3d(), segments3d(), and surface3d() for complex shapes or meshes.</p>
+
+  <h3>2. Animated Bar Plots Using <code>gganimate</code></h3>
+  <p><code>gganimate</code> allows creating animations for time-varying data. Ideal for monthly trends, stock data, or category comparisons.</p>
+
+  <pre><code>library(ggplot2)
+library(gganimate)
+library(gifski)
+
+# Sample Data
+data <- data.frame(
+  Month = rep(c("Jan", "Feb", "Mar"), each = 3),
+  Category = rep(c("Rent", "Food", "Transport"), times = 3),
+  Amount = c(1200, 800, 300, 1250, 850, 350, 1300, 900, 400)
+)
+
+# Animated Bar Plot
+p <- ggplot(data, aes(x = Category, y = Amount, fill = Category)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Month: {closest_state}", x = "Category", y = "Amount") +
+  theme_minimal() +
+  transition_states(Month, transition_length = 1, state_length = 1)
+
+animate(p, renderer = gifski_renderer())
+anim_save("monthly_expenses.gif", animation = last_animation())</code></pre>
+
+  <h3>3. Base R Histograms & Bar Plots</h3>
+  <p>Base R provides simple ways to examine distributions and compare groups without external packages.</p>
+
+  <pre><code># Histogram Example
+values <- c(12, 15, 18, 21, 25, 30, 35, 40, 45, 50)
+hist(values, breaks = 5, col = "skyblue", border = "black",
+     main = "Histogram Example", xlab = "Values", ylab = "Frequency")
+
+# Bar Plot Example
+categories <- c("A", "B", "C", "D")
+counts <- c(10, 15, 7, 20)
+barplot(counts, names.arg = categories, col = "orange", 
+        main = "Bar Plot Example", ylab = "Count", xlab = "Category")</code></pre>
+
+  <h3>4. Multiple Histograms in One Frame</h3>
+  <p>Use <code>par(mfrow = c(rows, cols))</code> to display multiple plots simultaneously.</p>
+
+  <pre><code>par(mfrow = c(2, 2), bg = "lightyellow")
+
+hist(iris$Sepal.Length, main = "Sepal Length", xlab = "Length", col = "skyblue")
+hist(iris$Sepal.Width, main = "Sepal Width", xlab = "Width", col = "orange")
+hist(iris$Petal.Length, main = "Petal Length", xlab = "Length", col = "lightgreen")
+hist(iris$Petal.Width, main = "Petal Width", xlab = "Width", col = "plum")</code></pre>
+
+  <h3>5. Histograms Using <code>ggplot2</code></h3>
+  <p><code>ggplot2</code> allows layered, customized, and color-coded histograms. Ideal for reports and dashboards.</p>
+
+  <pre><code>library(ggplot2)
+
+# Single Histogram
+ggplot(iris, aes(x = Sepal.Length)) +
+  geom_histogram(binwidth = 0.3, fill = "skyblue", color = "black") +
+  labs(title = "Sepal Length Distribution", x = "Sepal Length", y = "Count") +
+  theme_minimal()
+
+# Overlay Histograms by Species
+ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
+  geom_histogram(binwidth = 0.3, position = "identity", alpha = 0.5) +
+  labs(title = "Sepal Length by Species", x = "Sepal Length", y = "Count") +
+  theme_minimal()</code></pre>
+
+  <h3>6. Additional Tips</h3>
+  <ul>
+    <li>For interactive 3D plots, try zoom3d(), rotate3d(), and rglwidget() for Shiny integration.</li>
+    <li>Use alpha blending in <code>ggplot2</code> histograms to show overlapping distributions clearly.</li>
+    <li>Combine multiple animations using <code>transition_manual()</code> for stepwise comparison.</li>
+  </ul>
+</body>
+</html>
